@@ -158,7 +158,7 @@ function clickanzahl(){
     let anzeige = document.createElement("div")
     anzeige.className = "clickaddanzahl";
 
-    anzeige.style.top = `${posY - 31}px`;
+    anzeige.style.top = `${posY - 30}px`;
     anzeige.style.left = `${posX - 10 - randomNumber}px`;
     anzeige.innerText = "+" + cookieAdd;
 
