@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="main.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Clicker</title>
+</head>
+<body>
+
+    <div id="gesamt-cookies-anzeige" style="position: absolute; top: 10px; left: 10px; font-size: 20px; font-weight: bold;">
+        GesamtPizzen: <span id="gesamt-cookies">0</span>
+    </div>
+
+    <div id="pizza" class="pizza">
+        <img id="pizza-bild" src="Cookies/Pizza1.png">
+    </div>
+
+    <div class="geld-block">
+        <img height="40px" width="40px" src="Cookies/1_30_0026__01_03.png">
+        <span id="geld">0</span>
+    </div>
+    
+    <div class="upgrades-window">
+        
+        <div id="italien1"></div>
+        <div id="italien2"></div>
+        <div id="italien3"></div>
+        <div id="upgrade-div">
+            <img src="Cookies/holz.png" height="100%" width="100%">
+        <h1 style="margin-top: 29px; position: absolute; font-family: Lobster, sans-serif; user-select: none; font-size: 50px;">Upgrades</h1>
+        </div>
+        <div id="alleups">
+        <div id="up0" class="upgrade">
+            <div class="upgrade-name">
+                
+                <h1 id="up0-name">Autoclicker</h1>
+
+            </div>
+            <div id="shake0" onclick="up0kauf()" class="upgrade-preis">
+                <img class="upgrade-preis-img" height="30px" width="30px" src="Cookies/1_30_0026__01_03.png">
+                <span id="up0-preis">10</span>
+                
+            </div>
+            
+                <img id="up0-img" src="Cookies/Autoclicker.png" class="upgrade-img">
+            
+        </div>   
+
+        
+
+        <div id="up1" class="upgrade">
+            <div class="upgrade-name">
+                
+                <h1 id="up1-name">Gustavo</h1>
+
+            </div>
+            <div id="shake1" onclick="up1kauf()" class="upgrade-preis">
+                <img class="upgrade-preis-img" height="30px" width="30px" src="Cookies/1_30_0026__01_03.png">
+                <span id="up1-preis">120</span>
+                
+            </div>
+                
+            <div id="anzahl1" class="upanzahl"></div>
+                <img id="up1-img" src="Cookies/Pizzabäcker.png" class="upgrade-img">
+            
+        </div>   
+        
+        <div id="up2" class="upgrade">
+            <div class="upgrade-name">
+                
+                <h1 id="up2-name">???</h1>
+
+            </div>
+            <div id="shake2" class="upgrade-preis" onclick="up2kauf()">
+                <img class="upgrade-preis-img" height="30px" width="30px" src="Cookies/1_30_0026__01_03.png">
+                <span id="up2-preis">1.5k</span>
+                
+            </div>
+                <div id="anzahl2" class="upanzahl"></div>
+                <img id="up2-img" src="Cookies/TomatenSauce.png" class="upgrade-img">
+            
+        </div>
+
+        <div id="up3" class="upgrade">
+            <div class="upgrade-name">
+                
+                <h1 id="up3-name">???</h1>
+
+            </div>
+            <div id="shake3" class="upgrade-preis" onclick="up3kauf()">
+                <img class="upgrade-preis-img" height="30px" width="30px" src="Cookies/1_30_0026__01_03.png">
+                <span id="up3-preis">1.8k</span>
+                
+            </div>
+                <div id="anzahl3" class="upanzahl"></div>
+                <img id="up3-img" src="Cookies/Cheese.png" class="upgrade-img">
+            
+        </div>
+
+        <div id="up4" class="upgrade">
+            <div class="upgrade-name">
+                
+                <h1 id="up4-name">???</h1>
+
+            </div>
+            <div id="shake4" class="upgrade-preis" onclick="up4kauf()">
+                <img class="upgrade-preis-img" height="30px" width="30px" src="Cookies/1_30_0026__01_03.png">
+                <span id="up4-preis">1.5k</span>
+                
+            </div>
+                <div id="anzahl4" class="upanzahl"></div>
+                <img id="up4-img" src="Cookies/pizzaofen.png" class="upgrade-img">
+            
+        </div> 
+
+        <div id="up5" class="upgrade">
+            <div class="upgrade-name">
+                
+                <h1 id="up5-name">???</h1>
+
+            </div>
+            <div id="shake5" class="upgrade-preis" onclick="up5kauf()">
+                <img class="upgrade-preis-img" height="30px" width="30px" src="Cookies/1_30_0026__01_03.png">
+                <span id="up5-preis">1.5k</span>
+                
+            </div>
+                <div id="anzahl5" class="upanzahl"></div>
+                <img id="up5-img" src="Cookies/TomatenSauce.png" class="upgrade-img">
+            
+        </div>  
+
+        <div id="up6" class="upgrade">
+            <div class="upgrade-name">
+                
+                <h1 id="up6-name">???</h1>
+
+            </div>
+            <div id="shake6" class="upgrade-preis" onclick="up6kauf()">
+                <img class="upgrade-preis-img" height="30px" width="30px" src="Cookies/1_30_0026__01_03.png">
+                <span id="up6-preis">1.5k</span>
+                
+            </div>
+                <div id="anzahl6" class="upanzahl"></div>
+                <img id="up6-img" src="Cookies/TomatenSauce.png" class="upgrade-img">
+            
+        </div>   
+
+        <div id="up7" class="upgrade">
+            <div class="upgrade-name">
+                
+                <h1 id="up7-name">???</h1>
+
+            </div>
+            <div id="shake7" class="upgrade-preis" onclick="up7kauf()">
+                <img class="upgrade-preis-img" height="30px" width="30px" src="Cookies/1_30_0026__01_03.png">
+                <span id="up7-preis">1.5k</span>
+                
+            </div>
+                <div id="anzahl7" class="upanzahl"></div>
+                <img id="up7-img" src="Cookies/TomatenSauce.png" class="upgrade-img">
+            
+        </div>          
+    </div>
+    </div>
+    
+    <script src="Main.js"></script>
+</body>
+</html>

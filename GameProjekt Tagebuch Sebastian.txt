@@ -1,0 +1,9 @@
+1. Tag | Ich habe ein Upgrade Fenster und den Geldstand erstellt vor allem habe mich auf das anklickbare Objekt konzentriert ich habe Bilder rausgesucht und die auch richtig angepasst damit nichts übersteht 
+
+2. Tag | Ich habe ein paar Font Anpassungen vorgenommen und habe versucht alles ein bisschen schöner aussehen zu lassen. Ich habe auch angefangen mit dem Script ich habe dem Objekt eine anklick Funktion gegeben heisst wenn man es anklickt kriegt man einen bestimmten Betrag coins.
+
+3. Tag | Ich habe dem upgrade Fenster die zugehörigen Upgrades gegeben und habe sie Flexibel designed so dass man beliebig viele hinzufügen kann und es geordnet und gleich bleibt.
+
+4. Tag | Ich saß wieder an den Upgrades und versuchte die Bilder der Upgrades schwarz aussehen zu lassen wenn man sie noch nie gekauft hatte. Den Namen habe ich auch mit "???" versteckt, den sieht man erst wenn man einmal genug hatte um das upgrade zu kaufen nebenbei habe ich auch ein bisschen die Upgrades zu coden also das erste Upgrade einen Autoclicker. Wenn man ihn kauft steigt sein Preis und er stackt sich wenn man ihn öfter kauft und alle laufen im Hintergrund.
+
+5. Tag | Ich habe dem UpgradeFenster einen noch einen anderen Look gegeben und ihn ein bisschen angepasst auch habe ich gemacht dass der Preis rot ist wenn man nicht genug coins hat. Ich habe auch angefangen die anderen Upgrades zu programmieren und eine GesamteCoins Anzeige gemacht die einfach zeigt wie viele man schon insgesamt gesammelt hat.
