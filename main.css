@@ -107,7 +107,7 @@ body{
     scrollbar-width: none;
 }
 .upgrade{
-    border: solid;
+    border: solid 1px;
     position: relative;
     width: 350px;
     height: 100px;
@@ -121,9 +121,10 @@ body{
     overflow: hidden;
 }
 .uupgrade{
+    border: solid 1px;
     width: 350px;
     height: 100px;
-    background-color: red;
+    background-color: rgb(129, 129, 35);
     margin: auto;
     margin-top: 30px;   
     display: flex;
@@ -131,7 +132,6 @@ body{
     user-select: none;
     border-radius: 9px;
     filter: grayscale(1);
-    pointer-events: none;
     overflow: hidden;
 }
 .upgrade-name{

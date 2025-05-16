@@ -1,19 +1,19 @@
-let cookieGesamt = 20000;
+let cookieGesamt = 20;
 let cookieAdd = 1;
 let cookieAddauto = 1;
 let cookieAddgustavo = 3;
 let cookie_bild = document.getElementById("pizza-bild");
-let gesamtcookies = 0;
+let gesamtcookies = 20;
 const geldd = document.getElementById("geld").value;
 const autoclicker = document.getElementById("autoclicker");
-let geldmax = 0;
+let pizza_meiste = 0;
 
 function saveGame() {
     const gameState = {
         cookieGesamt: cookieGesamt,
         gesamtcookies: gesamtcookies,
         upgrades: upgrades,
-        geldmax: geldmax,
+        pizza_meiste: pizza_meiste,
         innerHTML: {
             geld: document.getElementById("geld").innerHTML,
             gesamtCookies: document.getElementById("gesamt-cookies").innerHTML,
@@ -35,7 +35,7 @@ function loadGame() {
         cookieGesamt = gameState.cookieGesamt;
         gesamtcookies = gameState.gesamtcookies;
         upgrades = gameState.upgrades;
-        geldmax = gameState.geldmax;
+        pizza_meiste = gameState.pizza_meiste;
 
         // Wiederherstellen der innerHTML-Inhalte
         document.getElementById("geld").innerHTML = gameState.innerHTML.geld;
@@ -76,9 +76,9 @@ let upgrades =
 ];
 
 function maxgeld() {
-    if (cookieGesamt > geldmax) 
+    if (cookieGesamt > pizza_meiste) 
     {
-        geldmax = cookieGesamt; 
+        pizza_meiste = cookieGesamt; 
     }
     }
 
@@ -87,19 +87,21 @@ function farbe() {
     saveGame();
 
     // 1. Übernächste Upgrades verstecken
-    for (let i = 0; i < upgrades.length - 2; i++) {
-        let ups = upgrades[i + 2].id;
+    for (let i = 0; i < upgrades.length - 3; i++) {
+        let ups3 = upgrades[i + 3].id;
+        let ups2 = upgrades[i + 2].id;
         let ups1 = upgrades[i + 1].id;
         
         if (upgrades[i].anzahl == 0) {
-            document.getElementById(ups).classList.add("versteckt");
+            document.getElementById(ups3).classList.add("versteckt");
         } else {
-            document.getElementById(ups).classList.remove("versteckt");
+            
+            document.getElementById(ups2).classList.remove("versteckt");
             document.getElementById(ups1).classList.remove("versteckt");
         }
     }
 
-    // 2. Restliche Logik: Preisfarben, Namen, Bildfarben
+    // 2. Preisfarben, Namen, Bildfarben
     for (let x = 0; x < upgrades.length; x++) {
         
         let itemid = upgrades[x].id;
@@ -119,7 +121,7 @@ function farbe() {
         }
 
         // Namen einblenden
-        if (upgrades[x].preis <= geldmax || upgrades[x].anzahl > 0) {
+        if (upgrades[x].preis <= pizza_meiste || upgrades[x].anzahl > 0) {
             document.getElementById("up" + x + "-name").innerHTML = upgrades[x].name;
             document.getElementById("up" + x).classList.remove("uupgrade");
             document.getElementById("up" + x).classList.add("upgrade");
