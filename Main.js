@@ -1,4 +1,4 @@
-let cookieGesamt = 20;
+let cookieGesamt = 2000;
 let cookieAdd = 1;
 let cookieAddauto = 1;
 let cookieAddgustavo = 3;
