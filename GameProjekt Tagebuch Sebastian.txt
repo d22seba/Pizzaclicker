@@ -26,7 +26,7 @@ Ich habe eine Speicherfunktion mit cookies gemacht. Jetzt merkt sich das Spiel, 
 11. Tag (30.04.)
 Ich habe gemacht, dass manche Upgrades erst sichtbar werden, wenn man vorherige gekauft hat. Auch die Farben, Namen und Bilder ändern sich, je nachdem, wie weit man im Spiel ist.
 
-12. Tag (20.05.–22.05.)
+12. Tag (20.05.–23.05.)
 Heute habe ich ein Hintergrund hinzugefügt ich hab angefangen den upgrades eine hintergrund farbe zu geben aber da muss ich noch schauen was ich genau nehmen will. Und ich habe einen Anzahl counter gemacht der zeigt wie oft man jenes upgrade gekauft hat.
 
 
