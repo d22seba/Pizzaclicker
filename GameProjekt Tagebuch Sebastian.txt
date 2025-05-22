@@ -7,3 +7,27 @@
 4. Tag | Ich saß wieder an den Upgrades und versuchte die Bilder der Upgrades schwarz aussehen zu lassen wenn man sie noch nie gekauft hatte. Den Namen habe ich auch mit "???" versteckt, den sieht man erst wenn man einmal genug hatte um das upgrade zu kaufen nebenbei habe ich auch ein bisschen die Upgrades zu coden also das erste Upgrade einen Autoclicker. Wenn man ihn kauft steigt sein Preis und er stackt sich wenn man ihn öfter kauft und alle laufen im Hintergrund.
 
 5. Tag | Ich habe dem UpgradeFenster einen noch einen anderen Look gegeben und ihn ein bisschen angepasst auch habe ich gemacht dass der Preis rot ist wenn man nicht genug coins hat. Ich habe auch angefangen die anderen Upgrades zu programmieren und eine GesamteCoins Anzeige gemacht die einfach zeigt wie viele man schon insgesamt gesammelt hat.
+
+6. Tag (15.04.)
+Ich habe Klick-Geräusche eingebaut. Wenn man auf die Pizza klickt, hört man jetzt zufällige Sounds. Außerdem erscheint kurz ein kleiner Text, der zeigt, wie viele Pizzen man bekommen hat.
+
+7. Tag (17.04.)
+Ich habe das zweite Upgrade eingebaut "Gustavo" der passiv Pizzen generiert.
+
+8. Tag (19.04.)
+Ich habe das dritte Upgrade „Tomatensauce“ programmiert. Es macht, dass man mehr Pizzen pro Klick bekommt. Das Pizza-Bild verändert sich auch, wenn man das Upgrade hat.
+
+9. Tag (22.04.)
+Ich habe das vierte Upgrade „Käse“ gebaut. Auch hier ändert sich das Bild der Pizza. Ich habe überprüft, ob sich die Bilder richtig ändern, wenn man mehrere Upgrades hat.
+
+10. Tag (26.04.)
+Ich habe eine Speicherfunktion mit cookies gemacht. Jetzt merkt sich das Spiel, wie viele Coins man hat und welche Upgrades man gekauft hat.
+
+11. Tag (30.04.)
+Ich habe gemacht, dass manche Upgrades erst sichtbar werden, wenn man vorherige gekauft hat. Auch die Farben, Namen und Bilder ändern sich, je nachdem, wie weit man im Spiel ist.
+
+12. Tag (20.05.–22.05.)
+Heute habe ich ein Hintergrund hinzugefügt ich hab angefangen den upgrades eine hintergrund farbe zu geben aber da muss ich noch schauen was ich genau nehmen will. Und ich habe einen Anzahl counter gemacht der zeigt wie oft man jenes upgrade gekauft hat.
+
+
+

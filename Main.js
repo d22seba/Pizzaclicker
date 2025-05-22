@@ -104,6 +104,17 @@ function farbe() {
     // 2. Preisfarben, Namen, Bildfarben
     for (let x = 0; x < upgrades.length; x++) {
         
+        if(upgrades[x].anzahl >= 1){
+    
+        
+            let itemanzahl = document.getElementsByClassName("upanzahl")[x];
+        
+            itemanzahl.innerHTML = upgrades[x].anzahl;  
+        
+         }
+        
+
+
         let itemid = upgrades[x].id;
         let item = document.getElementById(itemid);
 

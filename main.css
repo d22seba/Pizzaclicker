@@ -1,5 +1,5 @@
 *{
-    z-index: 2;
+    z-index: 4;
 }
 
 body{
@@ -13,7 +13,7 @@ body{
     position: absolute;
     height: 100vh;
     width: 100vw;
-    z-index: 1;
+    z-index: 0;
 }
 
 .zuwenig{
@@ -22,7 +22,7 @@ body{
 
 /*Geld Anzeige*/
 .geld-block{
-    background-color: burlywood;
+    background-color: rgb(192, 131, 52);
     margin: 10px;
     border-style: solid;
     border-radius: 10px;
@@ -125,7 +125,7 @@ body{
     position: relative;
     width: 350px;
     height: 100px;
-    background-color: white;
+    background: linear-gradient(rgb(159, 172, 47) 10%, rgb(189, 127, 127));
     margin: auto;
     margin-top: 30px;   
     display: flex;
@@ -134,23 +134,22 @@ body{
     border-radius: 9px;
     overflow: hidden;
 }
-.upgrade > p{
-    position: absolute;
-    right: 35%;
-    top: 50%;
-}
 
-.uupgrade > p{
+.upanzahl{
+    z-index: 3;
     position: absolute;
-    right: 50%;
-    top: 50%;
+    left: 50%;
+    bottom: 0;
+    font-family: cursive;
+    font-size: 40px;
+    opacity: 0.4;
 }
 
 .uupgrade{
     border: solid 1px;
     width: 350px;
     height: 100px;
-    background-color: rgb(129, 129, 35);
+    background-color: rgb(73, 73, 47);
     margin: auto;
     margin-top: 30px;   
     display: flex;
