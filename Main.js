@@ -286,6 +286,19 @@ function up0kauf(event)
     
 }
 
+function sekundenrechner(){
+
+    // 0.up  
+    let autoclickerplus = (cookieAdd / 3) * upgrades[0].anzahl
+    // 1.up
+    let gustavoplus = (7.5 / 2.5) * upgrades[1].anzahl;
+    // 2.up
+
+
+    
+}
+
+
 //upgrade 1
 
 function gustavo(){
