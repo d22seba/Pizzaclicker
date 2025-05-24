@@ -331,8 +331,8 @@ body{
 #up3-img{
     position: absolute;
     justify-self: center;
-    top: 10px;
+    top: 0px;
     right: 5px;
-    height: 100px;
-    width: 100px;
+    height: 110px;
+    width: 90px;
 }

@@ -59,7 +59,7 @@ function Kommastelle(zahl) {
 
 // Führt farbe aus wenn die Seite geladen wird
 document.addEventListener("DOMContentLoaded", function() {
-   // loadGame(); 
+    loadGame(); 
     farbe(); 
 });
 
@@ -68,10 +68,10 @@ let upgrades =
    [{id: "up0" ,name: "Autoclicker", preis: 10, anzahl: 0}, 
     {id: "up1" ,name: "Gustavo", preis: 120, anzahl: 0},
     {id: "up2" ,name: "TomatenSauce", preis: 1500, anzahl: 0}, 
-    {id: "up3" ,name: "Käse", preis: 1800, anzahl: 0},
-    {id: "up4" ,name: "Ofen", preis: 2000, anzahl: 0},
-    {id: "up5" ,name: "Teig", preis: 2500, anzahl: 0},
-    {id: "up6" ,name: "Salami", preis: 3000, anzahl: 0},
+    {id: "up3" ,name: "Ofen", preis: 2000, anzahl: 0},
+    {id: "up4" ,name: "Käse", preis: 1800, anzahl: 0},
+    {id: "up5" ,name: "Salami", preis: 3000, anzahl: 0},
+    {id: "up6" ,name: "Paprika", preis: 3500, anzahl: 0},
     {id: "up7" ,name: "Paprika", preis: 3500, anzahl: 0},
 ];
 
@@ -85,25 +85,42 @@ function maxgeld() {
 //Farbe ändern wenn man nicht genug Pizzen hat
 function farbe() {
     saveGame();
+    sekundenrechner();
 
-    // 1. Übernächste Upgrades verstecken
-    for (let i = 0; i < upgrades.length - 3; i++) {
-        let ups3 = upgrades[i + 3].id;
-        let ups2 = upgrades[i + 2].id;
-        let ups1 = upgrades[i + 1].id;
-        
-        if (upgrades[i].anzahl == 0) {
-            document.getElementById(ups3).classList.add("versteckt");
-        } else {
-            
-            document.getElementById(ups2).classList.remove("versteckt");
-            document.getElementById(ups1).classList.remove("versteckt");
+
+
+    // 1. Alles verstecken, außer up0 und 1
+    for (let i = 2; i < upgrades.length; i++) {
+        document.getElementById(upgrades[i].id).classList.add("versteckt");
+    }
+
+
+    // 3. Wenn ein Upgrade gekauft wurde → zeige die nächsten zwei
+    for (let i = 0; i < upgrades.length; i++) {
+        if (upgrades[i].anzahl > 0) {
+            if (i + 1 < upgrades.length) {
+                document.getElementById(upgrades[i + 1].id).classList.remove("versteckt");
+            }
+            if (i + 2 < upgrades.length) {
+                document.getElementById(upgrades[i + 2].id).classList.remove("versteckt");
+            }
         }
     }
+
 
     // 2. Preisfarben, Namen, Bildfarben
     for (let x = 0; x < upgrades.length; x++) {
         
+
+        let itemid = upgrades[x].id;
+        let item = document.getElementById(itemid);
+
+        if(item.classList.contains("versteckt"))
+        {
+            continue;
+        }
+      
+      
         if(upgrades[x].anzahl >= 1){
     
         
@@ -113,15 +130,6 @@ function farbe() {
         
          }
         
-
-
-        let itemid = upgrades[x].id;
-        let item = document.getElementById(itemid);
-
-        if(item.classList.contains("versteckt"))
-        {
-            continue;
-        }
         
         // Preis rot färben
 
@@ -256,12 +264,14 @@ function shake(upgrade) {
 function sekundenrechner(){
 
     // 0.up  
-    let autoclickerplus = (cookieAdd / 3) * upgrades[0].anzahl
+    let autoclickerplus = (cookieAdd / 8) * upgrades[0].anzahl
     // 1.up
     let gustavoplus = (7.5 / 2.5) * upgrades[1].anzahl;
     // 2.up
 
     let plusinsgesamt = autoclickerplus + gustavoplus;
+
+    document.getElementById("eingabe").innerHTML = Kommastelle(plusinsgesamt);
 
     
 }
@@ -283,7 +293,7 @@ function up0kauf(event)
         {
         cookieGesamt = cookieGesamt - upgrades[0].preis;
         upgrades[0].preis = (upgrades[0].preis * 1.45);
-        setInterval(autoclick, 3000);
+        setInterval(autoclick, 8000);
         upgrades[0].anzahl++;
         document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
         document.getElementById("up0-preis").innerHTML = Kommastelle(upgrades[0].preis);
@@ -310,6 +320,8 @@ function gustavo(){
     maxgeld();
     farbe();
 }
+
+//überarbeite noch die zeiten zwischen den intervals
 
 function up1kauf(event)
 {
@@ -358,6 +370,36 @@ function up2kauf(event)
         }
 }
 
+
+//upgrade 3
+
+function ofen(){
+    gesamtcookies = gesamtcookies + 10;
+    cookieGesamt = cookieGesamt + 10;
+    document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
+    document.getElementById("gesamt-cookies").innerHTML = Kommastelle(gesamtcookies);
+    maxgeld();
+    farbe();
+}
+
+function up3kauf(event)
+{
+    if(cookieGesamt >= upgrades[3].preis)
+        {
+        cookieGesamt = cookieGesamt - upgrades[3].preis;
+        upgrades[1].preis = (upgrades[1].preis * 1.45);
+        setInterval(ofen, 2500);
+        upgrades[1].anzahl++;
+        document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
+        document.getElementById("up1-preis").innerHTML = Kommastelle(upgrades[1].preis);
+        farbe();
+        playBuySound();
+        }
+    else
+        {
+            shake("shake1");
+        }
+}
 
 
 
