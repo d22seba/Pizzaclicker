@@ -1,4 +1,4 @@
-let cookieGesamt = 2000;
+let cookieGesamt = 200;
 let cookieAdd = 1;
 let cookieAddauto = 1;
 let cookieAddgustavo = 3;
@@ -7,6 +7,10 @@ let gesamtcookies = 20;
 const geldd = document.getElementById("geld").value;
 const autoclicker = document.getElementById("autoclicker");
 let pizza_meiste = 0;
+let autoclickerplus;
+let gustavoplus;
+let autoclickergesamt;
+let gustavogesamt;
 
 function saveGame() {
     const gameState = {
@@ -59,7 +63,7 @@ function Kommastelle(zahl) {
 
 // Führt farbe aus wenn die Seite geladen wird
 document.addEventListener("DOMContentLoaded", function() {
-    //loadGame(); 
+    loadGame(); 
     farbe(); 
 });
 
@@ -194,36 +198,42 @@ document.addEventListener("mouseover", function (event){
 
     let num = event.target.dataset.num;
     let item = event.target;
-    let itemname = document.getElementById("up" + num + "-name").value;
+    let itemname = document.getElementById("up" + num + "-name").textContent;
 
      if(num && !item.classList.contains("versteckt") && !document.querySelector(".infos")){
 
         let itemid = document.getElementById("up" + num)
 
         const infos = [
-            "Klickt alle 3 Sekunden automatisch!",
-            "Gustavo bringt dir Pizzen!",
-            "Tomatensauce gibt mehr Pizzen pro Klick",
-            
+            {name: "Autoclicker", beschreibung: '"Klickt alle 8 Sekunden automatisch für dich!"', sekunden: autoclickerplus},
+            {name: "Gustavo", beschreibung: '"Ein erfahrener Pizzabäcker der dir automatisch Pizzen generiert"', sekunden: gustavoplus},
         ];
 
         let info = document.createElement("div")
+        let name = document.createElement("h3")
+        let beschreibung = document.createElement("p")
+        let anzahl = document.createElement("div")
+
+
+
 
         info.className = "infos";
         const posY = event.clientY;
-        info.style.top = `${posY - 30}px`;
-
+        info.style.top = `${posY - 50}px`;
+        
         document.body.appendChild(info)
+        info.appendChild(name)
+        info.appendChild(beschreibung)
 
         if(itemname !== "???"){
-
-            info.innerHTML = infos[num];
-
+            
+            name.innerHTML = infos[num].name
+            beschreibung.innerHTML = infos[num].beschreibung;
+            
         }
         else{
             info.innerHTML = "???";
         }
-
     }
 
 });
@@ -233,7 +243,7 @@ document.addEventListener("mousemove", function (event) {
   if (info) {
 
         const posY = event.clientY;
-        info.style.top = `${posY - 30}px`;
+        info.style.top = `${posY - 50}px`;
   }
 });
 
@@ -322,9 +332,9 @@ function sekundenrechner(){
 
 
     // 0.up  
-    let autoclickerplus = (cookieAdd / 8) * upgrades[0].anzahl
+    autoclickerplus = (cookieAdd / 8) * upgrades[0].anzahl
     // 1.up
-    let gustavoplus = (7.5 / 10) * upgrades[1].anzahl;
+    gustavoplus = (7.5 / 10) * upgrades[1].anzahl;
     // 2.up
 
     let plusinsgesamt = autoclickerplus + gustavoplus;
@@ -339,6 +349,8 @@ function sekundenrechner(){
 function autoclick(){
     gesamtcookies = gesamtcookies + cookieAdd;
     cookieGesamt = cookieGesamt + cookieAdd;
+    autoclickergesamt = autoclickergesamt + cookieAdd;
+
     document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
     document.getElementById("gesamt-cookies").innerHTML = Kommastelle(gesamtcookies);
     maxgeld();
@@ -373,6 +385,7 @@ function up0kauf(event)
 function gustavo(){
     gesamtcookies = gesamtcookies + 7.5;
     cookieGesamt = cookieGesamt + 7.5;
+    gustavogesamt = gustavogesamt + 7.5;
     document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
     document.getElementById("gesamt-cookies").innerHTML = Kommastelle(gesamtcookies);
     maxgeld();
