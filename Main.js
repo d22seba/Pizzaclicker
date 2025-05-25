@@ -59,7 +59,7 @@ function Kommastelle(zahl) {
 
 // Führt farbe aus wenn die Seite geladen wird
 document.addEventListener("DOMContentLoaded", function() {
-    loadGame(); 
+    //loadGame(); 
     farbe(); 
 });
 
@@ -190,6 +190,63 @@ function clickanzahl(){
 
 }
 
+document.addEventListener("mouseover", function (event){
+
+    let num = event.target.dataset.num;
+    let item = event.target;
+    let itemname = document.getElementById("up" + num + "-name").value;
+
+     if(num && !item.classList.contains("versteckt") && !document.querySelector(".infos")){
+
+        let itemid = document.getElementById("up" + num)
+
+        const infos = [
+            "Klickt alle 3 Sekunden automatisch!",
+            "Gustavo bringt dir Pizzen!",
+            "Tomatensauce gibt mehr Pizzen pro Klick",
+            
+        ];
+
+        let info = document.createElement("div")
+
+        info.className = "infos";
+        const posY = event.clientY;
+        info.style.top = `${posY - 30}px`;
+
+        document.body.appendChild(info)
+
+        if(itemname !== "???"){
+
+            info.innerHTML = infos[num];
+
+        }
+        else{
+            info.innerHTML = "???";
+        }
+
+    }
+
+});
+
+document.addEventListener("mousemove", function (event) {
+    let info = document.querySelector(".infos");
+  if (info) {
+
+        const posY = event.clientY;
+        info.style.top = `${posY - 30}px`;
+  }
+});
+
+    document.addEventListener("mouseout", function (event) {
+
+    let infoDiv = document.querySelector(".infos");
+
+    if (infoDiv) {
+      infoDiv.remove();
+    }
+
+});
+
 
 cookie_bild.addEventListener("click", function() {
     gesamtcookies = gesamtcookies + cookieAdd;
@@ -263,10 +320,11 @@ function shake(upgrade) {
 
 function sekundenrechner(){
 
+
     // 0.up  
     let autoclickerplus = (cookieAdd / 8) * upgrades[0].anzahl
     // 1.up
-    let gustavoplus = (7.5 / 2.5) * upgrades[1].anzahl;
+    let gustavoplus = (7.5 / 10) * upgrades[1].anzahl;
     // 2.up
 
     let plusinsgesamt = autoclickerplus + gustavoplus;
@@ -321,15 +379,13 @@ function gustavo(){
     farbe();
 }
 
-//überarbeite noch die zeiten zwischen den intervals
-
 function up1kauf(event)
 {
     if(cookieGesamt >= upgrades[1].preis)
         {
         cookieGesamt = cookieGesamt - upgrades[1].preis;
         upgrades[1].preis = (upgrades[1].preis * 1.45);
-        setInterval(gustavo, 2500);
+        setInterval(gustavo, 10000);
         upgrades[1].anzahl++;
         document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
         document.getElementById("up1-preis").innerHTML = Kommastelle(upgrades[1].preis);
@@ -338,11 +394,9 @@ function up1kauf(event)
         }
     else
         {
-            shake("shake1");
+        shake("shake1")          
         }
 }
-
-
 
 //Upgrade 2
 

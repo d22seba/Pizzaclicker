@@ -32,3 +32,5 @@ Heute habe ich ein Hintergrund hinzugefügt ich hab angefangen den upgrades eine
 13. Tag (24.05)
 Ich hatte probleme mit den upgrades sie wurden manchmal nicht unsichtbar das hab ich jetzt aber gefixed. Jetzt überarbeite ich noch die upgrades und füge noch ein paar hinzu.
 
+14. Tag (25.05)
+Ich habe nochmal die Pizzen pro sekunde anzeige angepasst und habe angefangen eine info box zu jedem upgrade zu machen also wenn man über das bild hovert wird eine div mit infos zum Upgrade erschaffen.

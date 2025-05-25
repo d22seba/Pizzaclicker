@@ -64,8 +64,8 @@ body{
     
 
     position: absolute;
-    right: 350px;
-    bottom: 100px;
+    right: 100px;
+    top: 62px;
 
 }
 
@@ -102,7 +102,7 @@ body{
     user-select: none;
     -webkit-user-drag: none;
    
-    font-size: 30px;
+    font-size: 40px;
     font-family: cursive;
     color: white;
     position: absolute;
@@ -117,15 +117,16 @@ body{
     0% {
         transform: translate(0, 0); 
         opacity: 1; 
+        filter: blur(0.5px);
     }
     100% {
         transform: translate(0, -200px); 
-        opacity: 0; 
+        opacity: 0;
+        filter: blur(2px);
+
     }
-
-
+    
     }
-
 
 /*Die Upgrades*/
 .upgrades-window{
@@ -251,6 +252,16 @@ body{
     right: 30px;
     filter: brightness(0);
 }
+
+.infos{
+    position: absolute;
+    border: 7px solid black;
+    right: 120px;
+    background-color: grey;
+    height: 60px;
+    width: 300px;
+}
+
 #italien1{
  
     order: 2;
