@@ -255,7 +255,7 @@ body{
 
 .infos{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     font-weight: bold;
     position: absolute;
     border: 4px solid black;
@@ -264,6 +264,14 @@ body{
     background: linear-gradient(rgb(189, 136, 83), rgb(162, 154, 142));
     height: 90px;
     width: 300px;
+}
+.infos > div{
+    height: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
 }
 .infos  h3{
     text-decoration: underline;
@@ -275,6 +283,24 @@ body{
     font-size: 14px;
     font-family: lobster;
     margin-top: 10px;
+}
+
+.infos > ul{
+
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.infos > ul > li{
+
+    align-self: top;
+    border: 3px solid black;
+    border-radius: 5px;
+    font-size: 10px;
+    width: 80%;
 }
 
 #italien1{

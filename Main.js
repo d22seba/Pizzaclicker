@@ -200,6 +200,7 @@ document.addEventListener("mouseover", function (event){
     let item = event.target;
     let itemname = document.getElementById("up" + num + "-name").textContent;
 
+
      if(num && !item.classList.contains("versteckt") && !document.querySelector(".infos")){
 
         let itemid = document.getElementById("up" + num)
@@ -210,9 +211,12 @@ document.addEventListener("mouseover", function (event){
         ];
 
         let info = document.createElement("div")
+        let boxoben = document.createElement("div")
         let name = document.createElement("h3")
         let beschreibung = document.createElement("p")
-        let anzahl = document.createElement("div")
+        let statsliste = document.createElement("ul");
+        let statsolo = document.createElement("li");
+        let statall = document.createElement("li");
 
 
 
@@ -222,13 +226,19 @@ document.addEventListener("mouseover", function (event){
         info.style.top = `${posY - 50}px`;
         
         document.body.appendChild(info)
-        info.appendChild(name)
-        info.appendChild(beschreibung)
+        info.appendChild(boxoben);
+        boxoben.appendChild(name);
+        boxoben.appendChild(beschreibung)
+        info.appendChild(statsliste);
+        statsliste.appendChild(statsolo);
+        statsliste.appendChild(statall);
 
         if(itemname !== "???"){
             
             name.innerHTML = infos[num].name
             beschreibung.innerHTML = infos[num].beschreibung;
+            statsolo.innerHTML = "Einzelner pro Sekunde: " + Kommastelle(infos[num].sekunden);
+            statall.innerHTML = upgrades[num].anzahl + " pro Sekunde: " + Kommastelle(infos[num].sekunden * upgrades[num].anzahl);
             
         }
         else{
@@ -334,7 +344,7 @@ function sekundenrechner(){
     // 0.up  
     autoclickerplus = (cookieAdd / 8) * upgrades[0].anzahl
     // 1.up
-    gustavoplus = (7.5 / 10) * upgrades[1].anzahl;
+    gustavoplus = (3) * upgrades[1].anzahl;
     // 2.up
 
     let plusinsgesamt = autoclickerplus + gustavoplus;
@@ -383,9 +393,9 @@ function up0kauf(event)
 //upgrade 1
 
 function gustavo(){
-    gesamtcookies = gesamtcookies + 7.5;
-    cookieGesamt = cookieGesamt + 7.5;
-    gustavogesamt = gustavogesamt + 7.5;
+    gesamtcookies = gesamtcookies + 3;
+    cookieGesamt = cookieGesamt + 3;
+    gustavogesamt = gustavogesamt + 3;
     document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
     document.getElementById("gesamt-cookies").innerHTML = Kommastelle(gesamtcookies);
     maxgeld();
@@ -398,7 +408,7 @@ function up1kauf(event)
         {
         cookieGesamt = cookieGesamt - upgrades[1].preis;
         upgrades[1].preis = (upgrades[1].preis * 1.45);
-        setInterval(gustavo, 10000);
+        setInterval(gustavo, 1000);
         upgrades[1].anzahl++;
         document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
         document.getElementById("up1-preis").innerHTML = Kommastelle(upgrades[1].preis);
