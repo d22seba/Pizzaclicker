@@ -1,4 +1,4 @@
-let cookieGesamt = 2000;
+let cookieGesamt = 200000;
 let cookieAdd = 1;
 let cookieAddauto = 1;
 let cookieAddgustavo = 3;
@@ -7,11 +7,13 @@ let gesamtcookies = 20;
 const geldd = document.getElementById("geld").value;
 const autoclicker = document.getElementById("autoclicker");
 let pizza_meiste = 0;
+
 let plusprosek = []; 
-let autoclickerplus;
-let gustavoplus;
+
 let autoclickergesamt;
 let gustavogesamt;
+let ofengesamt;
+
 
 function saveGame() {
     const gameState = {
@@ -55,9 +57,9 @@ function loadGame() {
 
 function Kommastelle(zahl) {
     if (zahl >= 1000) {
-        return (zahl / 1000).toFixed(1).replace(".0", "") + "k"; // Teilt durch 1000, entfernt ".0" und fügt "k" hinzu
+        return  zahl.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 1 }); 
     } else {
-        return zahl.toFixed(1).replace(".0", ""); // Zeigt Nachkommastelle nur, wenn nötig
+        return  zahl.toFixed(0);
     }
 }
 
@@ -73,7 +75,7 @@ let upgrades = [
     {id: "up0", name: "Autoclicker", preis: 10, anzahl: 0},
     {id: "up1", name: "Gustavo", preis: 120, anzahl: 0},
     {id: "up2", name: "TomatenSauce", preis: 1500, anzahl: 0, plus: 5},
-    {id: "up3", name: "Ofen", preis: 2000, anzahl: 0},
+    {id: "up3", name: "Ofen", preis: 3200, anzahl: 0},
     {id: "up4", name: "Käse", preis: 1800, anzahl: 0},
     {id: "up5", name: "Salami", preis: 3000, anzahl: 0},
     {id: "up6", name: "Paprika", preis: 3500, anzahl: 0},
@@ -84,7 +86,7 @@ let upgradeBeschreibung = [
     '"Klickt alle 8 Sekunden automatisch für dich!"',
     '"Ein erfahrener Pizzabäcker der dir automatisch Pizzen generiert"',
     '"Fügt eine leckere Tomatensauce zur Pizza hinzu was ihren Wert erhöht"',
-    '"Erhöht die Pizzaproduktion um 10 pro Sekunde"',
+    '"Ein Pizzaofen der passiv Pizzen generiert"',
     '"Erhöht den Wert der Pizzen um 20"',
     '"Erhöht den Wert der Pizzen um 30"',
     '"Erhöht den Wert der Pizzen um 40"',
@@ -96,7 +98,7 @@ let upgradeBilder = [
     "Cookies/pizzabäcker.png",
     "Cookies/Tomatensauce.png",
     "Cookies/pizzaofen.png",
-    "Cookies/Käse.png",
+    "Cookies/cheese.png",
     "Cookies/Salami.png",
     "Cookies/Paprika.png",
     "Cookies/Paprika.png",
@@ -191,7 +193,7 @@ function farbe() {
     if (upgrades[2].anzahl == 1) {
         document.getElementById("pizza-bild").src = "Cookies/Pizza2.png";
     }
-    if (upgrades[3].anzahl == 1) {
+    if (upgrades[4].anzahl == 1) {
         document.getElementById("pizza-bild").src = "Cookies/Pizza3.png";
     }
 }
@@ -247,8 +249,8 @@ document.addEventListener("mouseover", function (event){
         //Die Info-Box wird erstellen
         document.body.appendChild(info)
         info.appendChild(boxoben);
-        boxoben.appendChild(name);
         boxoben.appendChild(img);
+        boxoben.appendChild(name);
         boxoben.appendChild(beschreibungbox)
         info.appendChild(statsliste);
         statsliste.appendChild(statsolo);
@@ -384,19 +386,26 @@ function shake(upgrade) {
 //Rechnet aus wie viele pizzen ein Upgrade pro Sekunde generiert 
 function sekundenrechner(){
 
+    //autoclicker
     plusprosek[0] = (cookieAdd / 8); 
+    //gustavo
     plusprosek[1] = 3; 
+    //ofen
+    plusprosek[3] = 10;
 
-    // 0.up  
-    autoclickerplus = (cookieAdd / 8);
-    // 1.up
-    gustavoplus = 3;
-    // 2.up
 
-    let plusinsgesamt = autoclickerplus + gustavoplus;
+    let autoclickergesamtplus = plusprosek[0] * upgrades[0].anzahl;
+    let gustavogesamtplus = plusprosek[1] * upgrades[1].anzahl;
+    let ofengesamtplus = plusprosek[3] * upgrades[3].anzahl;
 
+    let plusinsgesamt = autoclickergesamtplus + gustavogesamtplus + ofengesamtplus;
+
+    if (plusinsgesamt < 100) {
+    document.getElementById("eingabe").innerHTML = (plusinsgesamt).toFixed(2);
+    }
+    else{
     document.getElementById("eingabe").innerHTML = Kommastelle(plusinsgesamt);
-
+    }
     
 }
 
@@ -418,7 +427,7 @@ function up0kauf(event)
     if(cookieGesamt >= upgrades[0].preis)
         {
         cookieGesamt = cookieGesamt - upgrades[0].preis;
-        upgrades[0].preis = (upgrades[0].preis * 1.45);
+        upgrades[0].preis = Math.round(upgrades[0].preis * 1.45);
         setInterval(autoclick, 8000);
         upgrades[0].anzahl++;
         document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
@@ -453,7 +462,7 @@ function up1kauf(event)
     if(cookieGesamt >= upgrades[1].preis)
         {
         cookieGesamt = cookieGesamt - upgrades[1].preis;
-        upgrades[1].preis = (upgrades[1].preis * 1.45);
+        upgrades[1].preis = Math.round(upgrades[1].preis * 1.45);
         setInterval(gustavo, 1000);
         upgrades[1].anzahl++;
         document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
@@ -478,7 +487,7 @@ function up2kauf(event)
     if(cookieGesamt >= upgrades[2].preis)
         {
         cookieGesamt = cookieGesamt - upgrades[2].preis;
-        upgrades[2].preis = (upgrades[2].preis * 1.45);
+        upgrades[2].preis = Math.round(upgrades[2].preis * 1.45);
         document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
         document.getElementById("up2-preis").innerHTML = Kommastelle(upgrades[2].preis);
         upgrades[2].anzahl++;
@@ -496,8 +505,8 @@ function up2kauf(event)
 //upgrade 3
 
 function ofen(){
-    gesamtcookies = gesamtcookies + 6;
-    cookieGesamt = cookieGesamt + 6;
+    gesamtcookies = gesamtcookies + 10;
+    cookieGesamt = cookieGesamt + 10;
     document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
     document.getElementById("gesamt-cookies").innerHTML = Kommastelle(gesamtcookies);
     maxgeld();
@@ -509,17 +518,41 @@ function up3kauf(event)
     if(cookieGesamt >= upgrades[3].preis)
         {
         cookieGesamt = cookieGesamt - upgrades[3].preis;
-        upgrades[1].preis = (upgrades[1].preis * 1.45);
+        upgrades[3].preis = Math.round(upgrades[3].preis * 1.45);
         setInterval(ofen, 1000);
-        upgrades[1].anzahl++;
+        upgrades[3].anzahl++;
         document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
-        document.getElementById("up1-preis").innerHTML = Kommastelle(upgrades[1].preis);
+        document.getElementById("up3-preis").innerHTML = Kommastelle(upgrades[3].preis);
         farbe();
         playBuySound();
         }
     else
         {
-            shake("shake1");
+            shake("shake3");
+        }
+}
+
+//upgrade 4
+
+function cheese(){
+    cookieAdd = cookieAdd + 20;
+}
+function up4kauf(event)
+{
+    if(cookieGesamt >= upgrades[4].preis)
+        {
+        cookieGesamt = cookieGesamt - upgrades[4].preis;
+        upgrades[4].preis = Math.round(upgrades[4].preis * 1.45);
+        document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
+        document.getElementById("up4-preis").innerHTML = Kommastelle(upgrades[4].preis);
+        upgrades[4].anzahl++;
+        cheese();
+        farbe();
+        playBuySound();
+        }
+    else
+        {
+            shake("shake4");
         }
 }
 
