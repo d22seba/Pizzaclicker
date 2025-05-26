@@ -153,7 +153,7 @@ body{
     position: relative;
     width: 350px;
     height: 100px;
-    background: linear-gradient(rgb(230, 183, 113) 10% , rgb(207, 181, 157) 60%);
+    background: linear-gradient(rgb(233, 178, 96) 10% , rgb(207, 181, 157) 60%);
     margin: auto;
     margin-top: 30px;   
     display: flex;
@@ -254,6 +254,7 @@ body{
 }
 
 .infos{
+    text-align: center;
     display: flex;
     flex-direction: column;
     font-weight: bold;
@@ -261,45 +262,48 @@ body{
     border: 4px solid black;
     border-radius: 5px;
     right: 120px;
-    background: linear-gradient(rgb(189, 136, 83), rgb(162, 154, 142));
-    height: 90px;
-    width: 300px;
+    background: linear-gradient(#fde2b0);
+    height: 120px;
+    width: 350px;
+    color: black;
 }
 .infos > div{
     height: 60%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
     margin: 0;
+}
+.infosbild{
+    height: 50px;
+    width: 70px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 .infos  h3{
     text-decoration: underline;
     font-family: times;
     margin: 12px;
 }
-.infos > p{
-    color: rgb(81, 59, 12);
+.infos  p{
     font-size: 14px;
-    font-family: lobster;
+    font-family: italic;
     margin-top: 10px;
+    filter: blur(0.5px);
 }
 
-.infos > ul{
-
-    margin: 0;
+.infos  ul{
+    margin: 10px;
     padding: 0;
     list-style-type: none;
-    font-size: 14px;
-    margin-top: 10px;
 }
 
-.infos > ul > li{
+.infos  ul  li{
 
-    align-self: top;
-    border: 3px solid black;
+    text-align: left;
     border-radius: 5px;
-    font-size: 10px;
+    font-size: 12px;
+    font-weight: normal;
     width: 80%;
 }
 

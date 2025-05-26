@@ -1,4 +1,4 @@
-let cookieGesamt = 200;
+let cookieGesamt = 2000;
 let cookieAdd = 1;
 let cookieAddauto = 1;
 let cookieAddgustavo = 3;
@@ -7,6 +7,7 @@ let gesamtcookies = 20;
 const geldd = document.getElementById("geld").value;
 const autoclicker = document.getElementById("autoclicker");
 let pizza_meiste = 0;
+let plusprosek = []; 
 let autoclickerplus;
 let gustavoplus;
 let autoclickergesamt;
@@ -63,21 +64,43 @@ function Kommastelle(zahl) {
 
 // Führt farbe aus wenn die Seite geladen wird
 document.addEventListener("DOMContentLoaded", function() {
-    loadGame(); 
+    //loadGame(); 
     farbe(); 
 });
 
 //Preise und Anzahl der Upgrades
-let upgrades = 
-   [{id: "up0" ,name: "Autoclicker", preis: 10, anzahl: 0}, 
-    {id: "up1" ,name: "Gustavo", preis: 120, anzahl: 0},
-    {id: "up2" ,name: "TomatenSauce", preis: 1500, anzahl: 0}, 
-    {id: "up3" ,name: "Ofen", preis: 2000, anzahl: 0},
-    {id: "up4" ,name: "Käse", preis: 1800, anzahl: 0},
-    {id: "up5" ,name: "Salami", preis: 3000, anzahl: 0},
-    {id: "up6" ,name: "Paprika", preis: 3500, anzahl: 0},
-    {id: "up7" ,name: "Paprika", preis: 3500, anzahl: 0},
+let upgrades = [
+    {id: "up0", name: "Autoclicker", preis: 10, anzahl: 0},
+    {id: "up1", name: "Gustavo", preis: 120, anzahl: 0},
+    {id: "up2", name: "TomatenSauce", preis: 1500, anzahl: 0, plus: 5},
+    {id: "up3", name: "Ofen", preis: 2000, anzahl: 0},
+    {id: "up4", name: "Käse", preis: 1800, anzahl: 0},
+    {id: "up5", name: "Salami", preis: 3000, anzahl: 0},
+    {id: "up6", name: "Paprika", preis: 3500, anzahl: 0},
+    {id: "up7", name: "Paprika", preis: 3500, anzahl: 0},
 ];
+
+let upgradeBeschreibung = [
+    '"Klickt alle 8 Sekunden automatisch für dich!"',
+    '"Ein erfahrener Pizzabäcker der dir automatisch Pizzen generiert"',
+    '"Fügt eine leckere Tomatensauce zur Pizza hinzu was ihren Wert erhöht"',
+    '"Erhöht die Pizzaproduktion um 10 pro Sekunde"',
+    '"Erhöht den Wert der Pizzen um 20"',
+    '"Erhöht den Wert der Pizzen um 30"',
+    '"Erhöht den Wert der Pizzen um 40"',
+    '"Erhöht den Wert der Pizzen um 50"',
+];
+
+let upgradeBilder = [
+    "Cookies/Autoclicker.png",
+    "Cookies/pizzabäcker.png",
+    "Cookies/Tomatensauce.png",
+    "Cookies/pizzaofen.png",
+    "Cookies/Käse.png",
+    "Cookies/Salami.png",
+    "Cookies/Paprika.png",
+    "Cookies/Paprika.png",
+]
 
 function maxgeld() {
     if (cookieGesamt > pizza_meiste) 
@@ -203,60 +226,78 @@ document.addEventListener("mouseover", function (event){
 
      if(num && !item.classList.contains("versteckt") && !document.querySelector(".infos")){
 
-        let itemid = document.getElementById("up" + num)
 
-        const infos = [
-            {name: "Autoclicker", beschreibung: '"Klickt alle 8 Sekunden automatisch für dich!"', sekunden: autoclickerplus},
-            {name: "Gustavo", beschreibung: '"Ein erfahrener Pizzabäcker der dir automatisch Pizzen generiert"', sekunden: gustavoplus},
-        ];
-
+        // Die Elemente der Info-Box
         let info = document.createElement("div")
         let boxoben = document.createElement("div")
+        let img = document.createElement("img")
         let name = document.createElement("h3")
-        let beschreibung = document.createElement("p")
+        let beschreibungbox = document.createElement("p")
         let statsliste = document.createElement("ul");
         let statsolo = document.createElement("li");
         let statall = document.createElement("li");
 
-
-
-
+        // Element Klasse, Position und Styles geben
         info.className = "infos";
         const posY = event.clientY;
         info.style.top = `${posY - 50}px`;
+        img.src = upgradeBilder[num];
+        img.className = "infosbild";
         
+        //Die Info-Box wird erstellen
         document.body.appendChild(info)
         info.appendChild(boxoben);
         boxoben.appendChild(name);
-        boxoben.appendChild(beschreibung)
+        boxoben.appendChild(img);
+        boxoben.appendChild(beschreibungbox)
         info.appendChild(statsliste);
         statsliste.appendChild(statsolo);
         statsliste.appendChild(statall);
 
-        if(itemname !== "???"){
+        
+        //Fügt der Info-Box die Informationen hinzu
+        if(itemname !== "???" && plusprosek[num] !== undefined) {
             
-            name.innerHTML = infos[num].name
-            beschreibung.innerHTML = infos[num].beschreibung;
-            statsolo.innerHTML = "Einzelner pro Sekunde: " + Kommastelle(infos[num].sekunden);
-            statall.innerHTML = upgrades[num].anzahl + " pro Sekunde: " + Kommastelle(infos[num].sekunden * upgrades[num].anzahl);
+            let upname = upgrades[num].name;
+
+            name.innerHTML = upgrades[num].name
+            beschreibungbox.innerHTML = upgradeBeschreibung[num];
+            statsolo.innerHTML = "Jeder " + upgrades[num].name + " generiert: " + "<span style='font-weight: bold;'>"+plusprosek[num].toFixed(2)+"</span>" + " Pizzen pro Sekunde";
+            statall.innerHTML = upgrades[num].anzahl + " " + upgrades[num].name + " generieren: " + "<span style='font-weight: bold;'>"+ (plusprosek[num] * upgrades[num].anzahl).toFixed(1) +"</span>" + " Pizzen pro Sekunde";
             
+        }
+        else if(itemname !== "???" && plusprosek[num] == undefined) {
+                     
+
+            let upname = upgrades[num].name;
+
+            name.innerHTML = upgrades[num].name
+            beschreibungbox.innerHTML = upgradeBeschreibung[num];
+            statsolo.innerHTML = "Erhöht den Wert der Pizza um " + "<span style='font-weight: bold;'>"+upgrades[num].plus+"</span>";
         }
         else{
             info.innerHTML = "???";
+        }
+        if (upgrades[num].anzahl == 0) {
+
+            img.style.filter = "brightness(0)";
+
         }
     }
 
 });
 
 document.addEventListener("mousemove", function (event) {
+    //Es wird geguckt ob die Info-Box existiert weil man sonst immer wieder neue erschaffen würde
     let info = document.querySelector(".infos");
   if (info) {
 
+        //Ändert die position der Info-Box abghängig von der Mausposition
         const posY = event.clientY;
         info.style.top = `${posY - 50}px`;
   }
 });
-
+    //Entfernt die Info-Box wenn man nicht mehr rüber hovert
     document.addEventListener("mouseout", function (event) {
 
     let infoDiv = document.querySelector(".infos");
@@ -267,7 +308,7 @@ document.addEventListener("mousemove", function (event) {
 
 });
 
-
+// Der Click auf die Pizza
 cookie_bild.addEventListener("click", function() {
     gesamtcookies = gesamtcookies + cookieAdd;
     cookieGesamt = cookieGesamt + cookieAdd;
@@ -278,6 +319,7 @@ cookie_bild.addEventListener("click", function() {
     clickanzahl()
 })
 
+//Die Klickgeräusche
 const sounds = [
     "Cookies/clickb1.mp3",
     "Cookies/clickb2.mp3",
@@ -297,6 +339,7 @@ function playClickSound() {
     sound.play();
 }
 
+//Damit der sound doppelt kommt wenn man länger gedrückt hält und los lässt
 cookie_bild.addEventListener("mousedown", function () {
     playClickSound();
     isHeld = false; 
@@ -338,13 +381,16 @@ function shake(upgrade) {
     }, 500);
 }
 
+//Rechnet aus wie viele pizzen ein Upgrade pro Sekunde generiert 
 function sekundenrechner(){
 
+    plusprosek[0] = (cookieAdd / 8); 
+    plusprosek[1] = 3; 
 
     // 0.up  
-    autoclickerplus = (cookieAdd / 8) * upgrades[0].anzahl
+    autoclickerplus = (cookieAdd / 8);
     // 1.up
-    gustavoplus = (3) * upgrades[1].anzahl;
+    gustavoplus = 3;
     // 2.up
 
     let plusinsgesamt = autoclickerplus + gustavoplus;
@@ -424,8 +470,7 @@ function up1kauf(event)
 //Upgrade 2
 
 function tomatensauce(){
-    cookieAdd = cookieAdd + 10;
-    //document.getElementById("up1-anzahl").innerHTML = upgrades[1].anzahl;
+    cookieAdd = cookieAdd + 5;
 }
 
 function up2kauf(event)
@@ -451,8 +496,8 @@ function up2kauf(event)
 //upgrade 3
 
 function ofen(){
-    gesamtcookies = gesamtcookies + 10;
-    cookieGesamt = cookieGesamt + 10;
+    gesamtcookies = gesamtcookies + 6;
+    cookieGesamt = cookieGesamt + 6;
     document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
     document.getElementById("gesamt-cookies").innerHTML = Kommastelle(gesamtcookies);
     maxgeld();
@@ -465,7 +510,7 @@ function up3kauf(event)
         {
         cookieGesamt = cookieGesamt - upgrades[3].preis;
         upgrades[1].preis = (upgrades[1].preis * 1.45);
-        setInterval(ofen, 2500);
+        setInterval(ofen, 1000);
         upgrades[1].anzahl++;
         document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
         document.getElementById("up1-preis").innerHTML = Kommastelle(upgrades[1].preis);
