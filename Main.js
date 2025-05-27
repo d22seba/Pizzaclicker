@@ -1,11 +1,7 @@
-let cookieGesamt = 200000;
-let cookieAdd = 1;
-let cookieAddauto = 1;
-let cookieAddgustavo = 3;
+let pizzaGesamt = 0;
+let pizzenoverall = 0;
+let cookieAdd = 1000;
 let cookie_bild = document.getElementById("pizza-bild");
-let gesamtcookies = 20;
-const geldd = document.getElementById("geld").value;
-const autoclicker = document.getElementById("autoclicker");
 let pizza_meiste = 0;
 
 let plusprosek = []; 
@@ -17,13 +13,13 @@ let ofengesamt;
 
 function saveGame() {
     const gameState = {
-        cookieGesamt: cookieGesamt,
-        gesamtcookies: gesamtcookies,
+        pizzaGesamt: pizzaGesamt,
+        pizzenoverall: pizzenoverall,
         upgrades: upgrades,
         pizza_meiste: pizza_meiste,
         innerHTML: {
             geld: document.getElementById("geld").innerHTML,
-            gesamtCookies: document.getElementById("gesamt-cookies").innerHTML,
+            pizzenoverall: document.getElementById("gesamt-cookies").innerHTML,
             upgradeNames: upgrades.map((_, x) => document.getElementById("up" + x + "-name").innerHTML),
             upgradePreise: upgrades.map((_, x) => document.getElementById("up" + x + "-preis").innerHTML),
         },
@@ -39,14 +35,14 @@ function loadGame() {
         const gameState = JSON.parse(gameStateString);
 
         // Wiederherstellen der gespeicherten Werte
-        cookieGesamt = gameState.cookieGesamt;
-        gesamtcookies = gameState.gesamtcookies;
+        pizzaGesamt = gameState.pizzaGesamt;
+        pizzenoverall = gameState.pizzenoverall;
         upgrades = gameState.upgrades;
         pizza_meiste = gameState.pizza_meiste;
 
         // Wiederherstellen der innerHTML-Inhalte
         document.getElementById("geld").innerHTML = gameState.innerHTML.geld;
-        document.getElementById("gesamt-cookies").innerHTML = gameState.innerHTML.gesamtCookies;
+        document.getElementById("gesamt-cookies").innerHTML = gameState.innerHTML.pizzenoverall;
 
         upgrades.forEach((_, x) => {
             document.getElementById("up" + x + "-name").innerHTML = gameState.innerHTML.upgradeNames[x];
@@ -66,7 +62,7 @@ function Kommastelle(zahl) {
 
 // Führt farbe aus wenn die Seite geladen wird
 document.addEventListener("DOMContentLoaded", function() {
-    //loadGame(); 
+    loadGame(); 
     farbe(); 
 });
 
@@ -76,7 +72,7 @@ let upgrades = [
     {id: "up1", name: "Gustavo", preis: 120, anzahl: 0},
     {id: "up2", name: "TomatenSauce", preis: 1500, anzahl: 0, plus: 5},
     {id: "up3", name: "Ofen", preis: 3200, anzahl: 0},
-    {id: "up4", name: "Käse", preis: 1800, anzahl: 0},
+    {id: "up4", name: "Käse", preis: 12600, anzahl: 0, plus: 20},
     {id: "up5", name: "Salami", preis: 3000, anzahl: 0},
     {id: "up6", name: "Paprika", preis: 3500, anzahl: 0},
     {id: "up7", name: "Paprika", preis: 3500, anzahl: 0},
@@ -105,9 +101,9 @@ let upgradeBilder = [
 ]
 
 function maxgeld() {
-    if (cookieGesamt > pizza_meiste) 
+    if (pizzaGesamt > pizza_meiste) 
     {
-        pizza_meiste = cookieGesamt; 
+        pizza_meiste = pizzaGesamt; 
     }
     }
 
@@ -162,7 +158,7 @@ function farbe() {
         
         // Preis rot färben
 
-        if (upgrades[x].preis > cookieGesamt) {
+        if (upgrades[x].preis > pizzaGesamt) {
             document.getElementById("up" + x + "-preis").classList.add("zuwenig");
         } else {
             document.getElementById("up" + x + "-preis").classList.remove("zuwenig");
@@ -255,6 +251,7 @@ document.addEventListener("mouseover", function (event){
         info.appendChild(statsliste);
         statsliste.appendChild(statsolo);
         statsliste.appendChild(statall);
+        
 
         
         //Fügt der Info-Box die Informationen hinzu
@@ -312,10 +309,10 @@ document.addEventListener("mousemove", function (event) {
 
 // Der Click auf die Pizza
 cookie_bild.addEventListener("click", function() {
-    gesamtcookies = gesamtcookies + cookieAdd;
-    cookieGesamt = cookieGesamt + cookieAdd;
-    document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
-    document.getElementById("gesamt-cookies").innerHTML = Kommastelle(gesamtcookies);
+    pizzenoverall = pizzenoverall + cookieAdd;
+    pizzaGesamt = pizzaGesamt + cookieAdd;
+    document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
+    document.getElementById("gesamt-cookies").innerHTML = Kommastelle(pizzenoverall);
     maxgeld();
     farbe();
     clickanzahl()
@@ -409,152 +406,92 @@ function sekundenrechner(){
     
 }
 
-//Upgrade 0
-
-function autoclick(){
-    gesamtcookies = gesamtcookies + cookieAdd;
-    cookieGesamt = cookieGesamt + cookieAdd;
-    autoclickergesamt = autoclickergesamt + cookieAdd;
-
-    document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
-    document.getElementById("gesamt-cookies").innerHTML = Kommastelle(gesamtcookies);
-    maxgeld();
-    farbe();
-}
-
-function up0kauf(event)
-{
-    if(cookieGesamt >= upgrades[0].preis)
+//Die Kauffunktionen
+function kaufinterval(id, funktion, interval) {
+    
+    if(pizzaGesamt >= upgrades[id].preis)
         {
-        cookieGesamt = cookieGesamt - upgrades[0].preis;
-        upgrades[0].preis = Math.round(upgrades[0].preis * 1.45);
-        setInterval(autoclick, 8000);
-        upgrades[0].anzahl++;
-        document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
-        document.getElementById("up0-preis").innerHTML = Kommastelle(upgrades[0].preis);
+        pizzaGesamt = pizzaGesamt - upgrades[id].preis;
+        upgrades[id].preis = Math.round(upgrades[id].preis * 1.45);
+        setInterval(funktion, interval);
+        upgrades[id].anzahl++;
+        document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
+        document.getElementById("up"+id+"-preis").innerHTML = Kommastelle(upgrades[id].preis);
         farbe();
         playBuySound();
         }
     else
         {
-            shake("shake0");
+            shake("shake" + id);
         }
     
 }
 
+function kaufup(id, funktion){
 
+    if(pizzaGesamt >= upgrades[id].preis)
+        {
+        pizzaGesamt = pizzaGesamt - upgrades[id].preis;
+        upgrades[id].preis = Math.round(upgrades[id].preis * 1.45);
+        upgrades[id].anzahl++;
+        document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
+        document.getElementById("up"+id+"-preis").innerHTML = Kommastelle(upgrades[id].preis);
+        farbe();
+        playBuySound();
+        funktion();
+        }
+    else
+        {
+            shake("shake" + id);
+        }
+    
+}
 
+//Die Upgrades
 
-//upgrade 1
+//Upgrade 0
+function autoclicker(){
+    pizzenoverall = pizzenoverall + cookieAdd;
+    pizzaGesamt = pizzaGesamt + cookieAdd;
+    autoclickergesamt = autoclickergesamt + cookieAdd;
 
-function gustavo(){
-    gesamtcookies = gesamtcookies + 3;
-    cookieGesamt = cookieGesamt + 3;
-    gustavogesamt = gustavogesamt + 3;
-    document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
-    document.getElementById("gesamt-cookies").innerHTML = Kommastelle(gesamtcookies);
+    document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
+    document.getElementById("gesamt-cookies").innerHTML = Kommastelle(pizzenoverall);
     maxgeld();
     farbe();
 }
 
-function up1kauf(event)
-{
-    if(cookieGesamt >= upgrades[1].preis)
-        {
-        cookieGesamt = cookieGesamt - upgrades[1].preis;
-        upgrades[1].preis = Math.round(upgrades[1].preis * 1.45);
-        setInterval(gustavo, 1000);
-        upgrades[1].anzahl++;
-        document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
-        document.getElementById("up1-preis").innerHTML = Kommastelle(upgrades[1].preis);
-        farbe();
-        playBuySound();
-        }
-    else
-        {
-        shake("shake1")          
-        }
+//upgrade 1
+function gustavo(){
+    pizzenoverall = pizzenoverall + 3;
+    pizzaGesamt = pizzaGesamt + 3;
+    gustavogesamt = gustavogesamt + 3;
+    document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
+    document.getElementById("gesamt-cookies").innerHTML = Kommastelle(pizzenoverall);
+    maxgeld();
+    farbe();
 }
 
 //Upgrade 2
-
 function tomatensauce(){
     cookieAdd = cookieAdd + 5;
 }
 
-function up2kauf(event)
-{
-    if(cookieGesamt >= upgrades[2].preis)
-        {
-        cookieGesamt = cookieGesamt - upgrades[2].preis;
-        upgrades[2].preis = Math.round(upgrades[2].preis * 1.45);
-        document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
-        document.getElementById("up2-preis").innerHTML = Kommastelle(upgrades[2].preis);
-        upgrades[2].anzahl++;
-        tomatensauce();
-        farbe();
-        playBuySound();
-        }
-    else
-        {
-            shake("shake2");
-        }
-}
-
-
 //upgrade 3
-
 function ofen(){
-    gesamtcookies = gesamtcookies + 10;
-    cookieGesamt = cookieGesamt + 10;
-    document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
-    document.getElementById("gesamt-cookies").innerHTML = Kommastelle(gesamtcookies);
+    pizzenoverall = pizzenoverall + 10;
+    pizzaGesamt = pizzaGesamt + 10;
+    document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
+    document.getElementById("gesamt-cookies").innerHTML = Kommastelle(pizzenoverall);
     maxgeld();
     farbe();
 }
 
-function up3kauf(event)
-{
-    if(cookieGesamt >= upgrades[3].preis)
-        {
-        cookieGesamt = cookieGesamt - upgrades[3].preis;
-        upgrades[3].preis = Math.round(upgrades[3].preis * 1.45);
-        setInterval(ofen, 1000);
-        upgrades[3].anzahl++;
-        document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
-        document.getElementById("up3-preis").innerHTML = Kommastelle(upgrades[3].preis);
-        farbe();
-        playBuySound();
-        }
-    else
-        {
-            shake("shake3");
-        }
-}
-
 //upgrade 4
-
 function cheese(){
     cookieAdd = cookieAdd + 20;
 }
-function up4kauf(event)
-{
-    if(cookieGesamt >= upgrades[4].preis)
-        {
-        cookieGesamt = cookieGesamt - upgrades[4].preis;
-        upgrades[4].preis = Math.round(upgrades[4].preis * 1.45);
-        document.getElementById("geld").innerHTML = Kommastelle(cookieGesamt);
-        document.getElementById("up4-preis").innerHTML = Kommastelle(upgrades[4].preis);
-        upgrades[4].anzahl++;
-        cheese();
-        farbe();
-        playBuySound();
-        }
-    else
-        {
-            shake("shake4");
-        }
-}
+
 
 
 

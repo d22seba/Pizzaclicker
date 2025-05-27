@@ -54,6 +54,8 @@ Ich hatte probleme mit den upgrades sie wurden manchmal nicht unsichtbar das hab
 Ich habe nochmal die Pizzen pro sekunde anzeige angepasst und habe angefangen eine info box zu jedem upgrade zu machen also wenn man über das bild hovert wird eine div mit infos zum Upgrade erschaffen.
 
 
-15. Tag (27.05)
+15. Tag (26.05)
 Ich habe neue upgrades gemacht, meine funktion die die Pizzen anzahl schöner macht überarbeitet, preis vom upgrade grün gemacht wenn man genug geld hat und nochmal die Info-Box überarbeitet dort wird jetzt ein Bild angezeigt, 
 man sieht was das upgrade kann und eine kleine Beschreibung. Bei upgrades die automatisch über Zeit Pizzen generieren sieht man auch wie viel ein einzelner pro sekunde produziert, wie viel insgesamt das upgrade  produziert und ich will noch einfügen dass man sieht wie viele Pizzen das upgrade bisher produziert hat.
+Dazu hab ich noch eine Kauffunktion hinzugefügt was mir das upgrades einfügen einfacher macht
+
