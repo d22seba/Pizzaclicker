@@ -63,7 +63,7 @@ function Kommastelle(zahl) {
 
 // Führt farbe aus wenn die Seite geladen wird
 document.addEventListener("DOMContentLoaded", function() {
-    //loadGame(); 
+    loadGame(); 
     farbe(); 
 });
 
@@ -112,6 +112,7 @@ function maxgeld() {
 function farbe() {
     saveGame();
     sekundenrechner();
+    //volution();
 
 
 
@@ -215,6 +216,45 @@ function clickanzahl(){
 
 
 }
+let lock = false;
+function evolution(){
+
+    let brett = document.querySelector("#evolution")
+    let brettbild = document.querySelector("#evolution img")
+    let locked = document.querySelector("#evolutionlocked")
+    if(upgrades[3].anzahl == 0 && !locked){
+        
+        locked = document.createElement("div");
+        locked.id = "evolutionlocked";
+        brettbild.style.filter = "brightness(0.5)";
+
+        brett.appendChild(locked);
+
+        locked.innerHTML = "🔒 GESPERRT"
+        
+        lock = true;
+    }
+    else{
+
+        if(lock){
+            
+        locked.remove();
+        }
+
+        brettbild.style.filter = "brightness(1)";
+          
+        let evoarea = document.createElement("div");
+        let überschrift = document.createElement("h2");
+        überschrift.innerHTML = "Evolutions";
+          
+        brett.appendChild(evoarea)
+        brett.appendChild(überschrift);
+          
+        }
+
+}
+
+
 
 document.addEventListener("mouseover", function (event){
 

@@ -4,25 +4,6 @@
     -webkit-user-drag: none;
 }
 
-#prestige{
-    position: absolute;
-    height: 600px;
-    left: 0;
-    bottom: -500px;
-    z-index: 1000;
-    transition: 0.4s;
-}
-#prestige:hover{
-    bottom: -200px;
-}
-#prestige img {
-    height: 100%;
-    width: 100%;
-}
-#prestige div{
-
-}
-
 body{
     margin: 0;
     display: flex;
@@ -147,6 +128,74 @@ body{
     }
     
     }
+
+#evolution{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    width: 380px;
+    left: 10px;
+    bottom: -500px;
+    transition: 0.4s;
+}
+#evolution:hover{
+    bottom: -200px;
+}
+#evolution img {
+    
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -11;
+    filter: brightness(1);
+}
+#evolutionlocked{
+    
+    
+    align-content: center;
+    text-align: center;
+    font-size: 20px;
+    margin: 50% auto;
+    height: 90px;
+    width:  60%;
+    
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+#evoarea{
+    font-size: 24px;
+    text-align: center;
+    margin: auto;
+    /* background-color: blue; */
+    height: 60%;
+    width: 75%;
+    padding-top: 10px;
+}
+#evobuy{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.evos{
+    position: relative;
+    margin: 0 3px;
+    height: 50px;
+    width: 50px;
+    background-color: rgb(104, 104, 104);
+    border: 8px solid burlywood;
+    border-style:ridge;
+}
+.evos img{
+    display: flex;
+    height: 10%;
+    width: 10%;
+}
+.evos:hover{
+    background-color: rgb(120, 120, 120);
+    border-color: rgb(55, 54, 54);
+}
 
 /*Die Upgrades*/
 .upgrades-window{
