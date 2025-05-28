@@ -13,6 +13,12 @@
 
 <div id="gamebereich">
 
+    <div id="prestige">
+        
+        <img src="Cookies/klemmbrett.png">
+    
+    </div>
+
     <img id="hintergrund" src="Cookies/holzplatte.png">
 
 
@@ -22,7 +28,7 @@
 
     <div id="sekadd">Pizzen pro s: <span id="eingabe"></span></div>
         
-        <img id="pizza-bild" src="Cookies/Pizza1.png">
+        <img id="pizza-bild" src="Cookies/pizzabild-ai.png">
 
     <div class="geld-block">
         <img height="40px" width="40px" src="Cookies/1_30_0026__01_03.png">
@@ -40,7 +46,7 @@
         <div id="italien3"></div>
         <div id="upgrade-div">
             <img src="Cookies/holz.png" height="100%" width="100%">
-        <h1 style="margin-top: 29px; position: absolute; font-family: Lobster, sans-serif; user-select: none; font-size: 50px;">Upgrades</h1>
+        <h1 style="margin-top: 29px; position: absolute; font-family: Lobster, sans-serif; user-select: none; font-size: 50px;">Item Store</h1>
         </div>
         <div id="alleups">
         <div id="up0" class="upgrade">
@@ -132,13 +138,13 @@
                 <h1 id="up5-name">???</h1>
 
             </div>
-            <div id="shake5" class="upgrade-preis" onclick="up5kauf()">
+            <div id="shake5" class="upgrade-preis" onclick="kaufinterval(5, pizzabot, 1000)">
                 <img class="upgrade-preis-img" height="30px" width="30px" src="Cookies/1_30_0026__01_03.png">
-                <span id="up5-preis">1.5k</span>
+                <span id="up5-preis">18,200</span>
                 
             </div>
                 <div id="anzahl5" class="upanzahl"></div>
-                <img data-num="5" id="up5-img" src="Cookies/TomatenSauce.png" class="upgrade-img">
+                <img data-num="5" id="up5-img" src="Cookies/pizzabot.png" class="upgrade-img">
             
         </div>  
 
@@ -150,7 +156,7 @@
             </div>
             <div id="shake6" class="upgrade-preis" onclick="up6kauf()">
                 <img class="upgrade-preis-img" height="30px" width="30px" src="Cookies/1_30_0026__01_03.png">
-                <span id="up6-preis">1.5k</span>
+                <span id="up6-preis"></span>
                 
             </div>
                 <div id="anzahl6" class="upanzahl"></div>
@@ -166,7 +172,7 @@
             </div>
             <div id="shake7" class="upgrade-preis" onclick="up7kauf()">
                 <img class="upgrade-preis-img" height="30px" width="30px" src="Cookies/1_30_0026__01_03.png">
-                <span id="up7-preis">1.5k</span>
+                <span id="up7-preis"></span>
                 
             </div>
                 <div id="anzahl7" class="upanzahl"></div>

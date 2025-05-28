@@ -59,3 +59,7 @@ Ich habe neue upgrades gemacht, meine funktion die die Pizzen anzahl schöner ma
 man sieht was das upgrade kann und eine kleine Beschreibung. Bei upgrades die automatisch über Zeit Pizzen generieren sieht man auch wie viel ein einzelner pro sekunde produziert, wie viel insgesamt das upgrade  produziert und ich will noch einfügen dass man sieht wie viele Pizzen das upgrade bisher produziert hat.
 Dazu hab ich noch eine Kauffunktion hinzugefügt was mir das upgrades einfügen einfacher macht
 
+16. Tag (27.05)
+Ich habe wie gestern mir alles noch ein bisschen einfacher gemacht und eine Intervallogik gemacht heißt ich kann noch einer Upgrades erstellen.
+Dazu hab ich noch eine ganz andere sache angefangen und zwar super upgrades oder wie ich sie nennen werde ich weiß den Namen noch nicht genau das sind einfach
+gesagt upgrades für die upgrades. Dazu noch hab ich neue Upgrades eingefügt und ein bisschen die font und den Pizzaclick button geändert.
