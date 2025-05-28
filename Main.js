@@ -1,4 +1,4 @@
-let pizzaGesamt = 100000;
+let pizzaGesamt = 0;
 let pizzenoverall = 0;
 let cookieAdd = 1;
 let cookie_bild = document.getElementById("pizza-bild");
@@ -10,6 +10,12 @@ let plusupgesamt = [];
 let autoclickergesamt;
 let gustavogesamt;
 let ofengesamt;
+let gesperrt;
+
+let gustavoAdd = 6;
+let ofenAdd = 10;
+let pizzabotAdd = 30;
+
 
 
 function saveGame() {
@@ -18,6 +24,7 @@ function saveGame() {
         pizzenoverall: pizzenoverall,
         upgrades: upgrades,
         pizza_meiste: pizza_meiste,
+        gesperrt: gesperrt,
         innerHTML: {
             geld: document.getElementById("geld").innerHTML,
             pizzenoverall: document.getElementById("gesamt-cookies").innerHTML,
@@ -40,6 +47,7 @@ function loadGame() {
         pizzenoverall = gameState.pizzenoverall;
         upgrades = gameState.upgrades;
         pizza_meiste = gameState.pizza_meiste;
+        gesperrt = gameState.gesperrt;
 
         // Wiederherstellen der innerHTML-Inhalte
         document.getElementById("geld").innerHTML = gameState.innerHTML.geld;
@@ -63,17 +71,24 @@ function Kommastelle(zahl) {
 
 // Führt farbe aus wenn die Seite geladen wird
 document.addEventListener("DOMContentLoaded", function() {
-    loadGame(); 
+    //loadGame(); 
     farbe(); 
+    if(upgrades[3].anzahl > 0){  
+    evolutionunlock();
+    }
+    else{
+    evolutionlock();
+    }
+
 });
 
 //Preise und Anzahl der Upgrades
 let upgrades = [
     {id: "up0", name: "Autoclicker", preis: 10, anzahl: 0},
     {id: "up1", name: "Gustavo", preis: 120, anzahl: 0},
-    {id: "up2", name: "TomatenSauce", preis: 1500, anzahl: 0, plus: 5},
+    {id: "up2", name: "TomatenSauce", preis: 1500, anzahl: 0, plus: 100},
     {id: "up3", name: "Ofen", preis: 3200, anzahl: 0},
-    {id: "up4", name: "Käse", preis: 12600, anzahl: 0, plus: 20},
+    {id: "up4", name: "Käse", preis: 12600, anzahl: 0, plus: 300},
     {id: "up5", name: "Pizzabot", preis: 18200, anzahl: 0},
     {id: "up6", name: "Paprika", preis: 3500, anzahl: 0},
     {id: "up7", name: "Paprika", preis: 3500, anzahl: 0},
@@ -96,7 +111,7 @@ let upgradeBilder = [
     "Cookies/Tomatensauce.png",
     "Cookies/pizzaofen.png",
     "Cookies/cheese.png",
-    "Cookies/Salami.png",
+    "Cookies/pizzabot.png",
     "Cookies/Paprika.png",
     "Cookies/Paprika.png",
 ]
@@ -112,8 +127,6 @@ function maxgeld() {
 function farbe() {
     saveGame();
     sekundenrechner();
-    //volution();
-
 
 
     // 1. Alles verstecken, außer up0 und 1
@@ -188,11 +201,11 @@ function farbe() {
     }
 
     // Spezielle Pizza-Bild-Änderung
-    if (upgrades[2].anzahl == 1) {
+    if (upgrades[2].anzahl == 1 && upgrades[4].anzahl == 0) {
         document.getElementById("pizza-bild").src = "Cookies/pizzabild-ai-tomatensauce.png";
     }
     if (upgrades[4].anzahl == 1) {
-        document.getElementById("pizza-bild").src = "Cookies/Pizza3.png";
+        document.getElementById("pizza-bild").src = "Cookies/pizzabild-ai-käse.png";
     }
 }
 
@@ -216,43 +229,52 @@ function clickanzahl(){
 
 
 }
-let lock = false;
-function evolution(){
 
-    let brett = document.querySelector("#evolution")
-    let brettbild = document.querySelector("#evolution img")
-    let locked = document.querySelector("#evolutionlocked")
-    if(upgrades[3].anzahl == 0 && !locked){
-        
-        locked = document.createElement("div");
-        locked.id = "evolutionlocked";
-        brettbild.style.filter = "brightness(0.5)";
+let brett = document.querySelector("#evolution");
+let brettbild = document.querySelector("#evolution > img");
 
-        brett.appendChild(locked);
+lockedbereich = document.createElement("div");
+locked = document.createElement("div");
+text = document.createElement("p");
 
-        locked.innerHTML = "🔒 GESPERRT"
-        
-        lock = true;
-    }
-    else{
 
-        if(lock){
-            
-        locked.remove();
-        }
+lockedbereich.id = "evolutionslockedbereich";
+locked.id = "evolutionlocked";
 
-        brettbild.style.filter = "brightness(1)";
-          
-        let evoarea = document.createElement("div");
-        let überschrift = document.createElement("h2");
-        überschrift.innerHTML = "Evolutions";
-          
-        brett.appendChild(evoarea)
-        brett.appendChild(überschrift);
-          
-        }
+function evolutionlock(){
+    
+    document.getElementById("evoarea").style.display = "none";
 
+    brettbild.style.filter = "brightness(0.5)";
+
+    
+
+
+    brett.appendChild(lockedbereich);
+    lockedbereich.appendChild(locked);
+    lockedbereich.appendChild(text);
+    
+    
+    locked.innerHTML = "🔒 GESPERRT"
+    text.innerHTML = "Erst ab Upgrade 4 verfügbar!!!"
+    gesperrt = true;
+    
 }
+
+function evolutionunlock(){
+    
+    document.getElementById("evoarea").style.display = "block";
+
+    brettbild.style.filter = "none";
+
+    if (lockedbereich.parentNode === brett) {
+        brett.removeChild(lockedbereich);
+    }
+
+    gesperrt = false;
+}
+
+
 
 
 
@@ -427,11 +449,11 @@ function sekundenrechner(){
     //autoclicker
     plusprosek[0] = (cookieAdd / 8); 
     //gustavo
-    plusprosek[1] = 3; 
+    plusprosek[1] = gustavoAdd; 
     //ofen
-    plusprosek[3] = 10;
+    plusprosek[3] = ofenAdd;
     //pizzabot
-    plusprosek[5] = 30;
+    plusprosek[5] = pizzabotAdd;
 
 
     let autoclickergesamtplus = plusprosek[0] * upgrades[0].anzahl;
@@ -515,27 +537,27 @@ function autoclicker(){
 
 //upgrade 1
 function gustavo(){
-    intervalupgrade(1, 3)
+    intervalupgrade(1, gustavoAdd)
 }
 
 //Upgrade 2
 function tomatensauce(){
-    cookieAdd = cookieAdd + 5;
+    cookieAdd = cookieAdd + 10;
 }
 
 //upgrade 3
 function ofen(){
-    intervalupgrade(3, 10)
+    intervalupgrade(3, ofenAdd)
 }
 
 //upgrade 4
 function cheese(){
-    cookieAdd = cookieAdd + 20;
+    cookieAdd = cookieAdd + 30;
 }
 
 //upgrade 5
 function pizzabot(){
-    intervalupgrade(5, 30)
+    intervalupgrade(5, pizzabotAdd)
 }
 
 
