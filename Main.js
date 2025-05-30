@@ -124,6 +124,12 @@ let upgradeBilder = [
     "Cookies/Paprika.png",
 ]
 
+let evosarray = [
+    {name: "Starker Click", beschreibung: "keine ahnung noch", bild: "Cookies/evos0.png"},
+    {name: "Schneller Clicker", beschreibung: "keine ahnung noch", preis: 500000},
+    {name: "Starker Click", beschreibung: "keine ahnung noch"},
+]
+
 function maxgeld() {
     if (pizzaGesamt > pizza_meiste) 
     {
@@ -291,7 +297,8 @@ document.addEventListener("mouseover", function (event){
     let num = event.target.dataset.num;
     let item = event.target;
     let itemname = document.getElementById("up" + num + "-name").textContent;
-
+    
+    
 
      if(num && !item.classList.contains("versteckt") && !document.querySelector(".infos")){
 
@@ -367,6 +374,19 @@ document.addEventListener("mouseover", function (event){
 
         }
     }
+        
+        num = event.target.dataset.id;
+
+        let evobereich = document.getElementById("evobuy");
+
+        let evo = document.createElement("div");
+        let evobild = document.createElement("img");
+        evo.className = "evos"
+
+        evobereich.appendChild(evo);
+        evo.appendChild(evobild);
+
+        if(num && )
 
 });
 
