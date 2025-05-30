@@ -1,11 +1,10 @@
-let pizzaGesamt = 0;
+let pizzaGesamt = 1000000;
 let pizzenoverall = 0;
 let cookieAdd = 1;
 let cookie_bild = document.getElementById("pizza-bild");
 let pizza_meiste = 0;
 
 let plusprosek = []; 
-let plusupgesamt = [];
 
 let autoclickergesamt;
 let gustavogesamt;
@@ -25,6 +24,7 @@ function saveGame() {
         upgrades: upgrades,
         pizza_meiste: pizza_meiste,
         gesperrt: gesperrt,
+        cookieAdd: cookieAdd,
         innerHTML: {
             geld: document.getElementById("geld").innerHTML,
             pizzenoverall: document.getElementById("gesamt-cookies").innerHTML,
@@ -48,6 +48,8 @@ function loadGame() {
         upgrades = gameState.upgrades;
         pizza_meiste = gameState.pizza_meiste;
         gesperrt = gameState.gesperrt;
+        cookieAdd = gameState.cookieAdd;
+
 
         // Wiederherstellen der innerHTML-Inhalte
         document.getElementById("geld").innerHTML = gameState.innerHTML.geld;
@@ -61,7 +63,10 @@ function loadGame() {
 }
 
 function Kommastelle(zahl) {
-    if (zahl >= 1000 && zahl <= 100000) {
+
+    if (typeof zahl !== 'number') return zahl;
+
+    if (zahl >= 1000 && zahl < 1000000) {
         return  zahl.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 1 }); 
     } else {
         return  zahl.toFixed(0);
@@ -93,6 +98,9 @@ let upgrades = [
     {id: "up6", name: "Paprika", preis: 3500, anzahl: 0},
     {id: "up7", name: "Paprika", preis: 3500, anzahl: 0},
 ];
+
+let plusupgesamt = new Array(upgrades.length).fill(0);
+
 
 let upgradeBeschreibung = [
     '"Klickt alle 8 Sekunden automatisch für dich!"',
@@ -205,7 +213,7 @@ function farbe() {
         document.getElementById("pizza-bild").src = "Cookies/pizzabild-ai-tomatensauce.png";
     }
     if (upgrades[4].anzahl == 1) {
-        document.getElementById("pizza-bild").src = "Cookies/pizzabild-ai-käse.png";
+        document.getElementById("pizza-bild").src = "Cookies/pizzabild-ai-cheese.png";
     }
 }
 
@@ -288,7 +296,7 @@ document.addEventListener("mouseover", function (event){
      if(num && !item.classList.contains("versteckt") && !document.querySelector(".infos")){
 
 
-        // Die Elemente der Info-Box
+        // Die Elemente der Info-BoxBox
         let info = document.createElement("div")
         let boxoben = document.createElement("div")
         let img = document.createElement("img")
@@ -297,6 +305,7 @@ document.addEventListener("mouseover", function (event){
         let statsliste = document.createElement("ul");
         let statsolo = document.createElement("li");
         let statall = document.createElement("li");
+        let statgesamt  = document.createElement("li");
 
         // Element Klasse, Position und Styles geben
         info.className = "infos";
@@ -314,19 +323,31 @@ document.addEventListener("mouseover", function (event){
         info.appendChild(statsliste);
         statsliste.appendChild(statsolo);
         statsliste.appendChild(statall);
+        statsliste.appendChild(statgesamt);
         
-
+        
         
         //Fügt der Info-Box die Informationen hinzu
         if(itemname !== "???" && plusprosek[num] !== undefined) {
             
             let upname = upgrades[num].name;
-
+            
             name.innerHTML = upgrades[num].name
             beschreibungbox.innerHTML = upgradeBeschreibung[num];
             statsolo.innerHTML = "Jeder " + upgrades[num].name + " generiert: " + "<span style='font-weight: bold;'>"+plusprosek[num].toFixed(2)+"</span>" + " Pizzen pro Sekunde";
             statall.innerHTML = upgrades[num].anzahl + " " + upgrades[num].name + " generieren: " + "<span style='font-weight: bold;'>"+ (plusprosek[num] * upgrades[num].anzahl).toFixed(1) +"</span>" + " Pizzen pro Sekunde";
+            statgesamt.innerHTML = "Bisher hat " + upgrades[num].name + " " + "<span id='plusupgesamtlive' style='font-weight: bold;'>"+ Kommastelle(plusupgesamt[num]) +"</span>" + " Pizzen generiert";
             
+            function aktualisieren(){
+
+               let liveload = document.getElementById("plusupgesamtlive");
+               liveload.innerHTML = ""
+               liveload.innerHTML = Kommastelle(plusupgesamt[num]);
+
+            }
+
+            intervallive = setInterval(aktualisieren, 100);
+
         }
         else if(itemname !== "???" && plusprosek[num] == undefined) {
                      
@@ -361,6 +382,8 @@ document.addEventListener("mousemove", function (event) {
 });
     //Entfernt die Info-Box wenn man nicht mehr rüber hovert
     document.addEventListener("mouseout", function (event) {
+
+    clearInterval(intervallive);
 
     let infoDiv = document.querySelector(".infos");
 

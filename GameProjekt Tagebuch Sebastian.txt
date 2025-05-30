@@ -63,3 +63,7 @@ Dazu hab ich noch eine Kauffunktion hinzugefügt was mir das upgrades einfügen 
 Ich habe wie gestern mir alles noch ein bisschen einfacher gemacht und eine Intervallogik gemacht heißt ich kann noch einer Upgrades erstellen.
 Dazu hab ich noch eine ganz andere sache angefangen und zwar super upgrades oder wie ich sie nennen werde ich weiß den Namen noch nicht genau das sind einfach
 gesagt upgrades für die upgrades. Dazu noch hab ich neue Upgrades eingefügt und ein bisschen die font und den Pizzaclick button geändert.
+
+17. Tag (30.03)
+Ich habe weiter meine "super Upgrades" gemacht die ich evolutions nenne. Ich habe ein paar Bilder gepixelt und die ganze font gemacht ein bild was ausgefahren wird beim rüber hovern auf dem dann die evolutions sind falls man bei upgrade 4 angelangt ist.
+Jetzt sitze ich daran wie ich das mit den evolutions einblenden machen werde sodass neue kommen wenn man neue upgrades kauft.
