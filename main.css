@@ -7,8 +7,6 @@
 body{
     margin: 0;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
 }
 
 #gamebereich{
@@ -17,6 +15,7 @@ body{
     height: 100vh;
     width: 80vw;
     overflow: hidden;
+    display: flex;
 }
 
 #hintergrund{
@@ -27,24 +26,55 @@ body{
     z-index: -1;
 }
 
+#minigame{
+    position: absolute;
+    height: 60%;
+    width: 30%;
+    left: -28%;
+    top: 20%;
+
+    background-color: black;
+    transition: 1s;
+
+}
+
+#minigame:hover{
+    left: 5%;
+}
+
 .zuwenig{
     color: red;
+}
+
+#cookieundgeld{
+
+    position: absolute;
+    height: 100vh;
+    width: auto;    
+    left: 50vw;
+
+    padding-top: 5%;
+
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-50%);
+    align-items: center;
+    
 }
 
 /*Geld Anzeige*/
 .geld-block{
 
-    top: 10px;
-    right: 10px;
-    position: absolute;
+    position: relative;
     background-color: rgb(192, 131, 52);
     border-style: solid;
     border-radius: 10px;
-    height: 30px;
-    width: 200px;
+    height: 40px;
+    width: 300px;
     padding: 10px;
     display: flex;
-    justify-items: center;
+    align-items: center;
+    justify-content: center;    
 
 }
 
@@ -54,35 +84,26 @@ body{
 }
 
 .geld-block>img{
-    margin-top: -5px;
-    margin-left: -2px;
+    position: absolute;
+    left: 10px;
 }
 
 #geld{
-    font-size: 30px;
+    font-size: 40px;
 }
 
-#sekadd{
-    
-
-    position: absolute;
-    right: 100px;
-    top: 62px;
-
+#eingabe{
+    font-weight: bold;
 }
 
 /*Der Anklick Button*/
 
 #pizza-bild{
     
-    position: absolute;
-    top: 50%;
-    bottom: 50%;
-    left: 46%;
-    align-self: center;
+    padding-top: 10%;
     height: 500px;
     width: 500px;
-    
+
     border-radius: 50%;
     cursor: pointer;
     transition: transform 0.3s, 0.3s;
@@ -135,8 +156,8 @@ body{
     display: flex;
     flex-direction: column;
     height: 600px;
-    width: 380px;
-    left: 10px;
+    width: 400px;
+    left: 10%;
     bottom: -500px;
     transition: 0.4s;
 }
@@ -185,7 +206,6 @@ body{
     font-size: 26px;
     text-align: center;
     margin: auto;
-    /* background-color: blue; */
     height: 60%;
     width: 75%;
 }
@@ -220,7 +240,7 @@ body{
     position: relative;
     background-color: white;
     height: 100vh;
-    width: 25%;
+    width: 20%;
     float: right;
     border-left-style: solid;
     text-align: center;
@@ -234,11 +254,12 @@ body{
     padding-bottom: 20px;
     box-sizing: border-box;
     scroll-behavior: smooth;
+    scrollbar-width: none;
 }
 .upgrade{
     border: solid 1px;
     position: relative;
-    width: auto;
+    width: 95%;
     height: 100px;
     background: linear-gradient(rgb(233, 178, 96) 10% , rgb(207, 181, 157) 60%);
     margin: auto;
@@ -265,7 +286,7 @@ body{
 
 .uupgrade{
     border: solid 1px;
-    width: auto;
+    width: 95%;
     height: 100px;
     background-color: rgb(73, 73, 47);
     margin: auto;

@@ -482,7 +482,6 @@ img.addEventListener("mousemove", function (event) {
     //Entfernt die Info-Box wenn man nicht mehr rüber hovert
     img.addEventListener("mouseout", function () {
 
-        console.log("geklappt")
 
     if(intervallive) clearInterval(intervallive);
 
@@ -498,6 +497,62 @@ img.addEventListener("mousemove", function (event) {
 
 //Das kaufsystem der evos
 document.querySelectorAll(".evos").forEach(evoslot  =>{
+    
+    evoslot.addEventListener("mouseover", function(event){
+        let item = event.target;
+        let num = item.dataset.id
+
+        let info = document.createElement("div")
+        let boxoben = document.createElement("div")
+        let img = document.createElement("img")
+        let name = document.createElement("h3")
+        let beschreibungbox = document.createElement("p")
+        let statsliste = document.createElement("ul");
+        let statsolo = document.createElement("li");
+
+        info.className = "infos";
+        let posX = event.clientX;
+        info.style.left = `${50}px`;
+        info.style.bottom = `${180}px`;
+        
+        img.src = "Cookies/evo" + num + ".png";
+        img.className = "infosbild";
+
+        document.body.appendChild(info)
+        info.appendChild(boxoben);
+        boxoben.appendChild(img);
+        boxoben.appendChild(name);
+        boxoben.appendChild(beschreibungbox)
+        info.appendChild(statsliste);
+        statsliste.appendChild(statsolo)
+
+
+    })
+
+    evoslot.addEventListener("mousemove", function (event) {
+        //Es wird geguckt ob die Info-Box existiert weil man sonst immer wieder neue erschaffen würde
+        let info = document.querySelector(".infos");
+      if (info) {
+
+            //Ändert die position der Info-Box abghängig von der Mausposition
+            let posX = event.clientX;
+            info.style.left = `${posX - 50}px`;
+      }
+    });
+        //Entfernt die Info-Box wenn man nicht mehr rüber hovert
+    evoslot.addEventListener("mouseout", function () {
+
+
+
+         let infoDiv = document.querySelector(".infos");
+
+
+        if (infoDiv) {
+            infoDiv.remove();
+        }
+
+    });
+    
     
     evoslot.addEventListener("mousedown", function(event){
         let item = event.target;

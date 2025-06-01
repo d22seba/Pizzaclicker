@@ -13,19 +13,21 @@
 
 <div id="gamebereich">
 
+    <div id="minigame"></div>
+
     <div id="evolution">
         
         <div id="evoarea">
             <h1>Evolutions</h1>
             <div id="evobuy">
-                <div class="evos"><img data-id="0" src="Cookies/evo0.png"></div>
-                <div class="evos"><img data-id="1" src="Cookies/evo1.png"></div>
-                <div class="evos"><img data-id="2" src="Cookies/evo2.png"></div>
-                <div class="evos"><img data-id="2" src="Cookies/evo3.png"></div>
-                <div class="evos"><img data-id="2" src="Cookies/evo4.png"></div>
-                <div class="evos"><img data-id="2" src="Cookies/evo5.png"></div>
-                <div class="evos"><img data-id="2" src="Cookies/evo6.png"></div>
-                <div class="evos"><img data-id="2" src="Cookies/evo7.png"></div>
+                <div class="evos" data-id="0"><img data-id="0" src="Cookies/evo0.png"></div>
+                <div class="evos" data-id="1"><img data-id="1" src="Cookies/evo1.png"></div>
+                <div class="evos" data-id="2"><img data-id="2" src="Cookies/evo2.png"></div>
+                <div class="evos" data-id="3"><img data-id="3" src="Cookies/evo3.png"></div>
+                <div class="evos" data-id="4"><img data-id="4" src="Cookies/evo4.png"></div>
+                <div class="evos" data-id="5"><img data-id="5" src="Cookies/evo5.png"></div>
+                <div class="evos" data-id="6"><img data-id="6" src="Cookies/evo6.png"></div>
+                <div class="evos" data-id="7"><img data-id="7" src="Cookies/evo7.png"></div>
 
             </div>
         </div>
@@ -35,21 +37,21 @@
 
     <img id="hintergrund" src="Cookies/holzplatte.png">
 
+        <div id="gesamt-cookies-anzeige" style="position: absolute; top: 10px; left: 10px; font-size: 20px; font-weight: bold;">
+            GesamtPizzen: <span id="gesamt-cookies">0</span>
+        </div>
 
-    <div id="gesamt-cookies-anzeige" style="position: absolute; top: 10px; left: 10px; font-size: 20px; font-weight: bold;">
-        GesamtPizzen: <span id="gesamt-cookies">0</span>
-    </div>
+    <div id="cookieundgeld">
 
-    <div id="sekadd">Pizzen pro s: <span id="eingabe"></span></div>
-        
+        <div class="geld-block">
+            <img height="50px" width="50px" src="Cookies/1_30_0026__01_03.png">
+            
+            <span id="geld">0</span>
+        </div>
+        <div id="sekadd">Pizzen pro s: <span id="eingabe"></span></div>
         <img id="pizza-bild" src="Cookies/pizzabild-ai.png">
 
-    <div class="geld-block">
-        <img height="40px" width="40px" src="Cookies/1_30_0026__01_03.png">
-
-        <span id="geld">0</span>
     </div>
-    
 </div>
 
 
