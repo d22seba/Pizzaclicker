@@ -6,6 +6,8 @@ let pizza_meiste = 0;
 let autoclick = 8000;
 
 let plusprosek = []; 
+let intervalle = {};
+
 
 let gesperrt;
 
@@ -93,8 +95,13 @@ function Kommastelle(zahl) {
     if (typeof zahl !== 'number') return zahl;
 
     if (zahl >= 1000 && zahl < 1000000) {
-        return  zahl.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); 
-    } else {
+        return  zahl.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) +"K"; 
+    } 
+    else if(zahl >= 1000000){
+        zahl = zahl / 1000000;
+        return zahl.toFixed(3) + "M";
+    }
+    else {
         return  zahl.toFixed(0);
     }
 }
@@ -153,8 +160,10 @@ let upgradeBilder = [
 ]
 
 let evosarray = [
-    {name: "Starker Click", beschreibung: "keine ahnung noch", funktion: () =>{cookieAdd *= 1.20}},
-    {name: "Schneller Clicker", beschreibung: "keine ahnung noch", funktion: () =>{autoclick /= 2}},
+    {name: "Starker Click", beschreibung: "keine ahnung noch", preis: 1000, funktion: () =>{cookieAdd *= 1.20; intervalrest(0)}},
+    {name: "Schneller Clicker", beschreibung: "keine ahnung noch", preis: 1000, funktion: () =>{autoclick /= 2; intervalrest(0)}},
+    {name: "Der Löffel", beschreibung: "keine ahnung noch", preis: 1000, funktion: () =>{ gustavoAdd * 2; intervalrest(1)}},
+    {name: "Chefhut", beschreibung: "keine ahnung noch", preis: 1000, funktion: () =>{ gustavoAdd * 2; intervalrest(1)}},
 
 ]
 
@@ -165,7 +174,16 @@ function intervalrest(id){
         intervalle[id] = []; 
     }
 
-    if(upgrades[id].anzahl > 0){}
+    if(upgrades[id].anzahl > 0){
+
+        for(let i = 0; i < upgrades[id].anzahl; i++){
+            
+        let interval = setInterval(funktion, interval);
+        intervalle[id].push(interval);
+
+        }
+
+    }
 }
 
 
@@ -478,31 +496,37 @@ img.addEventListener("mousemove", function (event) {
 });
 });
 
+//Das kaufsystem der evos
 document.querySelectorAll(".evos").forEach(evoslot  =>{
     
     evoslot.addEventListener("mousedown", function(event){
         let item = event.target;
-        let num = item.dataset.id
         item.style.filter = "brightness(0.5)"
     })
-
-    evoslot.addEventListener("mouseup", function(event){
+    
+    evoslot.addEventListener("click", function(event){
+        
         let item = event.target;
         let num = item.dataset.id
 
-        evosarray[num].funktion();
-        playBuySound();
-        item.parentNode.remove();
+        if(evosarray[num].preis <= pizzaGesamt){
+
+            pizzaGesamt -= evosarray[num].preis;
+            document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
+            playBuySound();
+            item.parentNode.remove();
+            evosarray[num].funktion();
+
+        }
+
+
     })      
-    evoslot.addEventListener("mouseover", function(event){
-        let item = event.target;
-    })
 });
 
 // Der Click auf die Pizza
 cookie_bild.addEventListener("click", function() {
-    pizzenoverall = pizzenoverall + cookieAdd;
-    pizzaGesamt = pizzaGesamt + cookieAdd;
+    pizzenoverall += cookieAdd;
+    pizzaGesamt += cookieAdd;
     document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
     document.getElementById("gesamt-cookies").innerHTML = Kommastelle(pizzenoverall);
     maxgeld();
@@ -576,7 +600,7 @@ function shake(upgrade) {
 function sekundenrechner(){
 
     //autoclicker
-    plusprosek[0] = (cookieAdd / 8); 
+    plusprosek[0] = (cookieAdd / (autoclick / 1000)); 
     //gustavo
     plusprosek[1] = gustavoAdd; 
     //ofen
@@ -602,10 +626,8 @@ function sekundenrechner(){
 }
 
 
-//Die Kauffunktionen
-let intervalle = {};
 
-function kaufinterval(id, funktion, interval) {
+function kaufinterval(id, funktion, intervalzeit) {
 
     if (pizzaGesamt >= upgrades[id].preis) {
         pizzaGesamt -= upgrades[id].preis;
@@ -616,7 +638,7 @@ function kaufinterval(id, funktion, interval) {
             intervalle[id] = [];
         }
 
-        let interval = setInterval(funktion, interval);
+        let interval = setInterval(funktion, intervalzeit);
         intervalle[id].push(interval);
 
         document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
@@ -632,7 +654,7 @@ function kaufup(id, funktion){
 
     if(pizzaGesamt >= upgrades[id].preis)
         {
-        pizzaGesamt = pizzaGesamt - upgrades[id].preis;
+        pizzaGesamt -= upgrades[id].preis;
         upgrades[id].preis = Math.round(upgrades[id].preis * 1.45);
         upgrades[id].anzahl++;
         document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
@@ -650,9 +672,9 @@ function kaufup(id, funktion){
 
 function intervalupgrade(id, anzahl){
     
-    pizzenoverall = pizzenoverall + anzahl;
-    pizzaGesamt = pizzaGesamt + anzahl;
-    plusupgesamt[id] = plusupgesamt[id] + anzahl;
+    pizzenoverall += anzahl;
+    pizzaGesamt += anzahl;
+    plusupgesamt[id] += anzahl;
 
     document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
     document.getElementById("gesamt-cookies").innerHTML = Kommastelle(pizzenoverall);

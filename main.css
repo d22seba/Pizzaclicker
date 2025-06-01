@@ -44,11 +44,12 @@ body{
     width: 200px;
     padding: 10px;
     display: flex;
-    flex-direction: row;
+    justify-items: center;
 
 }
 
 .geld-block>span{
+
     margin-left: 8px;
 }
 
