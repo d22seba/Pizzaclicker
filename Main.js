@@ -25,6 +25,8 @@ function saveGame() {
         pizza_meiste: pizza_meiste,
         gesperrt: gesperrt,
         cookieAdd: cookieAdd,
+        plusupgesamt: plusupgesamt,
+
         innerHTML: {
             geld: document.getElementById("geld").innerHTML,
             pizzenoverall: document.getElementById("gesamt-cookies").innerHTML,
@@ -49,6 +51,7 @@ function loadGame() {
         pizza_meiste = gameState.pizza_meiste;
         gesperrt = gameState.gesperrt;
         cookieAdd = gameState.cookieAdd;
+        plusupgesamt = gameState.plusupgesamt;
 
 
         // Wiederherstellen der innerHTML-Inhalte
@@ -59,6 +62,29 @@ function loadGame() {
             document.getElementById("up" + x + "-name").innerHTML = gameState.innerHTML.upgradeNames[x];
             document.getElementById("up" + x + "-preis").innerHTML = gameState.innerHTML.upgradePreise[x];
         });
+
+
+    }
+}
+
+function starteAlleIntervalle() {
+    for (let i = 0; i < upgrades.length; i++) {
+        const upgrade = upgrades[i];
+        if(i == 0){       
+            
+            setInterval(() => {
+
+                intervalupgrade(i, upgrade.anzahl * cookieAdd);
+            }, 8000);}
+
+        else if(plusprosek[i] > 0 && upgrade.anzahl > 0) {
+
+
+            setInterval(() => {
+
+                intervalupgrade(i, upgrade.anzahl * plusprosek[i]);
+            }, 1000);
+        }
     }
 }
 
@@ -67,7 +93,7 @@ function Kommastelle(zahl) {
     if (typeof zahl !== 'number') return zahl;
 
     if (zahl >= 1000 && zahl < 1000000) {
-        return  zahl.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 1 }); 
+        return  zahl.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); 
     } else {
         return  zahl.toFixed(0);
     }
@@ -76,8 +102,10 @@ function Kommastelle(zahl) {
 
 // Führt farbe aus wenn die Seite geladen wird
 document.addEventListener("DOMContentLoaded", function() {
-    //loadGame(); 
+    loadGame(); 
     farbe(); 
+    starteAlleIntervalle();
+
     if(upgrades[3].anzahl > 0){  
     evolutionunlock();
     }
@@ -125,7 +153,7 @@ let upgradeBilder = [
 ]
 
 let evosarray = [
-    {name: "Starker Click", beschreibung: "keine ahnung noch", bild: "Cookies/evos0.png"},
+    {name: "Starker Click", beschreibung: "keine ahnung noch",},
     {name: "Schneller Clicker", beschreibung: "keine ahnung noch", preis: 500000},
     {name: "Starker Click", beschreibung: "keine ahnung noch"},
 ]
@@ -159,6 +187,39 @@ function farbe() {
                 document.getElementById(upgrades[i + 2].id).classList.remove("versteckt");
             }
         }
+    }
+
+    for (let i = 4; i < upgrades.length; i++){
+
+        let a = 4;
+        let b = 5;
+
+        if (upgrades[i] == 1 && !document.querySelector(".evos")){
+            
+
+            let evobereich = document.getElementById("evobuy");
+
+            let evo = document.createElement("div");
+            let evobild = document.createElement("img");
+            evobild2.dataset.id = a;
+            evobild.src = "Cookies/evo"+a+".png";
+            evo.className = "evos";
+            evobereich.appendChild(evo);
+            evo.appendChild(evobild);
+
+
+            let evo2 = document.createElement("div");
+            evobild2.dataset.id = b;
+            let evobild2 = document.createElement("img");
+            evobild2.src = "Cookies/evo"+b+".png";
+            evo2.className = "evos";
+            evobereich.appendChild(evo2);
+            evo2.appendChild(evobild2);
+
+        }
+
+        a = a + 2;
+        b = b + 2;
     }
 
 
@@ -290,17 +351,17 @@ function evolutionunlock(){
 
 
 
+//Die Info-Box einblendung
+let intervallive;
+document.querySelectorAll(".upgrade-img, .uupgrade-img").forEach(img => {
 
-
-document.addEventListener("mouseover", function (event){
+    img.addEventListener("mouseover", function(event) {
 
     let num = event.target.dataset.num;
     let item = event.target;
     let itemname = document.getElementById("up" + num + "-name").textContent;
-    
-    
 
-     if(num && !item.classList.contains("versteckt") && !document.querySelector(".infos")){
+     if(num && !document.querySelector(".infos")){
 
 
         // Die Elemente der Info-BoxBox
@@ -318,6 +379,8 @@ document.addEventListener("mouseover", function (event){
         info.className = "infos";
         const posY = event.clientY;
         info.style.top = `${posY - 50}px`;
+        info.style.right = `${120}px`;
+
         img.src = upgradeBilder[num];
         img.className = "infosbild";
         
@@ -366,7 +429,7 @@ document.addEventListener("mouseover", function (event){
             statsolo.innerHTML = "Erhöht den Wert der Pizza um " + "<span style='font-weight: bold;'>"+upgrades[num].plus+"</span>";
         }
         else{
-            info.innerHTML = "???";
+            info.textContent = "???";
         }
         if (upgrades[num].anzahl == 0) {
 
@@ -374,23 +437,10 @@ document.addEventListener("mouseover", function (event){
 
         }
     }
-        
-        num = event.target.dataset.id;
-
-        let evobereich = document.getElementById("evobuy");
-
-        let evo = document.createElement("div");
-        let evobild = document.createElement("img");
-        evo.className = "evos"
-
-        evobereich.appendChild(evo);
-        evo.appendChild(evobild);
-
-        if(num && )
 
 });
 
-document.addEventListener("mousemove", function (event) {
+img.addEventListener("mousemove", function (event) {
     //Es wird geguckt ob die Info-Box existiert weil man sonst immer wieder neue erschaffen würde
     let info = document.querySelector(".infos");
   if (info) {
@@ -401,17 +451,30 @@ document.addEventListener("mousemove", function (event) {
   }
 });
     //Entfernt die Info-Box wenn man nicht mehr rüber hovert
-    document.addEventListener("mouseout", function (event) {
+    img.addEventListener("mouseout", function () {
 
-    clearInterval(intervallive);
+        console.log("geklappt")
 
-    let infoDiv = document.querySelector(".infos");
+    if(intervallive) clearInterval(intervallive);
+
+     let infoDiv = document.querySelector(".infos");
+
 
     if (infoDiv) {
-      infoDiv.remove();
+        infoDiv.remove();
     }
 
 });
+});
+
+document.querySelectorAll(".evos").forEach(evoslot =>{
+
+    evoslot.addEventListener("mouseover", function(event){
+        let item = event.target;
+    })
+});
+
+
 
 // Der Click auf die Pizza
 cookie_bild.addEventListener("click", function() {

@@ -67,3 +67,6 @@ gesagt upgrades für die upgrades. Dazu noch hab ich neue Upgrades eingefügt un
 17. Tag (30.03)
 Ich habe weiter meine "super Upgrades" gemacht die ich evolutions nenne. Ich habe ein paar Bilder gepixelt und die ganze font gemacht ein bild was ausgefahren wird beim rüber hovern auf dem dann die evolutions sind falls man bei upgrade 4 angelangt ist.
 Jetzt sitze ich daran wie ich das mit den evolutions einblenden machen werde sodass neue kommen wenn man neue upgrades kauft.
+
+18. Tag (1.06)
+Ich hab die speicher Funktion ein bisschen verbessert und hab mit den evolutions weiter gemacht ich hab 8 bilder gepixelt und ein bisschen mit dem infohover angefangen.
