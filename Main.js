@@ -3,12 +3,10 @@ let pizzenoverall = 0;
 let cookieAdd = 1;
 let cookie_bild = document.getElementById("pizza-bild");
 let pizza_meiste = 0;
+let autoclick = 8000;
 
 let plusprosek = []; 
 
-let autoclickergesamt;
-let gustavogesamt;
-let ofengesamt;
 let gesperrt;
 
 let gustavoAdd = 6;
@@ -26,6 +24,7 @@ function saveGame() {
         gesperrt: gesperrt,
         cookieAdd: cookieAdd,
         plusupgesamt: plusupgesamt,
+        autoclick: autoclick,
 
         innerHTML: {
             geld: document.getElementById("geld").innerHTML,
@@ -52,6 +51,7 @@ function loadGame() {
         gesperrt = gameState.gesperrt;
         cookieAdd = gameState.cookieAdd;
         plusupgesamt = gameState.plusupgesamt;
+        autoclick = gameState.autoclick;
 
 
         // Wiederherstellen der innerHTML-Inhalte
@@ -75,7 +75,7 @@ function starteAlleIntervalle() {
             setInterval(() => {
 
                 intervalupgrade(i, upgrade.anzahl * cookieAdd);
-            }, 8000);}
+            }, autoclick);}
 
         else if(plusprosek[i] > 0 && upgrade.anzahl > 0) {
 
@@ -102,7 +102,7 @@ function Kommastelle(zahl) {
 
 // Führt farbe aus wenn die Seite geladen wird
 document.addEventListener("DOMContentLoaded", function() {
-    loadGame(); 
+    //loadGame(); 
     farbe(); 
     starteAlleIntervalle();
 
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //Preise und Anzahl der Upgrades
 let upgrades = [
-    {id: "up0", name: "Autoclicker", preis: 10, anzahl: 0},
+    {id: "up0", name: "Autoclicker", preis: 10, anzahl: 0,},
     {id: "up1", name: "Gustavo", preis: 120, anzahl: 0},
     {id: "up2", name: "TomatenSauce", preis: 1500, anzahl: 0, plus: 100},
     {id: "up3", name: "Ofen", preis: 3200, anzahl: 0},
@@ -153,10 +153,21 @@ let upgradeBilder = [
 ]
 
 let evosarray = [
-    {name: "Starker Click", beschreibung: "keine ahnung noch",},
-    {name: "Schneller Clicker", beschreibung: "keine ahnung noch", preis: 500000},
-    {name: "Starker Click", beschreibung: "keine ahnung noch"},
+    {name: "Starker Click", beschreibung: "keine ahnung noch", funktion: () =>{cookieAdd *= 1.20}},
+    {name: "Schneller Clicker", beschreibung: "keine ahnung noch", funktion: () =>{autoclick /= 2}},
+
 ]
+
+function intervalrest(id){
+
+    if (intervalle[id]) {
+        intervalle[id].forEach(intervalID => clearInterval(intervalID));
+        intervalle[id] = []; 
+    }
+
+    if(upgrades[id].anzahl > 0){}
+}
+
 
 function maxgeld() {
     if (pizzaGesamt > pizza_meiste) 
@@ -467,14 +478,26 @@ img.addEventListener("mousemove", function (event) {
 });
 });
 
-document.querySelectorAll(".evos").forEach(evoslot =>{
+document.querySelectorAll(".evos").forEach(evoslot  =>{
+    
+    evoslot.addEventListener("mousedown", function(event){
+        let item = event.target;
+        let num = item.dataset.id
+        item.style.filter = "brightness(0.5)"
+    })
 
+    evoslot.addEventListener("mouseup", function(event){
+        let item = event.target;
+        let num = item.dataset.id
+
+        evosarray[num].funktion();
+        playBuySound();
+        item.parentNode.remove();
+    })      
     evoslot.addEventListener("mouseover", function(event){
         let item = event.target;
     })
 });
-
-
 
 // Der Click auf die Pizza
 cookie_bild.addEventListener("click", function() {
@@ -580,26 +603,29 @@ function sekundenrechner(){
 
 
 //Die Kauffunktionen
+let intervalle = {};
+
 function kaufinterval(id, funktion, interval) {
-    
-    if(pizzaGesamt >= upgrades[id].preis)
-        {
-        pizzaGesamt = pizzaGesamt - upgrades[id].preis;
+
+    if (pizzaGesamt >= upgrades[id].preis) {
+        pizzaGesamt -= upgrades[id].preis;
         upgrades[id].preis = Math.round(upgrades[id].preis * 1.30);
         upgrades[id].anzahl++;
 
-        setInterval(funktion, interval);
-        
+        if (!intervalle[id]) {
+            intervalle[id] = [];
+        }
+
+        let interval = setInterval(funktion, interval);
+        intervalle[id].push(interval);
+
         document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
-        document.getElementById("up"+id+"-preis").innerHTML = Kommastelle(upgrades[id].preis);
+        document.getElementById("up" + id + "-preis").innerHTML = Kommastelle(upgrades[id].preis);
         farbe();
         playBuySound();
-        }
-    else
-        {
-            shake("shake" + id);
-        }
-    
+    } else {
+        shake("shake" + id);
+    }
 }
 
 function kaufup(id, funktion){

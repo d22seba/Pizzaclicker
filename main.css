@@ -201,6 +201,7 @@ body{
     background-color: rgb(104, 104, 104);
     border: 8px solid burlywood;
     border-style:ridge;
+    cursor: pointer;
 }
 .evos img{
     display: flex;
