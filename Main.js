@@ -1,4 +1,4 @@
-let pizzaGesamt = 1000000;
+let pizzaGesamt = 10000000;
 let pizzenoverall = 0;
 let cookieAdd = 1;
 let cookie_bild = document.getElementById("pizza-bild");
@@ -501,7 +501,10 @@ document.querySelectorAll(".evos").forEach(evoslot  =>{
     evoslot.addEventListener("mouseover", function(event){
         let item = event.target;
         let num = item.dataset.id
+        let infoDiv = document.querySelector(".infos");
 
+
+if(!infoDiv){
         let info = document.createElement("div")
         let boxoben = document.createElement("div")
         let img = document.createElement("img")
@@ -512,7 +515,7 @@ document.querySelectorAll(".evos").forEach(evoslot  =>{
 
         info.className = "infos";
         let posX = event.clientX;
-        info.style.left = `${50}px`;
+        info.style.left = `${posX - 50}px`;
         info.style.bottom = `${180}px`;
         
         img.src = "Cookies/evo" + num + ".png";
@@ -525,6 +528,7 @@ document.querySelectorAll(".evos").forEach(evoslot  =>{
         boxoben.appendChild(beschreibungbox)
         info.appendChild(statsliste);
         statsliste.appendChild(statsolo)
+}
 
 
     })
@@ -563,6 +567,7 @@ document.querySelectorAll(".evos").forEach(evoslot  =>{
         
         let item = event.target;
         let num = item.dataset.id
+        let infoDiv = document.querySelector(".infos");
 
         if(evosarray[num].preis <= pizzaGesamt){
 
@@ -571,6 +576,7 @@ document.querySelectorAll(".evos").forEach(evoslot  =>{
             playBuySound();
             item.parentNode.remove();
             evosarray[num].funktion();
+            infoDiv.remove();
 
         }
 
