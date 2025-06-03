@@ -1,4 +1,4 @@
-let pizzaGesamt = 10000000;
+let pizzaGesamt = 100;
 let pizzenoverall = 0;
 let cookieAdd = 1;
 let cookie_bild = document.getElementById("pizza-bild");
@@ -283,6 +283,20 @@ function farbe() {
             document.getElementById("up" + x + "-preis").classList.remove("zuwenig");
         }
 
+        let preisinfo = document.querySelector(".preisinfo")
+
+        if(preisinfo){
+
+            if (upgrades[num].preis > pizzaGesamt){
+                preisinfo.style.color = "red";
+                
+            }else{
+                preisinfo.style.color = "rgb(27, 197, 27)";
+
+            }
+
+        }
+
         // Namen einblenden
         if (upgrades[x].preis <= pizza_meiste || upgrades[x].anzahl > 0) {
             document.getElementById("up" + x + "-name").innerHTML = upgrades[x].name;
@@ -382,11 +396,12 @@ function evolutionunlock(){
 
 //Die Info-Box einblendung
 let intervallive;
+let num;
 document.querySelectorAll(".upgrade-img, .uupgrade-img").forEach(img => {
 
     img.addEventListener("mouseover", function(event) {
 
-    let num = event.target.dataset.num;
+    num = event.target.dataset.num;
     let item = event.target;
     let itemname = document.getElementById("up" + num + "-name").textContent;
 
@@ -396,6 +411,7 @@ document.querySelectorAll(".upgrade-img, .uupgrade-img").forEach(img => {
         // Die Elemente der Info-BoxBox
         let info = document.createElement("div")
         let boxoben = document.createElement("div")
+        let boxunten = document.createElement("div");
         let img = document.createElement("img")
         let name = document.createElement("h3")
         let beschreibungbox = document.createElement("p")
@@ -403,6 +419,8 @@ document.querySelectorAll(".upgrade-img, .uupgrade-img").forEach(img => {
         let statsolo = document.createElement("li");
         let statall = document.createElement("li");
         let statgesamt  = document.createElement("li");
+        let preis = document.createElement("b");
+        let pizza = document.createElement("img")
 
         // Element Klasse, Position und Styles geben
         info.className = "infos";
@@ -410,32 +428,40 @@ document.querySelectorAll(".upgrade-img, .uupgrade-img").forEach(img => {
         info.style.top = `${posY - 50}px`;
         info.style.right = `${120}px`;
 
+        preis.classList = "preisinfo"
+        
+        pizza.src = "Cookies/1_30_0026__01_03.png"
+        pizza.id = "pizzabildinfo"
         img.src = upgradeBilder[num];
         img.className = "infosbild";
         
         //Die Info-Box wird erstellen
         document.body.appendChild(info)
         info.appendChild(boxoben);
+        info.appendChild(boxunten);
         boxoben.appendChild(img);
         boxoben.appendChild(name);
         boxoben.appendChild(beschreibungbox)
-        info.appendChild(statsliste);
+        boxunten.appendChild(statsliste);
         statsliste.appendChild(statsolo);
         statsliste.appendChild(statall);
         statsliste.appendChild(statgesamt);
+        boxunten.appendChild(pizza)
+        boxunten.appendChild(preis);
+
         
         
         
         //Fügt der Info-Box die Informationen hinzu
         if(itemname !== "???" && plusprosek[num] !== undefined) {
             
-            let upname = upgrades[num].name;
             
             name.innerHTML = upgrades[num].name
             beschreibungbox.innerHTML = upgradeBeschreibung[num];
             statsolo.innerHTML = "Jeder " + upgrades[num].name + " generiert: " + "<span style='font-weight: bold;'>"+plusprosek[num].toFixed(2)+"</span>" + " Pizzen pro Sekunde";
             statall.innerHTML = upgrades[num].anzahl + " " + upgrades[num].name + " generieren: " + "<span style='font-weight: bold;'>"+ (plusprosek[num] * upgrades[num].anzahl).toFixed(1) +"</span>" + " Pizzen pro Sekunde";
             statgesamt.innerHTML = "Bisher hat " + upgrades[num].name + " " + "<span id='plusupgesamtlive' style='font-weight: bold;'>"+ Kommastelle(plusupgesamt[num]) +"</span>" + " Pizzen generiert";
+            preis.innerHTML = Kommastelle(upgrades[num].preis);
             
             function aktualisieren(){
 
@@ -449,13 +475,12 @@ document.querySelectorAll(".upgrade-img, .uupgrade-img").forEach(img => {
 
         }
         else if(itemname !== "???" && plusprosek[num] == undefined) {
-                     
-
-            let upname = upgrades[num].name;
 
             name.innerHTML = upgrades[num].name
             beschreibungbox.innerHTML = upgradeBeschreibung[num];
             statsolo.innerHTML = "Erhöht den Wert der Pizza um " + "<span style='font-weight: bold;'>"+upgrades[num].plus+"</span>";
+            preis.innerHTML = Kommastelle(upgrades[num].preis);
+
         }
         else{
             info.textContent = "???";
@@ -466,7 +491,7 @@ document.querySelectorAll(".upgrade-img, .uupgrade-img").forEach(img => {
 
         }
     }
-
+    farbe();
 });
 
 img.addEventListener("mousemove", function (event) {
@@ -477,6 +502,12 @@ img.addEventListener("mousemove", function (event) {
         //Ändert die position der Info-Box abghängig von der Mausposition
         const posY = event.clientY;
         info.style.top = `${posY - 50}px`;
+
+        if (upgrades[num].preis > pizzaGesamt) {
+            document.querySelector(".preisinfo").classList.add("zuwenig");
+        } else {
+            document.querySelector(".preisinfo").classList.remove("zuwenig");
+        }
   }
 });
     //Entfernt die Info-Box wenn man nicht mehr rüber hovert
@@ -500,7 +531,7 @@ document.querySelectorAll(".evos").forEach(evoslot  =>{
     
     evoslot.addEventListener("mouseover", function(event){
         let item = event.target;
-        let num = item.dataset.id
+        num = item.dataset.id
         let infoDiv = document.querySelector(".infos");
 
 
@@ -566,7 +597,7 @@ if(!infoDiv){
     evoslot.addEventListener("click", function(event){
         
         let item = event.target;
-        let num = item.dataset.id
+        num = item.dataset.id
         let infoDiv = document.querySelector(".infos");
 
         if(evosarray[num].preis <= pizzaGesamt){

@@ -73,3 +73,6 @@ Ich hab die speicher Funktion ein bisschen verbessert und hab mit den evolutions
 
 19. Tag (01.06)
 Ich hab das Kaufsystem und funktionen der Evos gemacht, dazu noch mach ich jetzt die infobox für die Evos.
+
+20. Tag (02.06)
+Ich hab weiter die infoBox für die evolutions gemacht und den infoboxen die jeweiligen Preise eingefügt.
