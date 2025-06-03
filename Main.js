@@ -1,4 +1,4 @@
-let pizzaGesamt = 100;
+let pizzaGesamt = 100000;
 let pizzenoverall = 0;
 let cookieAdd = 1;
 let cookie_bild = document.getElementById("pizza-bild");
@@ -536,31 +536,48 @@ document.querySelectorAll(".evos").forEach(evoslot  =>{
 
 
 if(!infoDiv){
+
         let info = document.createElement("div")
         let boxoben = document.createElement("div")
+        let boxunten = document.createElement("div");
         let img = document.createElement("img")
         let name = document.createElement("h3")
         let beschreibungbox = document.createElement("p")
-        let statsliste = document.createElement("ul");
-        let statsolo = document.createElement("li");
+        let preis = document.createElement("b");
+        let pizza = document.createElement("img");
 
         info.className = "infos";
         let posX = event.clientX;
         info.style.left = `${posX - 50}px`;
         info.style.bottom = `${180}px`;
+
+        preis.classList = "preisinfo"
+
+
+        pizza.src = "Cookies/1_30_0026__01_03.png"
+        pizza.id = "pizzabildinfo"
         
         img.src = "Cookies/evo" + num + ".png";
         img.className = "infosbild";
 
         document.body.appendChild(info)
         info.appendChild(boxoben);
+        info.appendChild(boxunten)
         boxoben.appendChild(img);
         boxoben.appendChild(name);
-        boxoben.appendChild(beschreibungbox)
-        info.appendChild(statsliste);
-        statsliste.appendChild(statsolo)
-}
+        boxunten.appendChild(beschreibungbox)
+        boxunten.appendChild(pizza)
+        boxunten.appendChild(preis)
 
+            
+            name.innerHTML = evosarray[num].name
+            beschreibungbox.innerHTML = evosarray[num].beschreibung;
+            preis.innerHTML = Kommastelle(evosarray[num].preis);
+
+            intervallive = setInterval(aktualisieren, 100);
+
+}
+farbe();
 
     })
 
