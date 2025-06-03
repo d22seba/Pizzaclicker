@@ -400,6 +400,13 @@ body{
     margin-left: 10px;
     margin-right: 10px;
 }
+
+.infosevoname{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .infos  h3{
     text-decoration: underline;
     font-family: times;

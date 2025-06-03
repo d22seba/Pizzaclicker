@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
     farbe(); 
     starteAlleIntervalle();
 
-    if(upgrades[3].anzahl > 0){  
+    if(upgrades[2].anzahl > 0){  
     evolutionunlock();
     }
     else{
@@ -122,16 +122,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
+
+
 //Preise und Anzahl der Upgrades
 let upgrades = [
-    {id: "up0", name: "Autoclicker", preis: 10, anzahl: 0,},
-    {id: "up1", name: "Gustavo", preis: 120, anzahl: 0},
-    {id: "up2", name: "TomatenSauce", preis: 1500, anzahl: 0, plus: 100},
-    {id: "up3", name: "Ofen", preis: 3200, anzahl: 0},
-    {id: "up4", name: "Käse", preis: 12600, anzahl: 0, plus: 300},
-    {id: "up5", name: "Pizzabot", preis: 18200, anzahl: 0},
-    {id: "up6", name: "Paprika", preis: 3500, anzahl: 0},
-    {id: "up7", name: "Paprika", preis: 3500, anzahl: 0},
+    {id: "up0", name: "Autoclicker", preis: 10, anzahl: 0, evo: false},
+    {id: "up1", name: "Gustavo", preis: 120, anzahl: 0, evo: false},
+    {id: "up2", name: "TomatenSauce", preis: 1500, anzahl: 0, plus: 100, evo: false},
+    {id: "up3", name: "Ofen", preis: 3200, anzahl: 0, evo: false},
+    {id: "up4", name: "Käse", preis: 12600, anzahl: 0, plus: 300, evo: false},
+    {id: "up5", name: "Pizzabot", preis: 18200, anzahl: 0, evo: false},
+    {id: "up6", name: "Paprika", preis: 3500, anzahl: 0, evo: false},
+    {id: "up7", name: "Paprika", preis: 3500, anzahl: 0, evo: false},
 ];
 
 let plusupgesamt = new Array(upgrades.length).fill(0);
@@ -218,30 +220,36 @@ function farbe() {
         }
     }
 
-    for (let i = 4; i < upgrades.length; i++){
+    //Zeigt die evos an
+    for (let i = 3; i < upgrades.length; i++){
 
-        let a = 4;
-        let b = 5;
+        let a = 6;
+        let b = 7;
 
-        if (upgrades[i] == 1 && !document.querySelector(".evos")){
-            
+        if (upgrades[i].anzahl == 1 && upgrades[i].evo == false){
+            upgrades[i].evo = true;
 
             let evobereich = document.getElementById("evobuy");
 
             let evo = document.createElement("div");
             let evobild = document.createElement("img");
-            evobild2.dataset.id = a;
-            evobild.src = "Cookies/evo"+a+".png";
             evo.className = "evos";
+            evo.dataset.id = a;
+            evobild.dataset.id = a;
+            evobild.src = "Cookies/evo"+a+".png";
+
+
+            
+            
+            let evo2 = document.createElement("div");
+            let evobild2 = document.createElement("img");
+            evo2.className = "evos";
+            evo2.dataset.id = b;
+            evobild2.dataset.id = b;
+            evobild2.src = "Cookies/evo"+b+".png";
+
             evobereich.appendChild(evo);
             evo.appendChild(evobild);
-
-
-            let evo2 = document.createElement("div");
-            evobild2.dataset.id = b;
-            let evobild2 = document.createElement("img");
-            evobild2.src = "Cookies/evo"+b+".png";
-            evo2.className = "evos";
             evobereich.appendChild(evo2);
             evo2.appendChild(evobild2);
 
@@ -374,7 +382,7 @@ function evolutionlock(){
     
     
     locked.innerHTML = "🔒 GESPERRT"
-    text.innerHTML = "Erst ab Upgrade 4 verfügbar!!!"
+    text.innerHTML = "Erst ab Upgrade 3 verfügbar!!!"
     gesperrt = true;
     
 }
@@ -551,8 +559,11 @@ if(!infoDiv){
         info.style.left = `${posX - 50}px`;
         info.style.bottom = `${180}px`;
 
-        preis.classList = "preisinfo"
+        preis.classList = "preisinfo";
 
+        boxoben.style.display = "flex";
+
+        name.classList.add("infosevoname");
 
         pizza.src = "Cookies/1_30_0026__01_03.png"
         pizza.id = "pizzabildinfo"
@@ -573,8 +584,6 @@ if(!infoDiv){
             name.innerHTML = evosarray[num].name
             beschreibungbox.innerHTML = evosarray[num].beschreibung;
             preis.innerHTML = Kommastelle(evosarray[num].preis);
-
-            intervallive = setInterval(aktualisieren, 100);
 
 }
 farbe();
