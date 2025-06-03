@@ -76,3 +76,6 @@ Ich hab das Kaufsystem und funktionen der Evos gemacht, dazu noch mach ich jetzt
 
 20. Tag (02.06)
 Ich hab weiter die infoBox für die evolutions gemacht und den infoboxen die jeweiligen Preise eingefügt.
+
+21. Tag (03.03)
+Ich hab die infobox für die evos immernoch gemacht dort hab ich den namen bisschen verschoben und ich versuche dass der preis rot wird wenn man nicht genug pizzen hat.

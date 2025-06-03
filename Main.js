@@ -1,6 +1,6 @@
-let pizzaGesamt = 100000;
+let pizzaGesamt = 100;
 let pizzenoverall = 0;
-let cookieAdd = 1;
+let cookieAdd = 10000;
 let cookie_bild = document.getElementById("pizza-bild");
 let pizza_meiste = 0;
 let autoclick = 8000;
@@ -126,14 +126,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //Preise und Anzahl der Upgrades
 let upgrades = [
-    {id: "up0", name: "Autoclicker", preis: 10, anzahl: 0, evo: false},
-    {id: "up1", name: "Gustavo", preis: 120, anzahl: 0, evo: false},
-    {id: "up2", name: "TomatenSauce", preis: 1500, anzahl: 0, plus: 100, evo: false},
-    {id: "up3", name: "Ofen", preis: 3200, anzahl: 0, evo: false},
-    {id: "up4", name: "Käse", preis: 12600, anzahl: 0, plus: 300, evo: false},
-    {id: "up5", name: "Pizzabot", preis: 18200, anzahl: 0, evo: false},
-    {id: "up6", name: "Paprika", preis: 3500, anzahl: 0, evo: false},
-    {id: "up7", name: "Paprika", preis: 3500, anzahl: 0, evo: false},
+    {id: "up0", name: "Autoclicker", preis: 10, anzahl: 0},
+    {id: "up1", name: "Gustavo", preis: 120, anzahl: 0},
+    {id: "up2", name: "TomatenSauce", preis: 1500, anzahl: 0, plus: 100},
+    {id: "up3", name: "Ofen", preis: 3200, anzahl: 0},
+    {id: "up4", name: "Käse", preis: 12600, anzahl: 0, plus: 300},
+    {id: "up5", name: "Pizzabot", preis: 18200, anzahl: 0},
+    {id: "up6", name: "Paprika", preis: 3500, anzahl: 0},
+    {id: "up7", name: "Paprika", preis: 3500, anzahl: 0},
 ];
 
 let plusupgesamt = new Array(upgrades.length).fill(0);
@@ -162,6 +162,10 @@ let upgradeBilder = [
 ]
 
 let evosarray = [
+    {name: "Starker Click", beschreibung: "keine ahnung noch", preis: 1000, funktion: () =>{cookieAdd *= 1.20; intervalrest(0)}},
+    {name: "Schneller Clicker", beschreibung: "keine ahnung noch", preis: 1000, funktion: () =>{autoclick /= 2; intervalrest(0)}},
+    {name: "Der Löffel", beschreibung: "keine ahnung noch", preis: 1000, funktion: () =>{ gustavoAdd * 2; intervalrest(1)}},
+    {name: "Chefhut", beschreibung: "keine ahnung noch", preis: 1000, funktion: () =>{ gustavoAdd * 2; intervalrest(1)}},
     {name: "Starker Click", beschreibung: "keine ahnung noch", preis: 1000, funktion: () =>{cookieAdd *= 1.20; intervalrest(0)}},
     {name: "Schneller Clicker", beschreibung: "keine ahnung noch", preis: 1000, funktion: () =>{autoclick /= 2; intervalrest(0)}},
     {name: "Der Löffel", beschreibung: "keine ahnung noch", preis: 1000, funktion: () =>{ gustavoAdd * 2; intervalrest(1)}},
@@ -221,42 +225,24 @@ function farbe() {
     }
 
     //Zeigt die evos an
+    let a = 6;
     for (let i = 3; i < upgrades.length; i++){
 
-        let a = 6;
-        let b = 7;
+        let item1 = document.querySelector('.evos[data-id="' + a + '"]');
+        let item2 = document.querySelector('.evos[data-id="' + (a + 1) + '"]');
 
-        if (upgrades[i].anzahl == 1 && upgrades[i].evo == false){
-            upgrades[i].evo = true;
-
-            let evobereich = document.getElementById("evobuy");
-
-            let evo = document.createElement("div");
-            let evobild = document.createElement("img");
-            evo.className = "evos";
-            evo.dataset.id = a;
-            evobild.dataset.id = a;
-            evobild.src = "Cookies/evo"+a+".png";
-
-
-            
-            
-            let evo2 = document.createElement("div");
-            let evobild2 = document.createElement("img");
-            evo2.className = "evos";
-            evo2.dataset.id = b;
-            evobild2.dataset.id = b;
-            evobild2.src = "Cookies/evo"+b+".png";
-
-            evobereich.appendChild(evo);
-            evo.appendChild(evobild);
-            evobereich.appendChild(evo2);
-            evo2.appendChild(evobild2);
-
+        if (upgrades[i].anzahl > 0 && item1 && item2){
+            item1.style.display = "block"
+            item2.style.display = "block"
+        }
+        else{
+            if(item1 && item2){
+            item1.style.display = "none"
+            item2.style.display = "none"
+            }
         }
 
-        a = a + 2;
-        b = b + 2;
+        a += 2;
     }
 
 
@@ -293,7 +279,7 @@ function farbe() {
 
         let preisinfo = document.querySelector(".preisinfo")
 
-        if(preisinfo){
+        if(preisinfo && !preisinfo.dataset.id){
 
             if (upgrades[num].preis > pizzaGesamt){
                 preisinfo.style.color = "red";
@@ -304,6 +290,8 @@ function farbe() {
             }
 
         }
+
+        
 
         // Namen einblenden
         if (upgrades[x].preis <= pizza_meiste || upgrades[x].anzahl > 0) {
@@ -326,6 +314,16 @@ function farbe() {
         }
     }
 
+        if(preisinfo && preisinfo.dataset.id){
+
+            if(evosarray[num].preis <= pizzaGesamt){
+                preisinfo.style.color = "rgb(27, 197, 27)";
+            }else{
+                preisinfo.style.color = "red";
+            }
+
+        }    
+
     // Spezielle Pizza-Bild-Änderung
     if (upgrades[2].anzahl == 1 && upgrades[4].anzahl == 0) {
         document.getElementById("pizza-bild").src = "Cookies/pizzabild-ai-tomatensauce.png";
@@ -333,6 +331,7 @@ function farbe() {
     if (upgrades[4].anzahl == 1) {
         document.getElementById("pizza-bild").src = "Cookies/pizzabild-ai-cheese.png";
     }
+
 }
 
 function clickanzahl(){
@@ -619,6 +618,13 @@ farbe();
         let item = event.target;
         item.style.filter = "brightness(0.5)"
     })
+
+    evoslot.addEventListener("mouseup", function(event){
+        let infoDiv = document.querySelector(".infos");
+        infoDiv.remove();
+
+
+    })
     
     evoslot.addEventListener("click", function(event){
         
@@ -634,6 +640,7 @@ farbe();
             item.parentNode.remove();
             evosarray[num].funktion();
             infoDiv.remove();
+            farbe();
 
         }
 
