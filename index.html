@@ -15,10 +15,22 @@
 
     <div class="zu" id="minigame">
         <button id="minigamebutton">x</button>
+        <h1 id="minigamename" class="gamenameclosed">Ofenroulette</h1>
         <div id="gamediv">
-            <div><img src="Cookies/Autoclicker.png"></div>
-            <div><img src="Cookies/Autoclicker.png"></div>
-            <div><img src="Cookies/Autoclicker.png"></div>
+            
+            <div id="slots">
+            <img id="slot1" src="Cookies/Autoclicker.png">
+            <hr>
+            <img id="slot2" src="Cookies/Autoclicker.png">
+            <hr>
+            <img id="slot3" src="Cookies/Autoclicker.png">
+            </div>
+
+            <div id="gameinputs">
+                <button onclick="gamestart()" id="spinbutton">Spin</button>
+                <input type="number" id="sloteinsatz" value="100" min="100">
+            </div>
+            
         </div>
     </div>
 
@@ -56,7 +68,7 @@
             <span id="geld">0</span>
         </div>
         <div id="sekadd">Pizzen pro s: <span id="eingabe"></span></div>
-        <img id="pizza-bild" src="Cookies/pizzabild-ai.png">
+        <img id="pizza-bild" src="Cookies/pizzabild1.png">
 
     </div>
 </div>

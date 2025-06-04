@@ -122,21 +122,69 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
+document.getElementById("sloteinsatz").max = pizzaGesamt;
 let minigame = document.getElementById("minigame");
+let minigamename = document.getElementById("gamename")
 minigame.addEventListener("click", () =>{
     minigame.style.left = "3%";
     minigame.style.height = "70%"
-    minigame.className = "open";
+    minigame.classList.remove("zu");
+    minigamename.className = "";
 })
 
 let minigamebutton = document.getElementById("minigamebutton");
 minigamebutton.addEventListener("click", () =>{
     event.stopPropagation();
-    minigame.style.left = "-36%";
+    minigame.style.left = "-39%";
     minigame.style.height = "60%"
-    minigame.className = "zu";
+    minigame.classList.add("zu");
+    minigamename.className = "gamenameclosed"
 
 })
+
+function gamestart(){
+    let spin1 = setInterval(() => spinslots(1), 60);
+    let spin2 = setInterval(() => spinslots(2), 60);
+    let spin3 = setInterval(() => spinslots(3), 60);
+
+    setTimeout(() => clearInterval(spin1), 4000);
+    setTimeout(() => clearInterval(spin2), 5000);
+    setTimeout(() => clearInterval(spin3), 6000);
+}
+
+    let pizzabild = document.getElementById("pizza-bild");
+    let slotsbilder = [
+    "Cookies/Autoclicker.png",
+    "Cookies/Autoclicker.png",
+    "Cookies/Autoclicker.png",
+    "Cookies/Autoclicker.png",
+    "Cookies/Autoclicker.png",
+    "Cookies/pizzabäcker.png",
+    "Cookies/pizzabäcker.png",
+    "Cookies/pizzabäcker.png",
+    "Cookies/pizzabäcker.png",
+    "Cookies/Tomatensauce.png",
+    "Cookies/Tomatensauce.png",
+    "Cookies/Tomatensauce.png",
+    "Cookies/pizzaofen.png",
+    "Cookies/pizzaofen.png",
+    "Cookies/pizzaofen.png",
+    "Cookies/cheese.png",
+    "Cookies/cheese.png",
+    "Cookies/cheese.png",
+    pizzabild.src,
+    pizzabild.src,
+]
+
+function spinslots(input){
+
+    let slot = document.getElementById("slot" + input);
+    let randomnum = Math.floor(Math.random() * slotsbilder.length);
+
+    slot.src = slotsbilder[randomnum];
+
+}
+
 
 //Preise und Anzahl der Upgrades
 let upgrades = [
@@ -341,10 +389,10 @@ function farbe() {
     
     // Spezielle Pizza-Bild-Änderung
     if (upgrades[2].anzahl == 1 && upgrades[4].anzahl == 0) {
-        document.getElementById("pizza-bild").src = "Cookies/pizzabild-ai-tomatensauce.png";
+        document.getElementById("pizza-bild").src = "Cookies/pizzabild2.png";
     }
     if (upgrades[4].anzahl == 1) {
-        document.getElementById("pizza-bild").src = "Cookies/pizzabild-ai-cheese.png";
+        document.getElementById("pizza-bild").src = "Cookies/pizzabild3.png";
     }
 
 }
@@ -641,8 +689,6 @@ farbe();
         let item = event.target;
 
         item.style.filter = "brightness(1)";
-        
-
 
     })
     
@@ -654,12 +700,12 @@ farbe();
 
         if(evosarray[numevo].preis <= pizzaGesamt){
 
+            infoDiv.remove();
             pizzaGesamt -= evosarray[numevo].preis;
             document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
             playBuySound();
             item.parentNode.remove();
             evosarray[numevo].funktion();
-            infoDiv.remove();
             farbe();
 
         }
