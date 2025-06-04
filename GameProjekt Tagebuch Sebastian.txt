@@ -78,4 +78,6 @@ Ich hab das Kaufsystem und funktionen der Evos gemacht, dazu noch mach ich jetzt
 Ich hab weiter die infoBox für die evolutions gemacht und den infoboxen die jeweiligen Preise eingefügt.
 
 21. Tag (03.03)
-Ich hab die infobox für die evos immernoch gemacht dort hab ich den namen bisschen verschoben und ich versuche dass der preis rot wird wenn man nicht genug pizzen hat.
+Ich hab die infobox für die evos immernoch gemacht dort hab ich den namen bisschen mittiger gemacht und dass die preise grün werden wenn man genug geld hat gefixxed.
+Dazu hab ich noch angefangen eine minigame zu programmieren eine slotmaschine, bisher hab ich das fenster dafür gemacht dass es seitlich nur ein bisschen zu sehen ist und man dann draufdrücken kann und es dann größer wird und wenn 
+es groß ist hat man einen button mit dem es wieder an die seite geht.
