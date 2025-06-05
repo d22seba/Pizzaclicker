@@ -87,4 +87,4 @@ Ich hab die slotmaschine gemacht ihr einen namen gegeben die funktion eingebaut 
 Dazu noch hab ich einen hintergrund hinzugefügt und alles ein bisschen designed. Dazu noch mach ich dass es gesperrt ist und erst ab upgrade 4 unlocked ist. 
 
 23. Tag (04.06)
-Ich hab die slotmaschine fast ganz fertig gemacht nur noch der autospin button braucht eine Funktion und anzeigen wie viel man bekommen würde bei jedem slot. Dazu hab ich noch meine speicher und laden Funktion neu gemacht und ich hab ein neues upgrade und Pizzabild gemacht.
+Ich hab die slotmaschine fast ganz fertig gemacht ich muss nur noch anzeigen wie viel man bekommen würde bei jedem item. Dazu hab ich noch meine speicher und laden Funktion neu gemacht und ich hab ein neues upgrade und Pizzabild gemacht.

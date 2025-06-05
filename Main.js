@@ -1,4 +1,4 @@
-let pizzaGesamt = 100000;
+let pizzaGesamt = 0;
 let pizzenoverall = 0;
 let cookieAdd = 1;
 let cookie_bild = document.getElementById("pizza-bild");
@@ -8,11 +8,14 @@ let autoclick = 8000;
 let pizzakonto = document.getElementById("geld");
 
 let plusprosek = []; 
+let gekaufteEvos = [];
 let intervalle = {};
 
 
 let gamegesperrt;
 let gesperrt;
+let autospinning = false;
+let spininterval = null;
 
 let gustavoAdd = 6;
 let ofenAdd = 10;
@@ -32,6 +35,7 @@ function saveGame() {
             cookieAdd,
             plusupgesamt,
             autoclick,
+            gekaufteEvos,
             innerHTML: {
                 geld: document.getElementById("geld").innerHTML,
                 pizzenoverall: document.getElementById("gesamt-cookies").innerHTML,
@@ -62,6 +66,12 @@ function loadGame() {
         cookieAdd = gameState.cookieAdd;
         plusupgesamt = gameState.plusupgesamt;
         autoclick = gameState.autoclick;
+        gekaufteEvos = gameState.gekaufteEvos || [];
+
+        gekaufteEvos.forEach(id => {
+            const evoElement = document.querySelector(`.evos[data-id="${id}"]`);
+            if (evoElement) evoElement.remove();
+        });
 
         // HTML-Inhalte aktualisieren
         document.getElementById("geld").innerHTML = gameState.innerHTML.geld;
@@ -158,11 +168,46 @@ minigamebutton.addEventListener("click", () =>{
 })
 
 maxbet.addEventListener("click", function() {
-    sloteinsatz.value = pizzaGesamt;
+    sloteinsatz.value = Kommastelle(pizzaGesamt);
     einsatz.blur();
 });
 
+autospin.addEventListener("click", function() {
 
+    if (autospinning == false && !slotbutton.disabled) {
+        autospin.classList.add("autospinon");
+        autospinning = true;
+        slotbutton.disabled = true;
+
+        if (sloteinsatz.value <= pizzaGesamt) {
+            pizzaGesamt -= sloteinsatz.value;
+            pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
+            gamestart();
+        }
+
+        spininterval = setInterval(() => {
+            if (sloteinsatz.value > pizzaGesamt) {
+                autospinning = false;
+                clearInterval(spininterval);
+                autospin.classList.remove("autospinon");
+                slotbutton.disabled = false;
+                return;
+            }
+            else{
+                pizzaGesamt -= sloteinsatz.value;
+                pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
+                gamestart();
+            }
+        }, 6000);
+    }
+    else if (autospinning == true){
+        autospin.classList.remove("autospinon");
+        autospinning = false;
+        clearInterval(spininterval);
+        slotbutton.disabled = false;
+    }
+});
+    
 
 slotbutton.addEventListener("click", function() {
 
@@ -191,7 +236,7 @@ function gamestart(){
 
 
 
-    slotbutton.disabled = true;
+    if(autospinning == false) slotbutton.disabled = true;
     display.innerHTML = "Spinning..."; 
     
     let spin1 = setInterval(() => spinslots(1), 60);
@@ -202,7 +247,7 @@ function gamestart(){
     setTimeout(() => clearInterval(spin2), 4000);
     setTimeout(() => {
         clearInterval(spin3); 
-        slotbutton.disabled = false;
+        if(autospinning == false) slotbutton.disabled = false;
         slotergebniss[0] = document.getElementById("slot1").src;
         slotergebniss[1] = document.getElementById("slot2").src;
         slotergebniss[2] = document.getElementById("slot3").src;
@@ -216,18 +261,18 @@ function gamestart(){
 function spinslots(input){
     let pizzabild = document.getElementById("pizza-bild").src;
     let slotsbilder = [
-    "Cookies/Autoclicker.png",
-    "Cookies/Autoclicker.png",
-    "Cookies/Autoclicker.png",
-    "Cookies/Autoclicker.png",
-    "Cookies/Autoclicker.png",
-    "Cookies/Pizzabäcker.png",
-    "Cookies/Pizzabäcker.png",
-    "Cookies/Pizzabäcker.png",
-    "Cookies/Pizzabäcker.png",
-    "Cookies/Cheese.png",
-    "Cookies/Cheese.png",
-    "Cookies/Cheese.png",
+    "Cookies/autoclicker.png",
+    "Cookies/autoclicker.png",
+    "Cookies/autoclicker.png",
+    "Cookies/autoclicker.png",
+    "Cookies/autoclicker.png",
+    "Cookies/pizzabäcker.png",
+    "Cookies/pizzabäcker.png",
+    "Cookies/pizzabäcker.png",
+    "Cookies/pizzabäcker.png",
+    "Cookies/cheese.png",
+    "Cookies/cheese.png",
+    "Cookies/cheese.png",
     pizzabild,
     pizzabild,
 ]
@@ -314,12 +359,12 @@ let upgradeBeschreibung = [
 ];
 
 let upgradeBilder = [
-    "Cookies/Autoclicker.png",
-    "Cookies/Pizzabäcker.png",
-    "Cookies/Tomatensauce.png",
-    "Cookies/Pizzaofen.png",
-    "Cookies/Cheese.png",
-    "Cookies/Pizzabot.png",
+    "Cookies/autoclicker.png",
+    "Cookies/pizzabäcker.png",
+    "Cookies/tomatensauce.png",
+    "Cookies/pizzaofen.png",
+    "Cookies/cheese.png",
+    "Cookies/pizzabot.png",
     "Cookies/sucuk.png",
 ]
 
@@ -834,6 +879,8 @@ farbe();
 
         if(evosarray[numevo].preis <= pizzaGesamt){
 
+            gekaufteEvos.push(Number(numevo));
+            saveGame();
             infoDiv.remove();
             pizzaGesamt -= evosarray[numevo].preis;
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
