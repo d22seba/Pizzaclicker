@@ -225,7 +225,7 @@ let upgrades = [
     {id: "up3", name: "Ofen", preis: 3200, anzahl: 0},
     {id: "up4", name: "Käse", preis: 9600, anzahl: 0, plus: 30},
     {id: "up5", name: "Pizzabot", preis: 16200, anzahl: 0},
-    {id: "up6", name: "Pizzabot", preis: "???", anzahl: 0},
+    {id: "up6", name: "???", preis: "???", anzahl: 0},
 ];
 
 let plusupgesamt = new Array(upgrades.length).fill(0);
