@@ -183,10 +183,10 @@ let slotergebniss = [null, null, null];
 function gamestart(){
 
 
-    let einsatz
+
     slotbutton.disabled = true;
     display.innerHTML = "Spinning..."; 
-
+    
     let spin1 = setInterval(() => spinslots(1), 60);
     let spin2 = setInterval(() => spinslots(2), 60);
     let spin3 = setInterval(() => spinslots(3), 60);
@@ -245,30 +245,30 @@ function slotausgabe(){
 
         if (slotergebniss[0] == win1) {
 
-            display.innerHTML = "Du hast"+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             let gewinn = einsatzslots * 100;
             pizzaGesamt += gewinn;
+            display.innerHTML = "Du hast"+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
             
         } else if (slotergebniss[0] == win2) {
 
-            display.innerHTML = "Du hast"+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             let gewinn = einsatzslots * 250;
             pizzaGesamt += gewinn;
+            display.innerHTML = "Du hast"+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
 
         } else if (slotergebniss[0] == win3) {
 
-            display.innerHTML = "Du hast"+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             let gewinn = einsatzslots * 500;
             pizzaGesamt += gewinn;
+            display.innerHTML = "Du hast"+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
 
         } else if (slotergebniss[0] == win4) {
 
-            display.innerHTML = "Du hast"+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             let gewinn = einsatzslots * 1000;
             pizzaGesamt += gewinn;
+            display.innerHTML = "Du hast"+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
         }
     }
