@@ -304,7 +304,7 @@ function farbe() {
 
     // 3. Wenn ein Upgrade gekauft wurde → zeige die nächsten zwei
     for (let i = 0; i < upgrades.length; i++) {
-        if (upgrades[i].anzahl == 1) {
+        if (upgrades[i].anzahl > 0) {
             if (i + 1 < upgrades.length) {
                 document.getElementById(upgrades[i + 1].id).classList.remove("versteckt");
             }
