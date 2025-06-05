@@ -19,36 +19,41 @@ let ofenAdd = 10;
 let pizzabotAdd = 30;
 
 
+window.addEventListener("beforeunload", saveGame);
 
 function saveGame() {
-    const gameState = {
-        pizzaGesamt: pizzaGesamt,
-        pizzenoverall: pizzenoverall,
-        upgrades: upgrades,
-        pizza_meiste: pizza_meiste,
-        gesperrt: gesperrt,
-        cookieAdd: cookieAdd,
-        plusupgesamt: plusupgesamt,
-        autoclick: autoclick,
-
-        innerHTML: {
-            geld: document.getElementById("geld").innerHTML,
-            pizzenoverall: document.getElementById("gesamt-cookies").innerHTML,
-            upgradeNames: upgrades.map((_, x) => document.getElementById("up" + x + "-name").innerHTML),
-            upgradePreise: upgrades.map((_, x) => document.getElementById("up" + x + "-preis").innerHTML),
-        },
-    };
-    document.cookie = `gameState=${encodeURIComponent(JSON.stringify(gameState))}; path=/; max-age=31536000`; // Speichert für 1 Jahr
+    try {
+        const gameState = {
+            pizzaGesamt,
+            pizzenoverall,
+            upgrades,
+            pizza_meiste,
+            gesperrt,
+            cookieAdd,
+            plusupgesamt,
+            autoclick,
+            innerHTML: {
+                geld: document.getElementById("geld").innerHTML,
+                pizzenoverall: document.getElementById("gesamt-cookies").innerHTML,
+                upgradeNames: upgrades.map((_, x) => document.getElementById("up" + x + "-name").innerHTML),
+                upgradePreise: upgrades.map((_, x) => document.getElementById("up" + x + "-preis").innerHTML),
+            }
+        };
+        localStorage.setItem("pizzaGameState", JSON.stringify(gameState));
+    } catch (e) {
+        console.error("Fehler beim Speichern:", e);
+    }
 }
 
-function loadGame() {
-    const cookies = document.cookie.split("; ");
-    const gameStateCookie = cookies.find(row => row.startsWith("gameState="));
-    if (gameStateCookie) {
-        const gameStateString = decodeURIComponent(gameStateCookie.split("=")[1]);
-        const gameState = JSON.parse(gameStateString);
 
-        // Wiederherstellen der gespeicherten Werte
+// Laden
+function loadGame() {
+    try {
+        const saved = localStorage.getItem("pizzaGameState");
+        if (!saved) return;
+
+        const gameState = JSON.parse(saved);
+
         pizzaGesamt = gameState.pizzaGesamt;
         pizzenoverall = gameState.pizzenoverall;
         upgrades = gameState.upgrades;
@@ -58,8 +63,7 @@ function loadGame() {
         plusupgesamt = gameState.plusupgesamt;
         autoclick = gameState.autoclick;
 
-
-        // Wiederherstellen der innerHTML-Inhalte
+        // HTML-Inhalte aktualisieren
         document.getElementById("geld").innerHTML = gameState.innerHTML.geld;
         document.getElementById("gesamt-cookies").innerHTML = gameState.innerHTML.pizzenoverall;
 
@@ -67,10 +71,11 @@ function loadGame() {
             document.getElementById("up" + x + "-name").innerHTML = gameState.innerHTML.upgradeNames[x];
             document.getElementById("up" + x + "-preis").innerHTML = gameState.innerHTML.upgradePreise[x];
         });
-
-
+    } catch (e) {
+        console.error("Fehler beim Laden:", e);
     }
 }
+
 
 function starteAlleIntervalle() {
     for (let i = 0; i < upgrades.length; i++) {
@@ -112,7 +117,7 @@ function Kommastelle(zahl) {
 
 // Führt farbe aus wenn die Seite geladen wird
 document.addEventListener("DOMContentLoaded", function() {
-    //loadGame(); 
+    loadGame(); 
     farbe(); 
     starteAlleIntervalle();
     
@@ -122,6 +127,8 @@ document.addEventListener("DOMContentLoaded", function() {
     else{
         evolutionlock();
     }
+
+    setInterval(saveGame, 15000);
     
 });
 
@@ -214,13 +221,13 @@ function spinslots(input){
     "Cookies/Autoclicker.png",
     "Cookies/Autoclicker.png",
     "Cookies/Autoclicker.png",
-    "Cookies/pizzabäcker.png",
-    "Cookies/pizzabäcker.png",
-    "Cookies/pizzabäcker.png",
-    "Cookies/pizzabäcker.png",
-    "Cookies/cheese.png",
-    "Cookies/cheese.png",
-    "Cookies/cheese.png",
+    "Cookies/Pizzabäcker.png",
+    "Cookies/Pizzabäcker.png",
+    "Cookies/Pizzabäcker.png",
+    "Cookies/Pizzabäcker.png",
+    "Cookies/Cheese.png",
+    "Cookies/Cheese.png",
+    "Cookies/Cheese.png",
     pizzabild,
     pizzabild,
 ]
@@ -492,7 +499,7 @@ function farbe() {
     }
 
     //verstecke das Minigame oder zeige es an
-    if (upgrades[3].anzahl == 1){
+    if (upgrades[3].anzahl > 0){
         let gamediv = document.getElementById("gamediv");
         gamediv.style.display = "block";
         let lockdiv = document.getElementById("lockdiv");
