@@ -130,6 +130,8 @@ let slotbutton = document.getElementById("spinbutton");
 let minigame = document.getElementById("minigame");
 let minigamename = document.getElementById("gamename");
 let einsatz = document.getElementById("sloteinsatz");
+let maxbet = document.getElementById("maxbet");
+let autospin = document.getElementById("autospin");
 let pressed = false;
 
 minigame.addEventListener("click", () =>{
@@ -146,6 +148,13 @@ minigamebutton.addEventListener("click", () =>{
     minigame.classList.add("zu");
 
 })
+
+maxbet.addEventListener("click", function() {
+    sloteinsatz.value = pizzaGesamt;
+    einsatz.blur();
+});
+
+
 
 slotbutton.addEventListener("click", function() {
 
@@ -221,39 +230,48 @@ function spinslots(input){
 }
 
 function slotausgabe(){
-    let einsatzslots = document.getElementById("sloteinsatz").value;
+    let einsatzslots = Number(document.getElementById("sloteinsatz").value);
 
-    let win1 = "Cookies/Autoclicker.png";
-    let win2 = "Cookies/pizzabäcker.png";
-    let win3 = "Cookies/cheese.png";
+    let win1 = document.getElementById("up0-img").src;
+    let win2 = document.getElementById("up1-img").src;
+    let win3 = document.getElementById("up4-img").src;
     let win4 = document.getElementById("pizza-bild").src;
+    let display = document.getElementById("ausgabedisplay");
+
+    display.innerHTML = ""; 
 
     if (slotergebniss[0] === slotergebniss[1] && slotergebniss[1] === slotergebniss[2]) {
-        if (slotergebniss[0] === win1) {
 
+        if (slotergebniss[0] == win1) {
+
+            display.innerHTML = "Du hast"+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             let gewinn = einsatzslots * 100;
             pizzaGesamt += gewinn;
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
             
-        } else if (slotergebniss[0] === win2) {
+        } else if (slotergebniss[0] == win2) {
 
+            display.innerHTML = "Du hast"+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             let gewinn = einsatzslots * 250;
             pizzaGesamt += gewinn;
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
 
-        } else if (slotergebniss[0] === win3) {
+        } else if (slotergebniss[0] == win3) {
 
+            display.innerHTML = "Du hast"+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             let gewinn = einsatzslots * 500;
             pizzaGesamt += gewinn;
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
 
-        } else if (slotergebniss[0] === win4) {
+        } else if (slotergebniss[0] == win4) {
 
+            display.innerHTML = "Du hast"+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             let gewinn = einsatzslots * 1000;
             pizzaGesamt += gewinn;
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
         }
-    }else{console.log("Kein Gewinn")}
+    }
+    else{display.innerHTML = "Leider nichts gewonnen!";}
 
 
 }
@@ -476,21 +494,32 @@ function farbe() {
     if (upgrades[3].anzahl == 1){
         let gamediv = document.getElementById("gamediv");
         gamediv.style.display = "block";
+        let lockdiv = document.getElementById("lockdiv");
+        if (lockdiv) {
+            lockdiv.remove();
+        }
+        minigame.classList.add("unlocked")
     }
     else if(upgrades[3].anzahl == 0 && !gamegesperrt){
-     //   let gamediv = document.getElementById("gamediv");
-     //   gamediv.style.display = "none";
-     //   gamegesperrt = true;
-     //   
-     //   let lockdiv = document.createElement("div")
-     //   let lockbutton = document.createElement("button");
-     //   lockdiv.id = "lockdiv";
-     //   lockbutton.id = "lockbutton";
-     //   lockbutton.innerHTML = "🔒 GESPERRT";
-     //   
-     //   minigame.appendChild(lockdiv);
-     //   lockdiv.appendChild(lockbutton);
+        let gamediv = document.getElementById("gamediv");
+        gamediv.style.display = "none";
+        gamegesperrt = true;
+        
+        let lockdiv = document.createElement("div")
+        let lockbutton = document.createElement("button");
+        lockdiv.id = "lockdiv";
+        lockbutton.id = "lockbutton";
+        lockbutton.innerHTML = "🔒 GESPERRT";
+        
+        minigame.appendChild(lockdiv);
+        lockdiv.appendChild(lockbutton);
     }
+
+    
+        document.querySelectorAll(".buttonimg").forEach(img => {
+        img.src = document.getElementById("pizza-bild").src;
+        });
+    
 
 }
 

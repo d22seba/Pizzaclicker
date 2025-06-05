@@ -5,6 +5,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Lobster&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizza Clicker</title>
@@ -13,26 +14,30 @@
 
 <div id="gamebereich">
 
-    <div class="zu unlocked" id="minigame">
+    <div class="zu" id="minigame">
         <button id="minigamebutton">x</button>
         <h1 id="minigamename">Ofen des Glücks</h1>
         <div id="gamediv">
             
             <div id="slots">
+            <hr>
             <img id="slot1" src="Cookies/fragezeichen.png">
             <hr>
             <img id="slot2" src="Cookies/fragezeichen.png">
             <hr>
             <img id="slot3" src="Cookies/fragezeichen.png">
+            <hr>
             </div>
 
             <div id="gameinputs">
+                <h2 id="ausgabedisplay">???</h2>
+                <div>
+                <h3>Einsatz | Min: 100</h3>
                 <input type="number" id="sloteinsatz" value="100" min="100">
-                <button id="spinbutton">Spin</button>
-                <div class="buttonskleincontainer">
-                <button class="spinbuttonsklein" id="spinauto">Auto-Spin</button>
-                <button class="spinbuttonsklein" id="maxbet">Max-Bet</button>
                 </div>
+                <button id="spinbutton"><img class="buttonimg" src="Cookies/pizzabild2.png"><p>Spin</p></button>
+                <button class="smallbutton" id="autospin"><img class="buttonimg" src="Cookies/pizzabild1.png"><p>Auto-<br>Spin</p></button>
+                <button class="smallbutton" id="maxbet"><img class="buttonimg" src="Cookies/pizzabild1.png"><p>Max-<br>Bet</p></button>
             </div>
             
         </div>
