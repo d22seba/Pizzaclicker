@@ -132,6 +132,7 @@ let minigamename = document.getElementById("gamename");
 let einsatz = document.getElementById("sloteinsatz");
 let maxbet = document.getElementById("maxbet");
 let autospin = document.getElementById("autospin");
+let display = document.getElementById("ausgabedisplay");
 let pressed = false;
 
 minigame.addEventListener("click", () =>{
@@ -184,6 +185,8 @@ function gamestart(){
 
     let einsatz
     slotbutton.disabled = true;
+    display.innerHTML = "Spinning..."; 
+
     let spin1 = setInterval(() => spinslots(1), 60);
     let spin2 = setInterval(() => spinslots(2), 60);
     let spin3 = setInterval(() => spinslots(3), 60);
@@ -236,9 +239,7 @@ function slotausgabe(){
     let win2 = document.getElementById("up1-img").src;
     let win3 = document.getElementById("up4-img").src;
     let win4 = document.getElementById("pizza-bild").src;
-    let display = document.getElementById("ausgabedisplay");
-
-    display.innerHTML = ""; 
+    
 
     if (slotergebniss[0] === slotergebniss[1] && slotergebniss[1] === slotergebniss[2]) {
 
