@@ -431,6 +431,15 @@ function farbe() {
         let gamediv = document.getElementById("gamediv");
         gamediv.style.display = "none";
         gamegesperrt = true;
+        
+        let lockdiv = document.createElement("div")
+        let lockbutton = document.createElement("button");
+        lockdiv.id = "lockdiv";
+        lockbutton.id = "lockbutton";
+        lockbutton.innerHTML = "🔒 GESPERRT";
+        
+        minigame.appendChild(lockdiv);
+        lockdiv.appendChild(lockbutton);
     }
 
 }
