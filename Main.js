@@ -752,7 +752,8 @@ farbe();
             pizzaGesamt -= evosarray[numevo].preis;
             document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
             playBuySound();
-            item.parentNode.remove();
+            if(item.src){item.parentNode.remove();}
+            else{item.remove();}
             evosarray[numevo].funktion();
             farbe();
 
@@ -952,13 +953,3 @@ function cheese(){
 function pizzabot(){
     intervalupgrade(5, pizzabotAdd)
 }
-
-
-
-
-
-
-
-
-
-

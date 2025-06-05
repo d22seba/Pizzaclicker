@@ -164,7 +164,7 @@ body{
     font-weight: bold;
     cursor: pointer;
     background: radial-gradient(circle, rgb(236, 104, 104) 0%, rgb(255, 0, 0) 100%);
-    margin: 0 auto;
+    margin: 10px auto;
 }
 #spinbutton:disabled{
     background: radial-gradient(circle, rgb(109, 109, 109) 0%, rgb(84, 84, 84) 100%);
