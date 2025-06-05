@@ -136,7 +136,6 @@ minigame.addEventListener("click", () =>{
     minigame.style.left = "3%";
     minigame.style.height = "70%"
     minigame.classList.remove("zu");
-    minigamename.className = "";
 })
 
 let minigamebutton = document.getElementById("minigamebutton");
@@ -145,7 +144,6 @@ minigamebutton.addEventListener("click", () =>{
     minigame.style.left = "-39%";
     minigame.style.height = "60%"
     minigame.classList.add("zu");
-    minigamename.className = "gamenameclosed"
 
 })
 
@@ -255,8 +253,7 @@ function slotausgabe(){
             pizzaGesamt += gewinn;
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
         }
-        else{console.log("Kein Gewinn")}
-    }
+    }else{console.log("Kein Gewinn")}
 
 
 }
@@ -273,7 +270,7 @@ let upgrades = [
     {id: "up3", name: "Ofen", preis: 3200, anzahl: 0},
     {id: "up4", name: "Käse", preis: 9600, anzahl: 0, plus: 30},
     {id: "up5", name: "Pizzabot", preis: 16200, anzahl: 0},
-    {id: "up6", name: "???", preis: "???", anzahl: 0},
+    {id: "up6", name: "Sucuk", preis: 32000, anzahl: 0, plus: 40},
 ];
 
 let plusupgesamt = new Array(upgrades.length).fill(0);
@@ -297,6 +294,7 @@ let upgradeBilder = [
     "Cookies/pizzaofen.png",
     "Cookies/cheese.png",
     "Cookies/pizzabot.png",
+    "Cookies/sucuk.png",
 ]
 
 let evosarray = [
@@ -467,8 +465,11 @@ function farbe() {
     if (upgrades[2].anzahl == 1 && upgrades[4].anzahl == 0) {
         document.getElementById("pizza-bild").src = "Cookies/pizzabild2.png";
     }
-    if (upgrades[4].anzahl == 1) {
+    if (upgrades[4].anzahl == 1 && upgrades[6].anzahl == 0) {
         document.getElementById("pizza-bild").src = "Cookies/pizzabild3.png";
+    }
+    if (upgrades[6].anzahl == 1) {
+        document.getElementById("pizza-bild").src = "Cookies/pizzabild4.png";
     }
 
     //verstecke das Minigame oder zeige es an
@@ -984,7 +985,7 @@ function gustavo(){
 
 //Upgrade 2
 function tomatensauce(){
-    cookieAdd = cookieAdd + 10;
+    cookieAdd += 10;
 }
 
 //upgrade 3
@@ -994,10 +995,15 @@ function ofen(){
 
 //upgrade 4
 function cheese(){
-    cookieAdd = cookieAdd + 30;
+    cookieAdd += 30;
 }
 
 //upgrade 5
 function pizzabot(){
     intervalupgrade(5, pizzabotAdd)
+}
+
+//upgrade 6
+function sucuk(){
+    cookieAdd += 50
 }
