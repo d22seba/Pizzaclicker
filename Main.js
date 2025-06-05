@@ -225,6 +225,7 @@ let upgrades = [
     {id: "up3", name: "Ofen", preis: 3200, anzahl: 0},
     {id: "up4", name: "Käse", preis: 9600, anzahl: 0, plus: 30},
     {id: "up5", name: "Pizzabot", preis: 16200, anzahl: 0},
+    {id: "up6", name: "Pizzabot", preis: "???", anzahl: 0},
 ];
 
 let plusupgesamt = new Array(upgrades.length).fill(0);
@@ -428,18 +429,18 @@ function farbe() {
         gamediv.style.display = "block";
     }
     else if(upgrades[3].anzahl == 0 && !gamegesperrt){
-        let gamediv = document.getElementById("gamediv");
-        gamediv.style.display = "none";
-        gamegesperrt = true;
-        
-        let lockdiv = document.createElement("div")
-        let lockbutton = document.createElement("button");
-        lockdiv.id = "lockdiv";
-        lockbutton.id = "lockbutton";
-        lockbutton.innerHTML = "🔒 GESPERRT";
-        
-        minigame.appendChild(lockdiv);
-        lockdiv.appendChild(lockbutton);
+     //   let gamediv = document.getElementById("gamediv");
+     //   gamediv.style.display = "none";
+     //   gamegesperrt = true;
+     //   
+     //   let lockdiv = document.createElement("div")
+     //   let lockbutton = document.createElement("button");
+     //   lockdiv.id = "lockdiv";
+     //   lockbutton.id = "lockbutton";
+     //   lockbutton.innerHTML = "🔒 GESPERRT";
+     //   
+     //   minigame.appendChild(lockdiv);
+     //   lockdiv.appendChild(lockbutton);
     }
 
 }
