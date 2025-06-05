@@ -5,6 +5,7 @@ let cookie_bild = document.getElementById("pizza-bild");
 let pizza_meiste = 0;
 let autoclick = 8000;
 
+let pizzakonto = document.getElementById("geld");
 
 let plusprosek = []; 
 let intervalle = {};
@@ -156,7 +157,7 @@ slotbutton.addEventListener("click", function() {
     }
     else{
         pizzaGesamt -= sloteinsatz.value;
-        document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
+        pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
         gamestart();
     }
 
@@ -173,6 +174,8 @@ let slotergebniss = [null, null, null];
 
 function gamestart(){
 
+
+    let einsatz
     slotbutton.disabled = true;
     let spin1 = setInterval(() => spinslots(1), 60);
     let spin2 = setInterval(() => spinslots(2), 60);
@@ -180,11 +183,17 @@ function gamestart(){
 
     setTimeout(() => clearInterval(spin1), 3000);
     setTimeout(() => clearInterval(spin2), 4000);
-    setTimeout(() => {clearInterval(spin3); slotbutton.disabled = false;}, 5000);
+    setTimeout(() => {
+        clearInterval(spin3); 
+        slotbutton.disabled = false;
+        slotergebniss[0] = document.getElementById("slot1").src;
+        slotergebniss[1] = document.getElementById("slot2").src;
+        slotergebniss[2] = document.getElementById("slot3").src;
+        slotausgabe();
+    }, 5000);
 
-    slotergebniss[0] = document.getElementById("slot1").src;
-    slotergebniss[1] = document.getElementById("slot2").src;
-    slotergebniss[2] = document.getElementById("slot3").src;
+
+    
 }
 
 function spinslots(input){
@@ -210,6 +219,45 @@ function spinslots(input){
     let randomnum = Math.floor(Math.random() * slotsbilder.length);
 
     slot.src = slotsbilder[randomnum];
+
+}
+
+function slotausgabe(){
+    let einsatzslots = document.getElementById("sloteinsatz").value;
+
+    let win1 = "Cookies/Autoclicker.png";
+    let win2 = "Cookies/pizzabäcker.png";
+    let win3 = "Cookies/cheese.png";
+    let win4 = document.getElementById("pizza-bild").src;
+
+    if (slotergebniss[0] === slotergebniss[1] && slotergebniss[1] === slotergebniss[2]) {
+        if (slotergebniss[0] === win1) {
+
+            let gewinn = einsatzslots * 100;
+            pizzaGesamt += gewinn;
+            pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
+            
+        } else if (slotergebniss[0] === win2) {
+
+            let gewinn = einsatzslots * 250;
+            pizzaGesamt += gewinn;
+            pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
+
+        } else if (slotergebniss[0] === win3) {
+
+            let gewinn = einsatzslots * 500;
+            pizzaGesamt += gewinn;
+            pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
+
+        } else if (slotergebniss[0] === win4) {
+
+            let gewinn = einsatzslots * 1000;
+            pizzaGesamt += gewinn;
+            pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
+        }
+        else{console.log("Kein Gewinn")}
+    }
+
 
 }
 
@@ -750,7 +798,7 @@ farbe();
 
             infoDiv.remove();
             pizzaGesamt -= evosarray[numevo].preis;
-            document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
+            pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
             playBuySound();
             if(item.src){item.parentNode.remove();}
             else{item.remove();}
@@ -767,7 +815,7 @@ farbe();
 cookie_bild.addEventListener("click", function() {
     pizzenoverall += cookieAdd;
     pizzaGesamt += cookieAdd;
-    document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
+    pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
     document.getElementById("gesamt-cookies").innerHTML = Kommastelle(pizzenoverall);
     maxgeld();
     farbe();
@@ -881,7 +929,7 @@ function kaufinterval(id, funktion, intervalzeit) {
         let interval = setInterval(funktion, intervalzeit);
         intervalle[id].push(interval);
 
-        document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
+        pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
         document.getElementById("up" + id + "-preis").innerHTML = Kommastelle(upgrades[id].preis);
         farbe();
         playBuySound();
@@ -897,7 +945,7 @@ function kaufup(id, funktion){
         pizzaGesamt -= upgrades[id].preis;
         upgrades[id].preis = Math.round(upgrades[id].preis * 1.45);
         upgrades[id].anzahl++;
-        document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
+        pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
         document.getElementById("up"+id+"-preis").innerHTML = Kommastelle(upgrades[id].preis);
         farbe();
         playBuySound();
@@ -916,7 +964,7 @@ function intervalupgrade(id, anzahl){
     pizzaGesamt += anzahl;
     plusupgesamt[id] += anzahl;
 
-    document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
+    pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
     document.getElementById("gesamt-cookies").innerHTML = Kommastelle(pizzenoverall);
     maxgeld();
     farbe();
