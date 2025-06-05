@@ -361,7 +361,7 @@ let upgradeBeschreibung = [
 let upgradeBilder = [
     "Cookies/autoclicker.png",
     "Cookies/pizzabäcker.png",
-    "Cookies/tomatensauce.png",
+    "Cookies/tomatenSauce.png",
     "Cookies/pizzaofen.png",
     "Cookies/cheese.png",
     "Cookies/pizzabot.png",
