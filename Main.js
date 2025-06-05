@@ -254,28 +254,28 @@ function slotausgabe(){
 
             let gewinn = einsatzslots * 100;
             pizzaGesamt += gewinn;
-            display.innerHTML = "Du hast"+ Kommastelle(gewinn) + " Pizzen gewonnen!";
+            display.innerHTML = "Du hast "+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
             
         } else if (slotergebniss[0] == win2) {
 
             let gewinn = einsatzslots * 250;
             pizzaGesamt += gewinn;
-            display.innerHTML = "Du hast"+ Kommastelle(gewinn) + " Pizzen gewonnen!";
+            display.innerHTML = "Du hast "+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
 
         } else if (slotergebniss[0] == win3) {
 
             let gewinn = einsatzslots * 500;
             pizzaGesamt += gewinn;
-            display.innerHTML = "Du hast"+ Kommastelle(gewinn) + " Pizzen gewonnen!";
+            display.innerHTML = "Du hast "+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
 
         } else if (slotergebniss[0] == win4) {
 
             let gewinn = einsatzslots * 1000;
             pizzaGesamt += gewinn;
-            display.innerHTML = "Du hast"+ Kommastelle(gewinn) + " Pizzen gewonnen!";
+            display.innerHTML = "Du hast "+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
         }
     }
