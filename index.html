@@ -15,7 +15,7 @@
 
     <div class="zu" id="minigame">
         <button id="minigamebutton">x</button>
-        <h1 id="minigamename" class="gamenameclosed">Ofenroulette</h1>
+        <h1 id="minigamename">Ofen des Glücks</h1>
         <div id="gamediv">
             
             <div id="slots">
@@ -27,8 +27,12 @@
             </div>
 
             <div id="gameinputs">
-                <button onclick="gamestart()" id="spinbutton">Spin</button>
-                <input type="number" id="sloteinsatz" value="100" min="100">
+                <input type="number" id="sloteinsatz" placeholder="Einsatz: Min-100" min="100">
+                <button id="spinbutton">Spin</button>
+                <div class="buttonskleincontainer">
+                <button class="spinbuttonsklein" id="spinauto">Auto-Spin</button>
+                <button class="spinbuttonsklein" id="maxbet">Max-Bet</button>
+                </div>
             </div>
             
         </div>
@@ -182,38 +186,7 @@
                 <img data-num="5" id="up5-img" src="Cookies/pizzabot.png" class="upgrade-img">
             
         </div>  
-
-        <div id="up6" class="upgrade">
-            <div class="upgrade-name">
-                
-                <h1 id="up6-name">???</h1>
-
-            </div>
-            <div id="shake6" class="upgrade-preis" onclick="up6kauf()">
-                <img class="upgrade-preis-img" height="30px" width="30px" src="Cookies/1_30_0026__01_03.png">
-                <span id="up6-preis"></span>
-                
-            </div>
-                <div id="anzahl6" class="upanzahl"></div>
-                <img data-num="6" id="up6-img" src="Cookies/TomatenSauce.png" class="upgrade-img">
-            
-        </div>   
-
-        <div id="up7" class="upgrade">
-            <div class="upgrade-name">
-                
-                <h1 id="up7-name">???</h1>
-
-            </div>
-            <div id="shake7" class="upgrade-preis" onclick="up7kauf()">
-                <img class="upgrade-preis-img" height="30px" width="30px" src="Cookies/1_30_0026__01_03.png">
-                <span id="up7-preis"></span>
-                
-            </div>
-                <div id="anzahl7" class="upanzahl"></div>
-                <img data-num="7" id="up7-img" src="Cookies/TomatenSauce.png" class="upgrade-img">
-            
-        </div>          
+   
     </div>
     </div>
     

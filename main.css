@@ -42,6 +42,13 @@ body{
     border: 4px solid black;
     border-radius: 10px;
 }
+
+#minigame.unlocked{
+    background-image: url(Cookies/Ofeninnen.png);
+    background-size: cover;
+    background-position: center;
+}
+
 #minigame.zu:hover {
     transform: scale(1.1);
 }
@@ -84,11 +91,6 @@ body{
     cursor: pointer;
 
 }
-.open{
-    background-image: url(Cookies/Ofeninnen.png);
-    background-size: cover;
-    background-position: center;
-}
 
 #gamediv{
     position: relative;
@@ -123,25 +125,57 @@ body{
 
 #gameinputs{
     display: flex;
-    margin-top: 10%;
+    margin: 0;
     width: 100%;  
-    height: 40%;
-    background-color: white;
+    height: 30%;
+    align-items: center;
+    justify-content: center;
+}
+#gameinputs button:active{
+    transform: scale(0.96);
+    transition: 0.1s;
 }
 
 #spinbutton{
     height: 100px;
     width: 100px;
-    background-color: red;
     border: 3px solid gold;
     border-radius: 50%;
     font-size: 30px;
     font-weight: bold;
     cursor: pointer;
+    background: radial-gradient(circle, rgb(236, 104, 104) 0%, rgb(255, 0, 0) 100%);
+    margin: 0 auto;
+}
+#spinbutton:disabled{
+    background: radial-gradient(circle, rgb(109, 109, 109) 0%, rgb(84, 84, 84) 100%);
+    cursor: not-allowed;
+}
+
+#sloteinsatz{
+    width: 29%;
+    height: 20px;
+    margin: 10px;
+}
+
+.buttonskleincontainer{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.spinbuttonsklein{
+    background: radial-gradient(circle, rgb(236, 104, 104) 0%, rgb(255, 0, 0) 100%);
+    border: 3px solid gold;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
 }
 
 .zuwenig{
-    height: 400px;
     width: 30px;
     color: red;
 }

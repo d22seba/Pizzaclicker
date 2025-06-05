@@ -5,10 +5,12 @@ let cookie_bild = document.getElementById("pizza-bild");
 let pizza_meiste = 0;
 let autoclick = 8000;
 
+
 let plusprosek = []; 
 let intervalle = {};
 
 
+let gamegesperrt;
 let gesperrt;
 
 let gustavoAdd = 6;
@@ -112,19 +114,23 @@ document.addEventListener("DOMContentLoaded", function() {
     //loadGame(); 
     farbe(); 
     starteAlleIntervalle();
-
+    
     if(upgrades[2].anzahl > 0){  
-    evolutionunlock();
+        evolutionunlock();
     }
     else{
-    evolutionlock();
+        evolutionlock();
     }
-
+    
 });
 
 document.getElementById("sloteinsatz").max = pizzaGesamt;
+let slotbutton = document.getElementById("spinbutton");
 let minigame = document.getElementById("minigame");
-let minigamename = document.getElementById("gamename")
+let minigamename = document.getElementById("gamename");
+let einsatz = document.getElementById("sloteinsatz");
+let pressed = false;
+
 minigame.addEventListener("click", () =>{
     minigame.style.left = "3%";
     minigame.style.height = "70%"
@@ -142,17 +148,47 @@ minigamebutton.addEventListener("click", () =>{
 
 })
 
+slotbutton.addEventListener("click", function() {
+
+    
+    if (sloteinsatz.value > pizzaGesamt) {
+        return;
+    }
+    else{
+        pizzaGesamt -= sloteinsatz.value;
+        document.getElementById("geld").innerHTML = Kommastelle(pizzaGesamt);
+        gamestart();
+    }
+
+    
+});
+
+einsatz.addEventListener("blur", function () {
+    if (this.value < 100) {
+        this.value = 100;
+    }
+});
+
+let slotergebniss = [null, null, null];
+
 function gamestart(){
+
+    slotbutton.disabled = true;
     let spin1 = setInterval(() => spinslots(1), 60);
     let spin2 = setInterval(() => spinslots(2), 60);
     let spin3 = setInterval(() => spinslots(3), 60);
 
-    setTimeout(() => clearInterval(spin1), 4000);
-    setTimeout(() => clearInterval(spin2), 5000);
-    setTimeout(() => clearInterval(spin3), 6000);
+    setTimeout(() => clearInterval(spin1), 3000);
+    setTimeout(() => clearInterval(spin2), 4000);
+    setTimeout(() => {clearInterval(spin3); slotbutton.disabled = false;}, 5000);
+
+    slotergebniss[0] = document.getElementById("slot1").src;
+    slotergebniss[1] = document.getElementById("slot2").src;
+    slotergebniss[2] = document.getElementById("slot3").src;
 }
 
-    let pizzabild = document.getElementById("pizza-bild");
+function spinslots(input){
+    let pizzabild = document.getElementById("pizza-bild").src;
     let slotsbilder = [
     "Cookies/Autoclicker.png",
     "Cookies/Autoclicker.png",
@@ -163,20 +199,12 @@ function gamestart(){
     "Cookies/pizzabäcker.png",
     "Cookies/pizzabäcker.png",
     "Cookies/pizzabäcker.png",
-    "Cookies/Tomatensauce.png",
-    "Cookies/Tomatensauce.png",
-    "Cookies/Tomatensauce.png",
-    "Cookies/pizzaofen.png",
-    "Cookies/pizzaofen.png",
-    "Cookies/pizzaofen.png",
     "Cookies/cheese.png",
     "Cookies/cheese.png",
     "Cookies/cheese.png",
-    pizzabild.src,
-    pizzabild.src,
+    pizzabild,
+    pizzabild,
 ]
-
-function spinslots(input){
 
     let slot = document.getElementById("slot" + input);
     let randomnum = Math.floor(Math.random() * slotsbilder.length);
@@ -184,6 +212,9 @@ function spinslots(input){
     slot.src = slotsbilder[randomnum];
 
 }
+
+
+
 
 
 //Preise und Anzahl der Upgrades
@@ -194,8 +225,6 @@ let upgrades = [
     {id: "up3", name: "Ofen", preis: 3200, anzahl: 0},
     {id: "up4", name: "Käse", preis: 9600, anzahl: 0, plus: 30},
     {id: "up5", name: "Pizzabot", preis: 16200, anzahl: 0},
-    {id: "up6", name: "Paprika", preis: 3500, anzahl: 0},
-    {id: "up7", name: "Paprika", preis: 3500, anzahl: 0},
 ];
 
 let plusupgesamt = new Array(upgrades.length).fill(0);
@@ -219,8 +248,6 @@ let upgradeBilder = [
     "Cookies/pizzaofen.png",
     "Cookies/cheese.png",
     "Cookies/pizzabot.png",
-    "Cookies/Paprika.png",
-    "Cookies/Paprika.png",
 ]
 
 let evosarray = [
@@ -276,7 +303,7 @@ function farbe() {
 
     // 3. Wenn ein Upgrade gekauft wurde → zeige die nächsten zwei
     for (let i = 0; i < upgrades.length; i++) {
-        if (upgrades[i].anzahl > 0) {
+        if (upgrades[i].anzahl == 1) {
             if (i + 1 < upgrades.length) {
                 document.getElementById(upgrades[i + 1].id).classList.remove("versteckt");
             }
@@ -393,6 +420,17 @@ function farbe() {
     }
     if (upgrades[4].anzahl == 1) {
         document.getElementById("pizza-bild").src = "Cookies/pizzabild3.png";
+    }
+
+    //verstecke das Minigame oder zeige es an
+    if (upgrades[3].anzahl == 1){
+        let gamediv = document.getElementById("gamediv");
+        gamediv.style.display = "block";
+    }
+    else if(upgrades[3].anzahl == 0 && !gamegesperrt){
+        let gamediv = document.getElementById("gamediv");
+        gamediv.style.display = "none";
+        gamegesperrt = true;
     }
 
 }

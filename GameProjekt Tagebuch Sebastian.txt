@@ -84,4 +84,4 @@ es groß ist hat man einen button mit dem es wieder an die seite geht.
 
 22. Tag (04.06)
 Ich hab die slotmaschine gemacht ihr einen namen gegeben die funktion eingebaut dass sich die bilder verändern buttons und inputs eingefügt.
-Dazu noch hab ich einen hintergrund hinzugefügt und alles ein bisschen designed.
+Dazu noch hab ich einen hintergrund hinzugefügt und alles ein bisschen designed. Dazu noch mach ich dass es gesperrt ist und erst ab upgrade 4 unlocked ist. 
