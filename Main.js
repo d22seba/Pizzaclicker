@@ -1,4 +1,4 @@
-let pizzaGesamt = 1000000;
+let pizzaGesamt = 0;
 let pizzenoverall = 0;
 let cookieAdd = 1;
 let cookie_bild = document.getElementById("pizza-bild");
@@ -20,8 +20,12 @@ let spininterval = null;
 let maxbetnum = 0;
 
 let gustavoAdd = 6;
-let ofenAdd = 10;
-let pizzabotAdd = 30;
+let ofenAdd = 15;
+let pizzabotAdd = 40;
+
+let tomatensauceAdd = 10;
+let cheeseAdd = 30;
+let sucukAdd = 50;
 
 
 window.addEventListener("beforeunload", saveGame);
@@ -37,6 +41,10 @@ function saveGame() {
             pizza_meiste,
             gesperrt,
             cookieAdd,
+            gustavoAdd,
+            ofenAdd,
+            pizzabotAdd,
+            plusprosek,
             plusupgesamt,
             autoclick,
             gekaufteEvos,
@@ -68,6 +76,10 @@ function loadGame() {
         pizza_meiste = gameState.pizza_meiste;
         gesperrt = gameState.gesperrt;
         cookieAdd = gameState.cookieAdd;
+        gustavoAdd = gameState.gustavoAdd;
+        ofenAdd = gameState.ofenAdd;
+        pizzabotAdd = gameState.pizzabotAdd;
+        plusprosek = gameState.plusprosek;
         plusupgesamt = gameState.plusupgesamt;
         autoclick = gameState.autoclick;
         gekaufteEvos = gameState.gekaufteEvos || [];
@@ -77,7 +89,7 @@ function loadGame() {
             if (evoElement) evoElement.remove();
         });
 
-        // HTML-Inhalte aktualisieren
+
         document.getElementById("geld").innerHTML = gameState.innerHTML.geld;
         document.getElementById("gesamt-cookies").innerHTML = gameState.innerHTML.pizzenoverall;
 
@@ -88,9 +100,10 @@ function loadGame() {
     } catch (e) {
         console.error("Fehler beim Laden:", e);
     }
+    console.log(cookieAdd, gustavoAdd, ofenAdd, pizzabotAdd);
 }
 
-//Startet alle Intervalle für die Upgrades
+// Startet alle Intervalle
 function starteAlleIntervalle() {
     for (let i = 0; i < upgrades.length; i++) {
         const upgrade = upgrades[i];
@@ -112,7 +125,7 @@ function starteAlleIntervalle() {
     }
 }
 
-//Konvertiert die Pizzazahl in eine lesbare Form
+// Konvertiert die Zahl in lesbare Form
 function Kommastelle(zahl) {
 
     if (typeof zahl !== 'number') return zahl;
@@ -120,9 +133,17 @@ function Kommastelle(zahl) {
     if (zahl >= 1000 && zahl < 1000000) {
         return  zahl.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) +"K"; 
     } 
-    else if(zahl >= 1000000){
+    else if(zahl >= 1000000 && zahl < 1000000000){
         zahl = zahl / 1000000;
         return zahl.toFixed(3) + "M";
+    }
+    else if(zahl >= 1000000000 && zahl < 1000000000000){
+        zahl = zahl / 1000000000
+        return zahl.toFixed(3) + "B"
+    }
+    else if(zahl >= 1000000000000 && zahl < 1000000000000000){
+        zahl = zahl / 1000000000000
+        return zahl.toFixed(3) + "T"
     }
     else {
         return  zahl.toFixed(0);
@@ -130,7 +151,7 @@ function Kommastelle(zahl) {
 }
 
 
-// Führt farbe aus wenn die Seite geladen wird
+// Führt ein paar Funktion beim aufruf der Seite auf
 document.addEventListener("DOMContentLoaded", function() {
     loadGame(); 
     farbe(); 
@@ -156,7 +177,8 @@ let einsatzinput = document.getElementById("sloteinsatz");
 let maxbet = document.getElementById("maxbet");
 let autospin = document.getElementById("autospin");
 let display = document.getElementById("ausgabedisplay");
-let einsatz;
+let slotsinfos = document.getElementById("slotsinfos");
+let tomatensauceslots = document.getElementById("tomatensauceslots")
 let pressed = false;
 
 //Öffnet das Minigame onclick
@@ -164,6 +186,8 @@ minigame.addEventListener("click", () =>{
     minigame.style.left = "3%";
     minigame.style.height = "70%"
     minigame.classList.remove("zu");
+    slotsinfos.style.width = "110%"
+    
 })
 
 //Schließt es wieder per Button
@@ -173,25 +197,28 @@ minigamebutton.addEventListener("click", () =>{
     minigame.style.left = "-39%";
     minigame.style.height = "60%"
     minigame.classList.add("zu");
+    slotsinfos.style.width = "80%"
 
 })
+
 
 //Prüft ob der Wert genug oder ein Buchstabe ist
 einsatzinput.addEventListener("blur", function () {
     this.value = parseFloat(this.value);
 
-    if (isNaN(this.value)) this.value = 100; 
-
-    else if (this.value < 100 && !this.value == "NaN") this.value = 100;
-    
-    else if(this.value > 1000 && !this.value == "NaN") this.value = Kommastelle(this.value); einsatz = this.value;
+    if (isNaN(this.value) || this.value < 100) 
+        {
+            this.value = 100; 
+        } 
 });
 
 //Maxbet Button
 maxbet.addEventListener("click", function() {
 
-    if(pizzaGesamt < 100000) sloteinsatz.value = pizzaGesamt.toFixed(1);
-    else sloteinsatz.value = Kommastelle(pizzaGesamt); einsatz = pizzaGesamt;
+    if(pizzaGesamt < 1000) einsatzinput.value = pizzaGesamt.toFixed(1);
+    else {
+        einsatzinput.value = pizzaGesamt.toFixed(0);
+    }
     einsatzinput.blur();
 });
 
@@ -199,11 +226,17 @@ maxbet.addEventListener("click", function() {
 slotbutton.addEventListener("click", function() {
 
     
-    if (sloteinsatz.value > pizzaGesamt) {
+    if (einsatzinput.value > pizzaGesamt || einsatzinput.value < 100) {
+        einsatzinput.classList.add("shake");
+        einsatzinput.style.backgroundColor = "red";
+        setTimeout(() => {
+            einsatzinput.classList.remove("shake");
+            einsatzinput.style.backgroundColor = "#e27d51"
+        }, 500);
         return;
     }
     else{
-        pizzaGesamt -= einsatz;
+        pizzaGesamt -= einsatzinput.value;
         pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
         gamestart();
     }
@@ -219,14 +252,14 @@ autospin.addEventListener("click", function() {
         autospinning = true;
         slotbutton.disabled = true;
 
-        if (einsatz <= pizzaGesamt) {
-            pizzaGesamt -= einsatz;
+        if (einsatzinput.value <= pizzaGesamt) {
+            pizzaGesamt -= einsatzinput.value;
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
             gamestart();
         }
 
         spininterval = setInterval(() => {
-            if (einsatz > pizzaGesamt) {
+            if (einsatzinput.value > pizzaGesamt) {
                 autospinning = false;
                 clearInterval(spininterval);
                 autospin.classList.remove("autospinon");
@@ -234,7 +267,7 @@ autospin.addEventListener("click", function() {
                 return;
             }
             else{
-                pizzaGesamt -= einsatz;
+                pizzaGesamt -= einsatzinput.value;
                 pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
                 gamestart();
             }
@@ -247,8 +280,6 @@ autospin.addEventListener("click", function() {
         slotbutton.disabled = false;
     }
 });
-    
-
 
 let slotergebniss = [null, null, null];
 
@@ -282,6 +313,8 @@ function gamestart(){
 function spinslots(input){
     let pizzabild = document.getElementById("pizza-bild").src;
     let slotsbilder = [
+    "Cookies/tomatenSauce.png",
+    "Cookies/tomatenSauce.png",
     "Cookies/autoclicker.png",
     "Cookies/autoclicker.png",
     "Cookies/autoclicker.png",
@@ -318,34 +351,37 @@ function slotausgabe(){
 
         if (slotergebniss[0] == win1) {
 
-            let gewinn = einsatz * 100;
+            let gewinn = einsatzinput.value * 100;
             pizzaGesamt += gewinn;
+            pizzenoverall += gewinn;
             display.innerHTML = "Du hast "+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
             
         } else if (slotergebniss[0] == win2) {
 
-            let gewinn = einsatz * 250;
+            let gewinn = einsatzinput.value * 250;
             pizzaGesamt += gewinn;
+            pizzenoverall += gewinn;
             display.innerHTML = "Du hast "+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
 
         } else if (slotergebniss[0] == win3) {
 
-            let gewinn = einsatz * 500;
+            let gewinn = einsatzinput.value * 500;
             pizzaGesamt += gewinn;
+            pizzenoverall += gewinn;
             display.innerHTML = "Du hast "+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
 
         } else if (slotergebniss[0] == win4) {
 
-            let gewinn = einsatz * 1000;
+            let gewinn = einsatzinput.value * 1000;
             pizzaGesamt += gewinn;
+            pizzenoverall += gewinn;
             display.innerHTML = "Du hast "+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
         }
-    }
-    else{display.innerHTML = "Leider nichts gewonnen!";}
+        }else{display.innerHTML = "Leider nichts gewonnen!";}
 
 
 }
@@ -356,14 +392,15 @@ function slotausgabe(){
 
 //Preise und Anzahl der Upgrades
 let upgrades = [
-    {id: "up0", name: "Autoclicker", preis: 10, anzahl: 0},
-    {id: "up1", name: "Gustavo", preis: 120, anzahl: 0},
-    {id: "up2", name: "TomatenSauce", preis: 1000, anzahl: 0, plus: 10},
-    {id: "up3", name: "Ofen", preis: 3200, anzahl: 0},
-    {id: "up4", name: "Käse", preis: 9600, anzahl: 0, plus: 30},
-    {id: "up5", name: "Pizzabot", preis: 16200, anzahl: 0},
-    {id: "up6", name: "Sucuk", preis: 32000, anzahl: 0, plus: 40},
+    {id: "up0", name: "Autoclicker", preis: 10, startpreis: 10, anzahl: 0, plus: 0,},
+    {id: "up1", name: "Gustavo", preis: 120, startpreis: 120, anzahl: 0, plus: 0,},
+    {id: "up2", name: "TomatenSauce", preis: 1200, startpreis: 1200, anzahl: 0, plus: 10},
+    {id: "up3", name: "Ofen", preis: 7200, startpreis: 7200, anzahl: 0, plus: 0,},
+    {id: "up4", name: "Käse", preis: 14600, startpreis: 14600, anzahl: 0, plus: 30},
+    {id: "up5", name: "Pizzabot", preis: 32800, startpreis: 32800, anzahl: 0, plus: 0,},
+    {id: "up6", name: "Sucuk", preis: 48000, startpreis: 48000, anzahl: 0, plus: 40},
 ];
+
 
 let plusupgesamt = new Array(upgrades.length).fill(0);
 
@@ -390,18 +427,18 @@ let upgradeBilder = [
 ]
 
 let evosarray = [
-    {name: "Starker Click", beschreibung: "Erhöht deine Klickkraft um 20%. Mehr Wumms pro Pizza!", preis: 1500, funktion: () => { cookieAdd *= 1.20; intervalrest(0); }},
-    {name: "Schneller Clicker", beschreibung: "Dein Autoclicker klickt jetzt doppelt so schnell.", preis: 2500, funktion: () => { autoclick /= 2; intervalrest(0); }},
-    {name: "Der Löffel", beschreibung: "Gustavo bekommt ein Spezialwerkzeug – doppelte Produktion!", preis: 3000, funktion: () => { gustavoAdd *= 2; intervalrest(1); }},
-    {name: "Chefhut", beschreibung: "Mit Hut kommt Ehre – Gustavo bringt doppelt so viel!", preis: 3500, funktion: () => { gustavoAdd *= 2; intervalrest(1); }},
-    {name: "Premium Tomate", beschreibung: "Verbesserte Tomatensauce: 20% mehr Pizzen pro Klick.", preis: 2000, funktion: () => { cookieAdd *= 1.20; }},
-    {name: "Basilikum", beschreibung: "Ein bisschen Grün und Zack – Autoclicker wird schneller.", preis: 3000, funktion: () => { autoclick /= 2; }},
-    {name: "OlivenHolz", beschreibung: "Neue Pizzaschieber aus Olivenholz verdoppeln die Produktion.", preis: 3500, funktion: () => { gustavoAdd *= 2; intervalrest(3); }},
-    {name: "Mehr Platz!!!", beschreibung: "Mehr Öfen, mehr Pizzen – doppelte Leistung!", preis: 5000, funktion: () => { gustavoAdd *= 2; intervalrest(3); }}
+    {name: "Starker Click", beschreibung: "Erhöht deine Klickkraft um 20%. Mehr Wumms pro Pizza!", preis: 7000, funktion: () => { cookieAdd *= 1.20; intervalreset(0, autoclicker, autoclick);}},
+    {name: "Schneller Clicker", beschreibung: "Dein Autoclicker klickt jetzt doppelt so schnell.", preis: 12500, funktion: () => { autoclick /= 2; intervalreset(0, autoclicker, autoclick);}},
+    {name: "Der Löffel", beschreibung: "Gustavo bekommt ein Spezialwerkzeug – doppelte Produktion!", preis: 30000, funktion: () => { gustavoAdd *= 2; intervalreset(1, gustavo, 1000);}},
+    {name: "Chefhut", beschreibung: "Mit Hut kommt Ehre – Gustavo bringt doppelt so viel!", preis: 35000, funktion: () => { gustavoAdd *= 2; intervalreset(1, gustavo, 1000);}},
+    {name: "Premium Tomate", beschreibung: "Verbesserte Tomatensauce: 20% mehr Pizzen pro Klick.", preis: 16200, funktion: () => { cookieAdd *= 1.20; }},
+    {name: "Basilikum", beschreibung: "Ein bisschen Grün und Zack – ein Klick wird 20% mehr Wert.", preis: 24500, funktion: () => { cookieAdd *= 1.20; }},
+    {name: "OlivenHolz", beschreibung: "Neue Pizzaschieber aus Olivenholz verdoppeln die Produktion.", preis: 38500, funktion: () => { ofenAdd *= 2; intervalreset(3, ofen, 1000);}},
+    {name: "Mehr Platz!!!", beschreibung: "Mehr Öfen, mehr Pizzen – doppelte Leistung!", preis: 50000, funktion: () => { ofenAdd *= 2; intervalreset(3, ofen, 1000);}}
 ];
 
 //Resetet die Intervalle damit die Evos wirken
-function intervalrest(id){
+function intervalreset(id, funktion, timestamp){
 
     if (intervalle[id]) {
         intervalle[id].forEach(intervalID => clearInterval(intervalID));
@@ -412,7 +449,7 @@ function intervalrest(id){
 
         for(let i = 0; i < upgrades[id].anzahl; i++){
             
-        let interval = setInterval(funktion, interval);
+        let interval = setInterval(funktion, timestamp);
         intervalle[id].push(interval);
 
         }
@@ -554,18 +591,18 @@ function farbe() {
     }    
     
     // Spezielle Pizza-Bild-Änderung
-    if (upgrades[2].anzahl == 1 && upgrades[4].anzahl == 0) {
+    if (upgrades[2].anzahl > 0 && upgrades[4].anzahl == 0) {
         document.getElementById("pizza-bild").src = "Cookies/pizzabild2.png";
     }
-    if (upgrades[4].anzahl == 1 && upgrades[6].anzahl == 0) {
+    if (upgrades[4].anzahl > 0 && upgrades[6].anzahl == 0) {
         document.getElementById("pizza-bild").src = "Cookies/pizzabild3.png";
     }
-    if (upgrades[6].anzahl == 1) {
+    if (upgrades[6].anzahl > 0) {
         document.getElementById("pizza-bild").src = "Cookies/pizzabild4.png";
     }
 
     //verstecke das Minigame oder zeige es an
-    if (upgrades[3].anzahl > 0){
+    if (upgrades[4].anzahl > 0){
         let gamediv = document.getElementById("gamediv");
         gamediv.style.display = "block";
         let lockdiv = document.getElementById("lockdiv");
@@ -574,25 +611,31 @@ function farbe() {
         }
         minigame.classList.add("unlocked")
     }
-    else if(upgrades[3].anzahl == 0 && !gamegesperrt){
+    else if(upgrades[4].anzahl == 0 && !gamegesperrt){
         let gamediv = document.getElementById("gamediv");
         gamediv.style.display = "none";
         gamegesperrt = true;
         
         let lockdiv = document.createElement("div")
         let lockbutton = document.createElement("button");
+        let title = document.createElement("p")
         lockdiv.id = "lockdiv";
         lockbutton.id = "lockbutton";
+        title.className = "lockedtext";
         lockbutton.innerHTML = "🔒 GESPERRT";
+        title.innerHTML = "Ab Upgrade 5 verfügbar!!!"
         
         minigame.appendChild(lockdiv);
         lockdiv.appendChild(lockbutton);
+        lockdiv.appendChild(title);
     }
 
     
         document.querySelectorAll(".buttonimg").forEach(img => {
         img.src = document.getElementById("pizza-bild").src;
         });
+
+        document
     
 
 }
@@ -629,6 +672,7 @@ text = document.createElement("p");
 
 lockedbereich.id = "evolutionslockedbereich";
 locked.id = "evolutionlocked";
+text.className = "lockedtext"
 
 function evolutionlock(){
     
@@ -1026,8 +1070,9 @@ function kaufinterval(id, funktion, intervalzeit) {
 
     if (pizzaGesamt >= upgrades[id].preis) {
         pizzaGesamt -= upgrades[id].preis;
-        upgrades[id].preis = Math.round(upgrades[id].preis * 1.30);
         upgrades[id].anzahl++;
+        upgrades[id].preis = Math.round(upgrades[id].startpreis * Math.pow(1.15, upgrades[id].anzahl));
+        
 
         if (!intervalle[id]) {
             intervalle[id] = [];
@@ -1036,9 +1081,14 @@ function kaufinterval(id, funktion, intervalzeit) {
         let interval = setInterval(funktion, intervalzeit);
         intervalle[id].push(interval);
 
+        if (id === 1) gustavoAdd *= 1.05;
+        if (id === 3) ofenAdd *= 1.05;
+        if (id === 5) pizzabotAdd *= 1.05;
+
         pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
         document.getElementById("up" + id + "-preis").innerHTML = Kommastelle(upgrades[id].preis);
         farbe();
+        saveGame();
         playBuySound();
     } else {
         shake("shake" + id);
@@ -1051,8 +1101,8 @@ function kaufup(id, funktion){
     if(pizzaGesamt >= upgrades[id].preis)
         {
         pizzaGesamt -= upgrades[id].preis;
-        upgrades[id].preis = Math.round(upgrades[id].preis * 1.45);
         upgrades[id].anzahl++;
+        upgrades[id].preis = Math.round(upgrades[id].startpreis * Math.pow(1.15, upgrades[id].anzahl));
         pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
         document.getElementById("up"+id+"-preis").innerHTML = Kommastelle(upgrades[id].preis);
         farbe();
@@ -1093,7 +1143,8 @@ function gustavo(){
 
 //Upgrade 2
 function tomatensauce(){
-    cookieAdd += 10;
+    cookieAdd += upgrades[2].plus;
+    upgrades[2].plus *= 1.02;
 }
 
 //upgrade 3
@@ -1103,7 +1154,8 @@ function ofen(){
 
 //upgrade 4
 function cheese(){
-    cookieAdd += 30;
+    cookieAdd += upgrades[4].plus;
+    upgrades[4].plus *= 1.02
 }
 
 //upgrade 5
@@ -1113,5 +1165,6 @@ function pizzabot(){
 
 //upgrade 6
 function sucuk(){
-    cookieAdd += 50
+    cookieAdd += upgrades[6].plus;
+    upgrades[6].plus *= 1.02;
 }

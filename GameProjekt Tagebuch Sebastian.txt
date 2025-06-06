@@ -1,90 +1,71 @@
 1. Tag
-Ich habe ein Upgrade Fenster und den Geldstand erstellt vor allem habe mich auf das anklickbare Objekt konzentriert ich habe Bilder rausgesucht und die auch richtig angepasst damit nichts übersteht 
-
+Ich habe ein Upgrade-Fenster und den Geldstand erstellt. Vor allem habe ich mich auf das anklickbare Objekt konzentriert. Ich habe Bilder rausgesucht und sie richtig angepasst, damit nichts übersteht.
 
 2. Tag
-Ich habe ein paar Font Anpassungen vorgenommen und habe versucht alles ein bisschen schöner aussehen zu lassen. Ich habe auch angefangen mit dem Script ich habe dem Objekt eine anklick Funktion gegeben heisst wenn man es anklickt kriegt man einen bestimmten Betrag coins.
-
+Ich habe ein paar Schriftarten-Anpassungen vorgenommen und versucht, alles ein bisschen schöner aussehen zu lassen. Außerdem habe ich mit dem Skript angefangen: Das Objekt hat jetzt eine Klickfunktion – wenn man es anklickt, bekommt man einen bestimmten Betrag an Coins.
 
 3. Tag
-Ich habe dem upgrade Fenster die zugehörigen Upgrades gegeben und habe sie Flexibel designed so dass man beliebig viele hinzufügen kann und es geordnet und gleich bleibt.
-
+Ich habe dem Upgrade-Fenster die zugehörigen Upgrades hinzugefügt und es so designt, dass man beliebig viele hinzufügen kann, ohne dass die Ordnung verloren geht.
 
 4. Tag
-Ich saß wieder an den Upgrades und versuchte die Bilder der Upgrades schwarz aussehen zu lassen wenn man sie noch nie gekauft hatte. Den Namen habe ich auch mit "???" versteckt, den sieht man erst wenn man einmal genug hatte um das upgrade zu kaufen nebenbei habe ich auch ein bisschen die Upgrades zu coden also das erste Upgrade einen Autoclicker. Wenn man ihn kauft steigt sein Preis und er stackt sich wenn man ihn öfter kauft und alle laufen im Hintergrund.
-
+Ich habe weiter an den Upgrades gearbeitet. Ich habe versucht, die Bilder der Upgrades schwarz erscheinen zu lassen, wenn man sie noch nie gekauft hat. Der Name wird mit „???“ versteckt und erst angezeigt, wenn man das Upgrade kaufen kann. Nebenbei habe ich auch das erste Upgrade – einen Autoclicker – programmiert. Wenn man ihn kauft, steigt sein Preis, und er kann mehrfach gekauft werden (stackt sich) und läuft im Hintergrund.
 
 5. Tag
-Ich habe dem UpgradeFenster einen noch einen anderen Look gegeben und ihn ein bisschen angepasst auch habe ich gemacht dass der Preis rot ist wenn man nicht genug coins hat. Ich habe auch angefangen die anderen Upgrades zu programmieren und eine GesamteCoins Anzeige gemacht die einfach zeigt wie viele man schon insgesamt gesammelt hat.
-
+Ich habe dem Upgrade-Fenster ein neues Design gegeben und es weiter angepasst. Außerdem wird der Preis jetzt rot angezeigt, wenn man nicht genug Coins hat. Ich habe mit den nächsten Upgrades begonnen und eine Anzeige eingebaut, die zeigt, wie viele Coins man insgesamt gesammelt hat.
 
 6. Tag (15.04.)
 Ich habe Klick-Geräusche eingebaut. Wenn man auf die Pizza klickt, hört man jetzt zufällige Sounds. Außerdem erscheint kurz ein kleiner Text, der zeigt, wie viele Pizzen man bekommen hat.
 
-
 7. Tag (17.04.)
-Ich habe das zweite Upgrade eingebaut "Gustavo" der passiv Pizzen generiert.
-
+Ich habe das zweite Upgrade eingebaut: „Gustavo“, der passiv Pizzen generiert.
 
 8. Tag (19.04.)
-Ich habe das dritte Upgrade „Tomatensauce“ programmiert. Es macht, dass man mehr Pizzen pro Klick bekommt. Das Pizza-Bild verändert sich auch, wenn man das Upgrade hat.
-
+Ich habe das dritte Upgrade „Tomatensauce“ programmiert. Es sorgt dafür, dass man mehr Pizzen pro Klick bekommt. Das Pizza-Bild verändert sich auch, wenn man das Upgrade hat.
 
 9. Tag (22.04.)
-Ich habe das vierte Upgrade „Käse“ gebaut. Auch hier ändert sich das Bild der Pizza. Ich habe überprüft, ob sich die Bilder richtig ändern, wenn man mehrere Upgrades hat.
-
+Ich habe das vierte Upgrade „Käse“ gebaut. Auch hier ändert sich das Bild der Pizza. Ich habe überprüft, ob sich die Bilder richtig ändern, wenn man mehrere Upgrades besitzt.
 
 10. Tag (26.04.)
-Ich habe eine Speicherfunktion mit cookies gemacht. Jetzt merkt sich das Spiel, wie viele Coins man hat und welche Upgrades man gekauft hat.
-
+Ich habe eine Speicherfunktion mit Cookies erstellt. Jetzt merkt sich das Spiel, wie viele Coins man hat und welche Upgrades man gekauft hat.
 
 11. Tag (30.04.)
-Ich habe gemacht, dass manche Upgrades erst sichtbar werden, wenn man vorherige gekauft hat. Auch die Farben, Namen und Bilder ändern sich, je nachdem, wie weit man im Spiel ist.
+Ich habe eingebaut, dass manche Upgrades erst sichtbar werden, wenn man vorherige gekauft hat. Auch die Farben, Namen und Bilder ändern sich, je nachdem, wie weit man im Spiel ist.
 
+12. Tag (20.–23.05.)
+Ich habe einen Hintergrund hinzugefügt und angefangen, den Upgrades eine Hintergrundfarbe zu geben. Da muss ich aber noch entscheiden, welche ich nehme. Außerdem habe ich einen Zähler eingebaut, der zeigt, wie oft man ein bestimmtes Upgrade gekauft hat.
 
-12. Tag (20.05.–23.05.)
-Heute habe ich ein Hintergrund hinzugefügt ich hab angefangen den upgrades eine hintergrund farbe zu geben aber da muss ich noch schauen was ich genau nehmen will. Und ich habe einen Anzahl counter gemacht der zeigt wie oft man jenes upgrade gekauft hat.
+13. Tag (24.05.)
+Ich hatte Probleme mit den Upgrades – sie wurden manchmal nicht unsichtbar. Das habe ich jetzt aber gefixt. Nun überarbeite ich die Upgrades und füge noch ein paar neue hinzu.
 
+14. Tag (25.05.)
+Ich habe die Anzeige für Pizzen pro Sekunde überarbeitet und begonnen, eine Infobox zu jedem Upgrade zu machen. Wenn man über das Bild hovert, erscheint ein Div mit Infos zum Upgrade.
 
-13. Tag (24.05)
-Ich hatte probleme mit den upgrades sie wurden manchmal nicht unsichtbar das hab ich jetzt aber gefixed. Jetzt überarbeite ich noch die upgrades und füge noch ein paar hinzu.
+15. Tag (26.05.)
+Ich habe neue Upgrades erstellt, meine Funktion zur Formatierung der Pizzazahl überarbeitet, den Preis grün gemacht, wenn man genug Geld hat, und die Infobox überarbeitet. Dort wird jetzt ein Bild angezeigt, man sieht, was das Upgrade kann, und eine kleine Beschreibung. Bei Upgrades, die automatisch Pizzen generieren, sieht man auch, wie viel ein einzelnes pro Sekunde produziert, wie viel insgesamt und bald auch, wie viele Pizzen dieses Upgrade bisher erzeugt hat. Zusätzlich habe ich eine Kauffunktion programmiert, die das Hinzufügen neuer Upgrades vereinfacht.
 
+16. Tag (27.05.)
+Ich habe weiter daran gearbeitet, mir das Erstellen von Upgrades einfacher zu machen, und eine Intervall-Logik eingebaut, mit der ich neue Upgrades schneller erstellen kann. Außerdem habe ich ein neues Feature angefangen: „Super Upgrades“ – also Upgrades für Upgrades (Name noch offen). Dazu kamen neue Upgrades, und ich habe die Schriftart und den Pizzaklick-Button geändert.
 
-14. Tag (25.05)
-Ich habe nochmal die Pizzen pro sekunde anzeige angepasst und habe angefangen eine info box zu jedem upgrade zu machen also wenn man über das bild hovert wird eine div mit infos zum Upgrade erschaffen.
+17. Tag (30.05.)
+Ich habe weiter an meinen „Super Upgrades“, die ich „Evolutions“ nenne, gearbeitet. Ich habe ein paar Bilder gepixelt und die Schriftart angepasst. Beim Hover über das Bild wird ein Bereich ausgefahren, auf dem die Evolutions erscheinen, falls man Upgrade 4 erreicht hat. Ich überlege gerade, wie ich das Einblenden neuer Evolutions umsetze.
 
+18. Tag (31.05.)
+Ich habe die Speicherfunktion verbessert und weiter an den Evolutions gearbeitet. Ich habe 8 neue Bilder gepixelt und mit der Hover-Info begonnen.
 
-15. Tag (26.05)
-Ich habe neue upgrades gemacht, meine funktion die die Pizzen anzahl schöner macht überarbeitet, preis vom upgrade grün gemacht wenn man genug geld hat und nochmal die Info-Box überarbeitet dort wird jetzt ein Bild angezeigt, 
-man sieht was das upgrade kann und eine kleine Beschreibung. Bei upgrades die automatisch über Zeit Pizzen generieren sieht man auch wie viel ein einzelner pro sekunde produziert, wie viel insgesamt das upgrade  produziert und ich will noch einfügen dass man sieht wie viele Pizzen das upgrade bisher produziert hat.
-Dazu hab ich noch eine Kauffunktion hinzugefügt was mir das upgrades einfügen einfacher macht
+19. Tag (01.06.)
+Ich habe das Kaufsystem und die Funktionen der Evolutions programmiert. Außerdem arbeite ich an der Infobox für die Evolutions.
 
-16. Tag (27.05)
-Ich habe wie gestern mir alles noch ein bisschen einfacher gemacht und eine Intervallogik gemacht heißt ich kann noch einer Upgrades erstellen.
-Dazu hab ich noch eine ganz andere sache angefangen und zwar super upgrades oder wie ich sie nennen werde ich weiß den Namen noch nicht genau das sind einfach
-gesagt upgrades für die upgrades. Dazu noch hab ich neue Upgrades eingefügt und ein bisschen die font und den Pizzaclick button geändert.
+20. Tag (02.06.)
+Ich habe die Infobox für die Evolutions weitergebaut und die Preise eingefügt.
 
-17. Tag (30.05)
-Ich habe weiter meine "super Upgrades" gemacht die ich evolutions nenne. Ich habe ein paar Bilder gepixelt und die ganze font gemacht ein bild was ausgefahren wird beim rüber hovern auf dem dann die evolutions sind falls man bei upgrade 4 angelangt ist.
-Jetzt sitze ich daran wie ich das mit den evolutions einblenden machen werde sodass neue kommen wenn man neue upgrades kauft.
+21. Tag (03.06.)
+Ich habe die Infobox der Evolutions weiter überarbeitet: Den Namen mittiger gesetzt und den Bug gefixt, dass Preise nicht grün wurden, wenn man genug Geld hatte. Zusätzlich habe ich ein Minigame programmiert: eine Slotmaschine. Bisher habe ich das Fenster so gestaltet, dass es seitlich ein Stück sichtbar ist, man draufklicken kann, und es dann größer wird – mit einem Button, um es wieder zu minimieren.
 
-18. Tag (31.05)
-Ich hab die speicher Funktion ein bisschen verbessert und hab mit den evolutions weiter gemacht ich hab 8 bilder gepixelt und ein bisschen mit dem infohover angefangen.
+22. Tag (04.06.)
+Ich habe die Slotmaschine gestaltet, ihr einen Namen gegeben, die Bildveränderung eingebaut, Buttons und Eingabefelder hinzugefügt, einen Hintergrund gemacht und alles etwas gestylt. Außerdem ist sie nun gesperrt und wird erst ab Upgrade 4 freigeschaltet.
 
-19. Tag (01.06)
-Ich hab das Kaufsystem und funktionen der Evos gemacht, dazu noch mach ich jetzt die infobox für die Evos.
+23. Tag (05.06.)
+Ich habe die Slotmaschine fast fertiggestellt – es fehlt nur noch eine Anzeige, wie viel man bei jedem Item bekommen würde. Ich habe außerdem meine Speicher- und Ladefunktion neu geschrieben und ein neues Upgrade mit neuem Pizzabild erstellt.
 
-20. Tag (02.06)
-Ich hab weiter die infoBox für die evolutions gemacht und den infoboxen die jeweiligen Preise eingefügt.
-
-21. Tag (03.06)
-Ich hab die infobox für die evos immernoch gemacht dort hab ich den namen bisschen mittiger gemacht und dass die preise grün werden wenn man genug geld hat gefixxed.
-Dazu hab ich noch angefangen eine minigame zu programmieren eine slotmaschine, bisher hab ich das fenster dafür gemacht dass es seitlich nur ein bisschen zu sehen ist und man dann draufdrücken kann und es dann größer wird und wenn 
-es groß ist hat man einen button mit dem es wieder an die seite geht.
-
-22. Tag (04.06)
-Ich hab die slotmaschine gemacht ihr einen namen gegeben die funktion eingebaut dass sich die bilder verändern buttons und inputs eingefügt.
-Dazu noch hab ich einen hintergrund hinzugefügt und alles ein bisschen designed. Dazu noch mach ich dass es gesperrt ist und erst ab upgrade 4 unlocked ist. 
-
-23. Tag (04.06)
-Ich hab die slotmaschine fast ganz fertig gemacht ich muss nur noch anzeigen wie viel man bekommen würde bei jedem item. Dazu hab ich noch meine speicher und laden Funktion neu gemacht und ich hab ein neues upgrade und Pizzabild gemacht.
+24. Tag (06.06.)
+Ich habe die Slotmaschine fertig gemacht und die gesamte Schriftart angepasst. Außerdem habe ich einige Funktionen ergänzt und Fehler im Code behoben.
