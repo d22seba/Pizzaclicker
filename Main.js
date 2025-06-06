@@ -1,4 +1,4 @@
-let pizzaGesamt = 0;
+let pizzaGesamt = 1000000;
 let pizzenoverall = 0;
 let cookieAdd = 1;
 let cookie_bild = document.getElementById("pizza-bild");
@@ -24,6 +24,8 @@ let pizzabotAdd = 30;
 
 window.addEventListener("beforeunload", saveGame);
 
+
+//Speicher Funktion mit Ki gemacht aber auch selber angepasst
 function saveGame() {
     try {
         const gameState = {
@@ -50,7 +52,7 @@ function saveGame() {
 }
 
 
-// Laden
+//Lade Funktion mit Ki gemacht aber auch selber angepasst
 function loadGame() {
     try {
         const saved = localStorage.getItem("pizzaGameState");
@@ -86,7 +88,7 @@ function loadGame() {
     }
 }
 
-
+//Startet alle Intervalle für die Upgrades
 function starteAlleIntervalle() {
     for (let i = 0; i < upgrades.length; i++) {
         const upgrade = upgrades[i];
@@ -108,6 +110,7 @@ function starteAlleIntervalle() {
     }
 }
 
+//Konvertiert die Pizzazahl in eine lesbare Form
 function Kommastelle(zahl) {
 
     if (typeof zahl !== 'number') return zahl;
@@ -127,7 +130,7 @@ function Kommastelle(zahl) {
 
 // Führt farbe aus wenn die Seite geladen wird
 document.addEventListener("DOMContentLoaded", function() {
-    loadGame(); 
+    //loadGame(); 
     farbe(); 
     starteAlleIntervalle();
     
@@ -142,6 +145,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
 });
 
+//Deklarierungen für das Minigame
 document.getElementById("sloteinsatz").max = pizzaGesamt;
 let slotbutton = document.getElementById("spinbutton");
 let minigame = document.getElementById("minigame");
@@ -152,12 +156,14 @@ let autospin = document.getElementById("autospin");
 let display = document.getElementById("ausgabedisplay");
 let pressed = false;
 
+//Öffnet das Minigame onclick
 minigame.addEventListener("click", () =>{
     minigame.style.left = "3%";
     minigame.style.height = "70%"
     minigame.classList.remove("zu");
 })
 
+//Schließt es wieder per Button
 let minigamebutton = document.getElementById("minigamebutton");
 minigamebutton.addEventListener("click", () =>{
     event.stopPropagation();
@@ -167,11 +173,15 @@ minigamebutton.addEventListener("click", () =>{
 
 })
 
+//Maxbet Button
 maxbet.addEventListener("click", function() {
-    sloteinsatz.value = Kommastelle(pizzaGesamt);
+
+    if(pizzaGesamt < 100000) sloteinsatz.value = pizzaGesamt.toFixed(1);
+    else sloteinsatz.value = Kommastelle(pizzaGesamt)
     einsatz.blur();
 });
 
+//Autospin Button
 autospin.addEventListener("click", function() {
 
     if (autospinning == false && !slotbutton.disabled) {
@@ -224,14 +234,20 @@ slotbutton.addEventListener("click", function() {
     
 });
 
+//Prüft ob der Wert genug oder ein Buchstabe ist
 einsatz.addEventListener("blur", function () {
-    if (this.value < 100) {
-        this.value = 100;
-    }
+    this.value = parseFloat(this.value);
+
+    if (isNaN(this.value)) this.value = 100; 
+
+    else if (this.value < 100 && !this.value == "NaN") this.value = 100;
+    
+    else if(this.value > 1000 && !this.value == "NaN") this.value = Kommastelle(this.value);
 });
 
 let slotergebniss = [null, null, null];
 
+//Die Spin Funktion
 function gamestart(){
 
 
@@ -284,6 +300,7 @@ function spinslots(input){
 
 }
 
+//Zeigt an ob man gewonnen hat und gibt Gewinn aus
 function slotausgabe(){
     let einsatzslots = Number(document.getElementById("sloteinsatz").value);
 
@@ -379,7 +396,7 @@ let evosarray = [
     {name: "Mehr Platz!!!", beschreibung: "Mehr Öfen, mehr Pizzen – doppelte Leistung!", preis: 5000, funktion: () => { gustavoAdd *= 2; intervalrest(3); }}
 ];
 
-
+//Resetet die Intervalle damit die Evos wirken
 function intervalrest(id){
 
     if (intervalle[id]) {
@@ -576,6 +593,7 @@ function farbe() {
 
 }
 
+//Der Hover Text der zeigt wie viel man pro Click bekommen hat
 function clickanzahl(){
     
     const posX = event.clientX;
@@ -857,7 +875,7 @@ farbe();
 
     });
     
-    
+    //Eventlistener für die Evolustions
     evoslot.addEventListener("mousedown", function(event){
         let item = event.target;
         item.style.filter = "brightness(0.5)"
@@ -999,7 +1017,7 @@ function sekundenrechner(){
 }
 
 
-
+//Kauf Funktion für Intervall Upgrades
 function kaufinterval(id, funktion, intervalzeit) {
 
     if (pizzaGesamt >= upgrades[id].preis) {
@@ -1023,6 +1041,7 @@ function kaufinterval(id, funktion, intervalzeit) {
     }
 }
 
+//Kauf Funktion für Upgrades
 function kaufup(id, funktion){
 
     if(pizzaGesamt >= upgrades[id].preis)
@@ -1043,6 +1062,7 @@ function kaufup(id, funktion){
     
 }
 
+//Funktion für die Intervalle
 function intervalupgrade(id, anzahl){
     
     pizzenoverall += anzahl;
