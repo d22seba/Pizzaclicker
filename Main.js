@@ -1,4 +1,4 @@
-let pizzaGesamt = 1;
+let pizzaGesamt = 100000000;
 let pizzenoverall = 0;
 let cookieAdd = 1;
 let cookie_bild = document.getElementById("pizza-bild");
@@ -398,6 +398,7 @@ let upgrades = [
     {id: "up4", name: "Käse", preis: 14600, startpreis: 14600, anzahl: 0, plus: 30},
     {id: "up5", name: "Pizzabot", preis: 32800, startpreis: 32800, anzahl: 0, plus: 0},
     {id: "up6", name: "Sucuk", preis: 48000, startpreis: 48000, anzahl: 0, plus: 50},
+    {id: "up7", name: "???", preis: "???", startpreis: "???", anzahl: "???", plus: "???"},
 ];
 
 
@@ -767,7 +768,7 @@ document.querySelectorAll(".upgrade-img, .uupgrade-img").forEach(img => {
         
         
         //Fügt der Info-Box die Informationen hinzu
-        if(itemname !== "???" && plusprosek[num] !== undefined) {
+        if(itemname !== "???" && plusprosek[num] > 0) {
             
             
             name.innerHTML = upgrades[num].name
@@ -788,7 +789,7 @@ document.querySelectorAll(".upgrade-img, .uupgrade-img").forEach(img => {
             intervallive = setInterval(aktualisieren, 100);
 
         }
-        else if(itemname !== "???" && plusprosek[num] == undefined) {
+        else if(itemname !== "???" && plusprosek[num] == 0) {
 
             name.innerHTML = upgrades[num].name
             beschreibungbox.innerHTML = upgradeBeschreibung[num];
@@ -1037,14 +1038,13 @@ function shake(upgrade) {
 //Rechnet aus wie viele pizzen ein Upgrade pro Sekunde generiert 
 function sekundenrechner(){
 
-    //autoclicker
     plusprosek[0] = (cookieAdd / (autoclick / 1000)); 
-    //gustavo
     plusprosek[1] = gustavoAdd; 
-    //ofen
+    plusprosek[2] = 0;
     plusprosek[3] = ofenAdd;
-    //pizzabot
+    plusprosek[4] = 0;
     plusprosek[5] = pizzabotAdd;
+    plusprosek[6] = 0;
 
 
     let autoclickergesamtplus = plusprosek[0] * upgrades[0].anzahl;
@@ -1142,8 +1142,8 @@ function gustavo(){
 
 //Upgrade 2
 function tomatensauce(){
-    cookieAdd += upgrades[2].plus;
     upgrades[2].plus *= 1.02;
+    cookieAdd += upgrades[2].plus;
 }
 
 //upgrade 3
@@ -1153,8 +1153,8 @@ function ofen(){
 
 //upgrade 4
 function cheese(){
-    cookieAdd += upgrades[4].plus;
     upgrades[4].plus *= 1.02
+    cookieAdd += upgrades[4].plus;
 }
 
 //upgrade 5
@@ -1164,6 +1164,6 @@ function pizzabot(){
 
 //upgrade 6
 function sucuk(){
-    cookieAdd += upgrades[6].plus;
     upgrades[6].plus *= 1.02;
+    cookieAdd += upgrades[6].plus;
 }

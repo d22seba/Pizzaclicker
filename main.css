@@ -840,3 +840,11 @@ body{
     height: 100%;
     width: 45%;
 }
+
+#up7-img{
+    filter: brightness(0);
+    height: 100%;
+    width: 40%;
+    top: 0;
+    right: 0;
+}
