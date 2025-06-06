@@ -152,10 +152,11 @@ document.getElementById("sloteinsatz").max = pizzaGesamt;
 let slotbutton = document.getElementById("spinbutton");
 let minigame = document.getElementById("minigame");
 let minigamename = document.getElementById("gamename");
-let einsatz = document.getElementById("sloteinsatz");
+let einsatzinput = document.getElementById("sloteinsatz");
 let maxbet = document.getElementById("maxbet");
 let autospin = document.getElementById("autospin");
 let display = document.getElementById("ausgabedisplay");
+let einsatz;
 let pressed = false;
 
 //Öffnet das Minigame onclick
@@ -175,12 +176,39 @@ minigamebutton.addEventListener("click", () =>{
 
 })
 
+//Prüft ob der Wert genug oder ein Buchstabe ist
+einsatzinput.addEventListener("blur", function () {
+    this.value = parseFloat(this.value);
+
+    if (isNaN(this.value)) this.value = 100; 
+
+    else if (this.value < 100 && !this.value == "NaN") this.value = 100;
+    
+    else if(this.value > 1000 && !this.value == "NaN") this.value = Kommastelle(this.value); einsatz = this.value;
+});
+
 //Maxbet Button
 maxbet.addEventListener("click", function() {
 
     if(pizzaGesamt < 100000) sloteinsatz.value = pizzaGesamt.toFixed(1);
-    else sloteinsatz.value = Kommastelle(pizzaGesamt);
-    einsatz.blur();
+    else sloteinsatz.value = Kommastelle(pizzaGesamt); einsatz = pizzaGesamt;
+    einsatzinput.blur();
+});
+
+//Der Spinbutton Click
+slotbutton.addEventListener("click", function() {
+
+    
+    if (sloteinsatz.value > pizzaGesamt) {
+        return;
+    }
+    else{
+        pizzaGesamt -= einsatz;
+        pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
+        gamestart();
+    }
+
+    
 });
 
 //Autospin Button
@@ -191,14 +219,14 @@ autospin.addEventListener("click", function() {
         autospinning = true;
         slotbutton.disabled = true;
 
-        if (sloteinsatz.value <= pizzaGesamt) {
-            pizzaGesamt -= sloteinsatz.value;
+        if (einsatz <= pizzaGesamt) {
+            pizzaGesamt -= einsatz;
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
             gamestart();
         }
 
         spininterval = setInterval(() => {
-            if (sloteinsatz.value > pizzaGesamt) {
+            if (einsatz > pizzaGesamt) {
                 autospinning = false;
                 clearInterval(spininterval);
                 autospin.classList.remove("autospinon");
@@ -206,7 +234,7 @@ autospin.addEventListener("click", function() {
                 return;
             }
             else{
-                pizzaGesamt -= sloteinsatz.value;
+                pizzaGesamt -= einsatz;
                 pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
                 gamestart();
             }
@@ -221,31 +249,6 @@ autospin.addEventListener("click", function() {
 });
     
 
-slotbutton.addEventListener("click", function() {
-
-    
-    if (sloteinsatz.value > pizzaGesamt) {
-        return;
-    }
-    else{
-        if(sloteinsatz.value !== "NaN") pizzaGesamt -= sloteinsatz.value;
-        pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
-        gamestart();
-    }
-
-    
-});
-
-//Prüft ob der Wert genug oder ein Buchstabe ist
-einsatz.addEventListener("blur", function () {
-    this.value = parseFloat(this.value);
-
-    if (isNaN(this.value)) this.value = 100; 
-
-    else if (this.value < 100 && !this.value == "NaN") this.value = 100;
-    
-    else if(this.value > 1000 && !this.value == "NaN") this.value = Kommastelle(this.value);
-});
 
 let slotergebniss = [null, null, null];
 
@@ -304,7 +307,6 @@ function spinslots(input){
 
 //Zeigt an ob man gewonnen hat und gibt Gewinn aus
 function slotausgabe(){
-    let einsatzslots = einsatz.value;
 
     let win1 = document.getElementById("up0-img").src;
     let win2 = document.getElementById("up1-img").src;
@@ -314,31 +316,30 @@ function slotausgabe(){
 
     if (slotergebniss[0] === slotergebniss[1] && slotergebniss[1] === slotergebniss[2]) {
 
-        if (sloteinsatz.value == "NaN") einsatzslots = maxbetnum;
         if (slotergebniss[0] == win1) {
 
-            let gewinn = einsatzslots * 100;
+            let gewinn = einsatz * 100;
             pizzaGesamt += gewinn;
             display.innerHTML = "Du hast "+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
             
         } else if (slotergebniss[0] == win2) {
 
-            let gewinn = einsatzslots * 250;
+            let gewinn = einsatz * 250;
             pizzaGesamt += gewinn;
             display.innerHTML = "Du hast "+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
 
         } else if (slotergebniss[0] == win3) {
 
-            let gewinn = einsatzslots * 500;
+            let gewinn = einsatz * 500;
             pizzaGesamt += gewinn;
             display.innerHTML = "Du hast "+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
 
         } else if (slotergebniss[0] == win4) {
 
-            let gewinn = einsatzslots * 1000;
+            let gewinn = einsatz * 1000;
             pizzaGesamt += gewinn;
             display.innerHTML = "Du hast "+ Kommastelle(gewinn) + " Pizzen gewonnen!";
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
