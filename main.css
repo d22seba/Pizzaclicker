@@ -139,7 +139,7 @@ body{
 
     align-self: center;
     height: 80%;
-    width: 30%;
+    width: 25%;
 
 }
 
@@ -368,8 +368,8 @@ body{
 #pizza-bild{
     
     padding-top: 10%;
-    height: 60vh;
-    width: 33vw;
+    height: 500px;
+    width: 500px;
 
     border-radius: 50%;
     cursor: pointer;

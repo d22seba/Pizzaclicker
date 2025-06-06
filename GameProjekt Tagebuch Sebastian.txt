@@ -2,7 +2,7 @@
 Ich habe ein Upgrade-Fenster und den Geldstand erstellt. Vor allem habe ich mich auf das anklickbare Objekt konzentriert. Ich habe Bilder rausgesucht und sie richtig angepasst, damit nichts übersteht.
 
 2. Tag
-Ich habe ein paar Schriftarten-Anpassungen vorgenommen und versucht, alles ein bisschen schöner aussehen zu lassen. Außerdem habe ich mit dem Skript angefangen: Das Objekt hat jetzt eine Klickfunktion – wenn man es anklickt, bekommt man einen bestimmten Betrag an Coins.
+Ich habe ein paar Schriftarten-Anpassungen vorgenommen und versucht, alles ein bisschen schöner aussehen zu lassen. Außerdem habe ich mit dem Skript angefangen: Das Objekt hat jetzt eine Klickfunktion – wenn man es anklickt, bekommt man einen bestimmten Betrag an Pizzen.
 
 3. Tag
 Ich habe dem Upgrade-Fenster die zugehörigen Upgrades hinzugefügt und es so designt, dass man beliebig viele hinzufügen kann, ohne dass die Ordnung verloren geht.
@@ -11,7 +11,7 @@ Ich habe dem Upgrade-Fenster die zugehörigen Upgrades hinzugefügt und es so de
 Ich habe weiter an den Upgrades gearbeitet. Ich habe versucht, die Bilder der Upgrades schwarz erscheinen zu lassen, wenn man sie noch nie gekauft hat. Der Name wird mit „???“ versteckt und erst angezeigt, wenn man das Upgrade kaufen kann. Nebenbei habe ich auch das erste Upgrade – einen Autoclicker – programmiert. Wenn man ihn kauft, steigt sein Preis, und er kann mehrfach gekauft werden (stackt sich) und läuft im Hintergrund.
 
 5. Tag
-Ich habe dem Upgrade-Fenster ein neues Design gegeben und es weiter angepasst. Außerdem wird der Preis jetzt rot angezeigt, wenn man nicht genug Coins hat. Ich habe mit den nächsten Upgrades begonnen und eine Anzeige eingebaut, die zeigt, wie viele Coins man insgesamt gesammelt hat.
+Ich habe dem Upgrade-Fenster ein neues Design gegeben und es weiter angepasst. Außerdem wird der Preis jetzt rot angezeigt, wenn man nicht genug Pizzen hat. Ich habe mit den nächsten Upgrades begonnen und eine Anzeige eingebaut, die zeigt, wie viele Pizzen man insgesamt gesammelt hat.
 
 6. Tag (15.04.)
 Ich habe Klick-Geräusche eingebaut. Wenn man auf die Pizza klickt, hört man jetzt zufällige Sounds. Außerdem erscheint kurz ein kleiner Text, der zeigt, wie viele Pizzen man bekommen hat.
@@ -26,7 +26,7 @@ Ich habe das dritte Upgrade „Tomatensauce“ programmiert. Es sorgt dafür, da
 Ich habe das vierte Upgrade „Käse“ gebaut. Auch hier ändert sich das Bild der Pizza. Ich habe überprüft, ob sich die Bilder richtig ändern, wenn man mehrere Upgrades besitzt.
 
 10. Tag (26.04.)
-Ich habe eine Speicherfunktion mit Cookies erstellt. Jetzt merkt sich das Spiel, wie viele Coins man hat und welche Upgrades man gekauft hat.
+Ich habe eine Speicherfunktion mit Cookies erstellt. Jetzt merkt sich das Spiel, wie viele Pizzen man hat und welche Upgrades man gekauft hat.
 
 11. Tag (30.04.)
 Ich habe eingebaut, dass manche Upgrades erst sichtbar werden, wenn man vorherige gekauft hat. Auch die Farben, Namen und Bilder ändern sich, je nachdem, wie weit man im Spiel ist.
@@ -68,4 +68,4 @@ Ich habe die Slotmaschine gestaltet, ihr einen Namen gegeben, die Bildveränderu
 Ich habe die Slotmaschine fast fertiggestellt – es fehlt nur noch eine Anzeige, wie viel man bei jedem Item bekommen würde. Ich habe außerdem meine Speicher- und Ladefunktion neu geschrieben und ein neues Upgrade mit neuem Pizzabild erstellt.
 
 24. Tag (06.06.)
-Ich habe die Slotmaschine fertig gemacht und die gesamte Schriftart angepasst. Außerdem habe ich einige Funktionen ergänzt und Fehler im Code behoben.
+Ich habe die Slotmaschine fertig gemacht und das Design angepasst. Außerdem habe ich einige Funktionen ergänzt und Fehler im Code behoben. Ich hab der Zahl konvertier Funktion hab ich mehr Zahlen gegeben und die Preis skalierung angepasst. Bei jedem Kauf eines Upgrades steigt seine Wirkung um geringe Mengen.

@@ -1,4 +1,4 @@
-let pizzaGesamt = 0;
+let pizzaGesamt = 100000;
 let pizzenoverall = 0;
 let cookieAdd = 1;
 let cookie_bild = document.getElementById("pizza-bild");
@@ -100,7 +100,6 @@ function loadGame() {
     } catch (e) {
         console.error("Fehler beim Laden:", e);
     }
-    console.log(cookieAdd, gustavoAdd, ofenAdd, pizzabotAdd);
 }
 
 // Startet alle Intervalle
@@ -392,13 +391,13 @@ function slotausgabe(){
 
 //Preise und Anzahl der Upgrades
 let upgrades = [
-    {id: "up0", name: "Autoclicker", preis: 10, startpreis: 10, anzahl: 0, plus: 0,},
-    {id: "up1", name: "Gustavo", preis: 120, startpreis: 120, anzahl: 0, plus: 0,},
+    {id: "up0", name: "Autoclicker", preis: 10, startpreis: 10, anzahl: 0, plus: 0},
+    {id: "up1", name: "Gustavo", preis: 120, startpreis: 120, anzahl: 0, plus: 0},
     {id: "up2", name: "TomatenSauce", preis: 1200, startpreis: 1200, anzahl: 0, plus: 10},
-    {id: "up3", name: "Ofen", preis: 7200, startpreis: 7200, anzahl: 0, plus: 0,},
+    {id: "up3", name: "Ofen", preis: 7200, startpreis: 7200, anzahl: 0, plus: 0},
     {id: "up4", name: "Käse", preis: 14600, startpreis: 14600, anzahl: 0, plus: 30},
-    {id: "up5", name: "Pizzabot", preis: 32800, startpreis: 32800, anzahl: 0, plus: 0,},
-    {id: "up6", name: "Sucuk", preis: 48000, startpreis: 48000, anzahl: 0, plus: 40},
+    {id: "up5", name: "Pizzabot", preis: 32800, startpreis: 32800, anzahl: 0, plus: 0},
+    {id: "up6", name: "Sucuk", preis: 48000, startpreis: 48000, anzahl: 0, plus: 50},
 ];
 
 
@@ -793,7 +792,7 @@ document.querySelectorAll(".upgrade-img, .uupgrade-img").forEach(img => {
 
             name.innerHTML = upgrades[num].name
             beschreibungbox.innerHTML = upgradeBeschreibung[num];
-            statsolo.innerHTML = "Erhöht den Wert der Pizza um " + "<span style='font-weight: bold;'>"+upgrades[num].plus+"</span>";
+            statsolo.innerHTML = "Erhöht den Wert der Pizza um " + "<span style='font-weight: bold;'>"+ Kommastelle(upgrades[num].plus) +"</span>";
             preis.innerHTML = Kommastelle(upgrades[num].preis);
 
         }
