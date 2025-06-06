@@ -1,4 +1,4 @@
-let pizzaGesamt = 100000000;
+let pizzaGesamt = 0;
 let pizzenoverall = 0;
 let cookieAdd = 1;
 let cookie_bild = document.getElementById("pizza-bild");
