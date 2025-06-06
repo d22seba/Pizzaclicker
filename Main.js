@@ -12,10 +12,12 @@ let gekaufteEvos = [];
 let intervalle = {};
 
 
+
 let gamegesperrt;
 let gesperrt;
 let autospinning = false;
 let spininterval = null;
+let maxbetnum = 0;
 
 let gustavoAdd = 6;
 let ofenAdd = 10;
@@ -177,7 +179,7 @@ minigamebutton.addEventListener("click", () =>{
 maxbet.addEventListener("click", function() {
 
     if(pizzaGesamt < 100000) sloteinsatz.value = pizzaGesamt.toFixed(1);
-    else sloteinsatz.value = Kommastelle(pizzaGesamt)
+    else sloteinsatz.value = Kommastelle(pizzaGesamt); maxbetnum = pizzaGesamt;
     einsatz.blur();
 });
 
@@ -226,7 +228,8 @@ slotbutton.addEventListener("click", function() {
         return;
     }
     else{
-        pizzaGesamt -= sloteinsatz.value;
+        if(sloteinsatz.value !== "NaN") pizzaGesamt -= sloteinsatz.value;
+        else pizzaGesamt -= maxbetnum;
         pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
         gamestart();
     }
