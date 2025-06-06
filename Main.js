@@ -132,7 +132,7 @@ function Kommastelle(zahl) {
 
 // Führt farbe aus wenn die Seite geladen wird
 document.addEventListener("DOMContentLoaded", function() {
-    //loadGame(); 
+    loadGame(); 
     farbe(); 
     starteAlleIntervalle();
     
@@ -179,7 +179,7 @@ minigamebutton.addEventListener("click", () =>{
 maxbet.addEventListener("click", function() {
 
     if(pizzaGesamt < 100000) sloteinsatz.value = pizzaGesamt.toFixed(1);
-    else sloteinsatz.value = Kommastelle(pizzaGesamt); maxbetnum = pizzaGesamt;
+    else sloteinsatz.value = Kommastelle(pizzaGesamt);
     einsatz.blur();
 });
 
@@ -229,7 +229,6 @@ slotbutton.addEventListener("click", function() {
     }
     else{
         if(sloteinsatz.value !== "NaN") pizzaGesamt -= sloteinsatz.value;
-        else pizzaGesamt -= maxbetnum;
         pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
         gamestart();
     }
@@ -305,7 +304,7 @@ function spinslots(input){
 
 //Zeigt an ob man gewonnen hat und gibt Gewinn aus
 function slotausgabe(){
-    let einsatzslots = Number(document.getElementById("sloteinsatz").value);
+    let einsatzslots = einsatz.value;
 
     let win1 = document.getElementById("up0-img").src;
     let win2 = document.getElementById("up1-img").src;
@@ -315,6 +314,7 @@ function slotausgabe(){
 
     if (slotergebniss[0] === slotergebniss[1] && slotergebniss[1] === slotergebniss[2]) {
 
+        if (sloteinsatz.value == "NaN") einsatzslots = maxbetnum;
         if (slotergebniss[0] == win1) {
 
             let gewinn = einsatzslots * 100;
