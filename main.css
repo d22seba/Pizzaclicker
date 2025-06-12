@@ -18,6 +18,23 @@ body{
     display: flex;
 }
 
+#resetbutton{
+    position: absolute;
+    height: 40px;
+    width: 80px;
+    bottom: 1%;
+    right: 1%;
+    border: 1px solid black;
+    border-radius: 20px;
+    font-family: "press start 2p";
+    font-weight: bold;
+    transition: 0.1s;
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.3) inset;
+}
+#resetbutton:hover{
+    transform: scale(1.07);
+}
+
 #hintergrund{
 
     position: absolute;
