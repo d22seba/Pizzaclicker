@@ -164,8 +164,8 @@ function Kommastelle(zahl) {
 // Führt ein paar Funktion beim aufruf der Seite auf
 document.addEventListener("DOMContentLoaded", function() {
    
-    if(reset == undefined) loadGame();
-    if(reset == true) reset = false;
+    loadGame();
+    reset = false;
     farbe(); 
     starteAlleIntervalle();
     
@@ -175,8 +175,6 @@ document.addEventListener("DOMContentLoaded", function() {
     else{
         evolutionlock();
     }
-
-    setInterval(saveGame, 15000);
     
 });
 
@@ -480,7 +478,6 @@ function maxgeld() {
 
 //Farbe ändern wenn man nicht genug Pizzen hat
 function farbe() {
-    saveGame();
     sekundenrechner();
 
 
@@ -959,7 +956,6 @@ farbe();
         if(evosarray[numevo].preis <= pizzaGesamt){
 
             gekaufteEvos.push(Number(numevo));
-            saveGame();
             infoDiv.remove();
             pizzaGesamt -= evosarray[numevo].preis;
             pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
@@ -1100,7 +1096,6 @@ function kaufinterval(id, funktion, intervalzeit) {
         pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
         document.getElementById("up" + id + "-preis").innerHTML = Kommastelle(upgrades[id].preis);
         farbe();
-        saveGame();
         playBuySound();
     } else {
         shake("shake" + id);
