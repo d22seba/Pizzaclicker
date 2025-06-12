@@ -12,7 +12,7 @@ let gekaufteEvos = [];
 let intervalle = {};
 
 
-
+let reset;
 let gamegesperrt;
 let gesperrt;
 let autospinning = false;
@@ -48,6 +48,7 @@ function saveGame() {
             plusupgesamt,
             autoclick,
             gekaufteEvos,
+            reset,
             innerHTML: {
                 geld: document.getElementById("geld").innerHTML,
                 pizzenoverall: document.getElementById("gesamt-cookies").innerHTML,
@@ -83,6 +84,7 @@ function loadGame() {
         plusupgesamt = gameState.plusupgesamt;
         autoclick = gameState.autoclick;
         gekaufteEvos = gameState.gekaufteEvos || [];
+        reset = gameState.reset;
 
         gekaufteEvos.forEach(id => {
             const evoElement = document.querySelector(`.evos[data-id="${id}"]`);
@@ -100,6 +102,13 @@ function loadGame() {
     } catch (e) {
         console.error("Fehler beim Laden:", e);
     }
+}
+
+function deleteSave(){
+    let sure = window.confirm("Bist du sicher dass du deinen Spielstand löschen willst?");
+    if(!sure) return;
+    reset = true;
+    window.location.reload();
 }
 
 // Startet alle Intervalle
@@ -152,7 +161,9 @@ function Kommastelle(zahl) {
 
 // Führt ein paar Funktion beim aufruf der Seite auf
 document.addEventListener("DOMContentLoaded", function() {
-    loadGame(); 
+   
+    if(reset == undefined) loadGame();
+    if(reset == true) reset = false;
     farbe(); 
     starteAlleIntervalle();
     
