@@ -325,6 +325,8 @@ function spinslots(input){
     let slotsbilder = [
     "Cookies/tomatenSauce.png",
     "Cookies/tomatenSauce.png",
+    "Cookies/tomatenSauce.png",
+    "Cookies/tomatenSauce.png",
     "Cookies/autoclicker.png",
     "Cookies/autoclicker.png",
     "Cookies/autoclicker.png",
