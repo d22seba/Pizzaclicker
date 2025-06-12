@@ -70,6 +70,9 @@ function loadGame() {
         if (!saved) return;
 
         const gameState = JSON.parse(saved);
+        
+        reset = gameState.reset;
+        if(reset) return;
 
         pizzaGesamt = gameState.pizzaGesamt;
         pizzenoverall = gameState.pizzenoverall;
@@ -84,7 +87,6 @@ function loadGame() {
         plusupgesamt = gameState.plusupgesamt;
         autoclick = gameState.autoclick;
         gekaufteEvos = gameState.gekaufteEvos || [];
-        reset = gameState.reset;
 
         gekaufteEvos.forEach(id => {
             const evoElement = document.querySelector(`.evos[data-id="${id}"]`);
