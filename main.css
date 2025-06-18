@@ -385,8 +385,8 @@ body{
 #pizza-bild{
     
     padding-top: 10%;
-    height: 500px;
-    width: 500px;
+    height: 65%;
+    width: auto;
 
     border-radius: 50%;
     cursor: pointer;
@@ -580,6 +580,7 @@ body{
 }
 
 .uupgrade{
+    position: relative;
     border: solid 1px;
     width: 95%;
     height: 110px;
