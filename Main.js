@@ -277,6 +277,7 @@ autospin.addEventListener("click", function() {
                 return;
             }
             else{
+                einsatzinput.blur();
                 pizzaGesamt -= einsatzinput.value;
                 pizzakonto.innerHTML = Kommastelle(pizzaGesamt);
                 gamestart();
@@ -295,8 +296,6 @@ let slotergebniss = [null, null, null];
 
 //Die Spin Funktion
 function gamestart(){
-
-
 
     if(autospinning == false) slotbutton.disabled = true;
     display.innerHTML = "Spinning..."; 
