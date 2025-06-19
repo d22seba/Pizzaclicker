@@ -322,23 +322,23 @@ function gamestart(){
 function spinslots(input){
     let pizzabild = document.getElementById("pizza-bild").src;
     let slotsbilder = [
-    "Cookies/tomatenSauce.png",
-    "Cookies/tomatenSauce.png",
-    "Cookies/tomatenSauce.png",
-    "Cookies/tomatenSauce.png",
-    "Cookies/tomatenSauce.png",
-    "Cookies/autoclicker.png",
-    "Cookies/autoclicker.png",
-    "Cookies/autoclicker.png",
-    "Cookies/autoclicker.png",
-    "Cookies/autoclicker.png",
-    "Cookies/pizzabäcker.png",
-    "Cookies/pizzabäcker.png",
-    "Cookies/pizzabäcker.png",
-    "Cookies/pizzabäcker.png",
-    "Cookies/cheese.png",
-    "Cookies/cheese.png",
-    "Cookies/cheese.png",
+    "Cookies/tomatenSauce.webp",
+    "Cookies/tomatenSauce.webp",
+    "Cookies/tomatenSauce.webp",
+    "Cookies/tomatenSauce.webp",
+    "Cookies/tomatenSauce.webp",
+    "Cookies/autoclicker.webp",
+    "Cookies/autoclicker.webp",
+    "Cookies/autoclicker.webp",
+    "Cookies/autoclicker.webp",
+    "Cookies/autoclicker.webp",
+    "Cookies/pizzabäcker.webp",
+    "Cookies/pizzabäcker.webp",
+    "Cookies/pizzabäcker.webp",
+    "Cookies/pizzabäcker.webp",
+    "Cookies/cheese.webp",
+    "Cookies/cheese.webp",
+    "Cookies/cheese.webp",
     pizzabild,
     pizzabild,
 ]
@@ -430,13 +430,13 @@ let upgradeBeschreibung = [
 ];
 
 let upgradeBilder = [
-    "Cookies/autoclicker.png",
-    "Cookies/pizzabäcker.png",
-    "Cookies/tomatenSauce.png",
-    "Cookies/pizzaofen.png",
-    "Cookies/cheese.png",
-    "Cookies/pizzabot.png",
-    "Cookies/sucuk.png",
+    "Cookies/autoclicker.webp",
+    "Cookies/pizzabäcker.webp",
+    "Cookies/tomatenSauce.webp",
+    "Cookies/pizzaofen.webp",
+    "Cookies/cheese.webp",
+    "Cookies/pizzabot.webp",
+    "Cookies/sucuk.webp",
 ]
 
 let evosarray = [
@@ -604,13 +604,13 @@ function farbe() {
     
     // Spezielle Pizza-Bild-Änderung
     if (upgrades[2].anzahl > 0 && upgrades[4].anzahl == 0) {
-        document.getElementById("pizza-bild").src = "Cookies/pizzabild2.png";
+        document.getElementById("pizza-bild").src = "Cookies/pizzabild2.webp";
     }
     if (upgrades[4].anzahl > 0 && upgrades[6].anzahl == 0) {
-        document.getElementById("pizza-bild").src = "Cookies/pizzabild3.png";
+        document.getElementById("pizza-bild").src = "Cookies/pizzabild3.webp";
     }
     if (upgrades[6].anzahl > 0) {
-        document.getElementById("pizza-bild").src = "Cookies/pizzabild4.png";
+        document.getElementById("pizza-bild").src = "Cookies/pizzabild4.webp";
     }
 
     //verstecke das Minigame oder zeige es an
@@ -757,7 +757,7 @@ document.querySelectorAll(".upgrade-img, .uupgrade-img").forEach(img => {
 
         preis.classList = "preisinfo"
         
-        pizza.src = "Cookies/1_30_0026__01_03.png"
+        pizza.src = "Cookies/pizzaslice.webp"
         pizza.id = "pizzabildinfo"
         img.src = upgradeBilder[num];
         img.className = "infosbild";
@@ -886,10 +886,10 @@ if(!infoDiv){
 
         name.classList.add("infosevoname");
 
-        pizza.src = "Cookies/1_30_0026__01_03.png"
+        pizza.src = "Cookies/pizzaslice.webp"
         pizza.id = "pizzabildinfo"
         
-        img.src = "Cookies/evo" + numevo + ".png";
+        img.src = "Cookies/evo" + numevo + ".webp";
         img.className = "infosbild";
 
         document.body.appendChild(info)
@@ -986,13 +986,13 @@ cookie_bild.addEventListener("click", function() {
 
 //Die Klickgeräusche
 const sounds = [
-    "Cookies/clickb1.mp3",
-    "Cookies/clickb2.mp3",
-    "Cookies/clickb3.mp3",
-    "Cookies/clickb4.mp3",
-    "Cookies/clickb5.mp3",
-    "Cookies/clickb6.mp3",
-    "Cookies/clickb7.mp3",
+    "Cookies/sounds/clickb1.mp3",
+    "Cookies/sounds/clickb2.mp3",
+    "Cookies/sounds/clickb3.mp3",
+    "Cookies/sounds/clickb4.mp3",
+    "Cookies/sounds/clickb5.mp3",
+    "Cookies/sounds/clickb6.mp3",
+    "Cookies/sounds/clickb7.mp3",
 ]
 
 //Spiel die Klickgeräusche ab
@@ -1023,10 +1023,10 @@ cookie_bild.addEventListener("mouseup", function () {
 //Die Kaufgeräusche 
 
 buysound = [
-    "cookies/Buy1.mp3",
-    "cookies/Buy2.mp3",
-    "cookies/Buy3.mp3",
-    "cookies/Buy4.mp3",
+    "Cookies/sounds/Buy1.mp3",
+    "Cookies/sounds/Buy2.mp3",
+    "Cookies/sounds/Buy3.mp3",
+    "Cookies/sounds/Buy4.mp3",
 ]
 
 //Spielt die Kaufgeräusche ab
