@@ -174,17 +174,26 @@ function leaderboardshow(){
     array.sort((a, b) => b.pizzen - a.pizzen);
     let doneliste = array.slice(0, 10);
 
+    doneliste.forEach((item, index) => {
+     item.nummer = index + 1;
+    }); 
+
     let tabelle = document.getElementById("leaderboardtable");
     tabelle.innerHTML = ""; // vorherige Einträge löschen
 
     doneliste.forEach(eintrag => {
       let tabellereihe = document.createElement("tr");
+      let ranking = document.createElement("td");
       let tabellename = document.createElement("td");
       let tabelledata = document.createElement("td");
 
+      ranking.style.width = "auto"
+
+      ranking.textContent = eintrag.nummer + "."
       tabellename.textContent = eintrag.name;
       tabelledata.textContent = Kommastelle(eintrag.pizzen);
 
+      tabellereihe.appendChild(ranking)
       tabellereihe.appendChild(tabellename);
       tabellereihe.appendChild(tabelledata);
       tabelle.appendChild(tabellereihe);
@@ -571,6 +580,7 @@ function maxgeld() {
 function farbe() {
     sekundenrechner();
     leaderboardpush();
+    leaderboardshow();
 
     // 1. Alles verstecken, außer up0 und 1
     for (let i = 2; i < upgrades.length; i++) {

@@ -59,29 +59,29 @@ body{
     display: flex;
     height: 20vh;
     width: 20vw;
-    background-color: red;
     right: 0;
-    bottom: 50px;
-
+    top: 0;
+    justify-content: end;
 }
 
-#leaderboarddiv table{
-    width: 70%;
-    height: 70%;
-    background-color: white;
+#leaderboardtable{
+    position: relative;
+    width: 60%;
+    height: 100%;
     align-self: center;
+    box-shadow: 0px 0px 0px 0px black inset;
 }
 
-#leaderboarddiv table tr{
+#leaderboardtable tr{
     height: 10%;
+    max-height: 10%;
     width: 100%;
-    border: 1px solid white;
 }
 
-#leaderboarddiv table tr td{
+#leaderboardtable tr td{
+    font-size: 14px;
     height: 100%;
     width: 50%;
-    background-color: blue;
 }
 
 #hintergrund{
