@@ -18,12 +18,30 @@ body{
     display: flex;
 }
 
-#resetbutton{
+#settings{
     position: absolute;
+    display: flex;
+    flex-direction: row;
     height: 40px;
-    width: 80px;
+    width: auto;
     bottom: 1%;
     right: 1%;
+    gap: 10px;
+    z-index: 1000;
+}
+
+#leaderboardbutton{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 1px solid black;
+    transition: 0.1s;
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.3) inset;
+}
+
+#resetbutton{
+    height: 40px;
+    width: 80px;
     border: 1px solid black;
     border-radius: 20px;
     font-family: "press start 2p";
@@ -31,8 +49,39 @@ body{
     transition: 0.1s;
     box-shadow: 0 4px 4px 0 rgba(0,0,0,0.3) inset;
 }
-#resetbutton:hover{
+#resetbutton:hover,
+#leaderboardbutton:hover{
     transform: scale(1.07);
+}
+
+#leaderboarddiv{
+    position: absolute;
+    display: flex;
+    height: 20vh;
+    width: 20vw;
+    background-color: red;
+    right: 0;
+    bottom: 50px;
+
+}
+
+#leaderboarddiv table{
+    width: 70%;
+    height: 70%;
+    background-color: white;
+    align-self: center;
+}
+
+#leaderboarddiv table tr{
+    height: 10%;
+    width: 100%;
+    border: 1px solid white;
+}
+
+#leaderboarddiv table tr td{
+    height: 100%;
+    width: 50%;
+    background-color: blue;
 }
 
 #hintergrund{

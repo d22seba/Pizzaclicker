@@ -1,3 +1,20 @@
+  const firebaseConfig = {
+    apiKey: "AIzaSyCDDHbk_c9R_mgsUBvhLlAqIupAdBkK-EM",
+    authDomain: "pizzaclicker-9f9e8.firebaseapp.com",
+    databaseURL: "https://pizzaclicker-9f9e8-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "pizzaclicker-9f9e8",
+    storageBucket: "pizzaclicker-9f9e8.firebasestorage.app",
+    messagingSenderId: "755161415935",
+    appId: "1:755161415935:web:e2e3769a8b097ebda20cca",
+    measurementId: "G-X5K99ZYZEM"
+  };
+
+firebase.initializeApp(firebaseConfig);
+
+const database = firebase.database();
+
+
+let username;
 let pizzaGesamt = 0;
 let pizzenoverall = 0;
 let cookieAdd = 1;
@@ -35,6 +52,7 @@ window.addEventListener("beforeunload", saveGame);
 function saveGame() {
     try {
         const gameState = {
+            username,
             pizzaGesamt,
             pizzenoverall,
             upgrades,
@@ -74,6 +92,7 @@ function loadGame() {
         reset = gameState.reset;
         if(reset) return;
 
+        username = gameState.username;
         pizzaGesamt = gameState.pizzaGesamt;
         pizzenoverall = gameState.pizzenoverall;
         upgrades = gameState.upgrades;
@@ -104,6 +123,75 @@ function loadGame() {
     } catch (e) {
         console.error("Fehler beim Laden:", e);
     }
+}
+
+let leaderboardbutton = document.getElementById("leaderboardbutton");
+let gamebereich = document.getElementById("gamebereich");
+let leaderboard = null;
+
+leaderboardbutton.addEventListener("click", () =>{
+
+    if(leaderboard){
+        leaderboard.remove();
+        leaderboard = null;
+        return;
+    }
+    
+    leaderboard = document.createElement("div");
+    let tabelle = document.createElement("table");
+    
+    gamebereich.appendChild(leaderboard);
+    leaderboard.appendChild(tabelle);
+    leaderboard.id = "leaderboarddiv";
+    tabelle.id = "leaderboardtable"
+
+    leaderboardshow();
+})
+
+function leaderboardpush(){
+  // Daten in die Realtime Database schreiben
+  database.ref("leaderboard/" + username).set({
+    pizzen: pizzaGesamt
+  }).catch(error => {
+    console.error("Fehler beim Schreiben ins Leaderboard:", error);
+  });
+}
+
+function leaderboardshow(){
+  const dbRef = database.ref("leaderboard");
+
+  dbRef.once("value").then(snapshot => {
+    const daten = snapshot.val() || {};
+
+    let array = [];
+    for (let name in daten) {
+      array.push({
+        name: name,
+        pizzen: daten[name].pizzen
+      });
+    }
+
+    array.sort((a, b) => b.pizzen - a.pizzen);
+    let doneliste = array.slice(0, 10);
+
+    let tabelle = document.getElementById("leaderboardtable");
+    tabelle.innerHTML = ""; // vorherige Einträge löschen
+
+    doneliste.forEach(eintrag => {
+      let tabellereihe = document.createElement("tr");
+      let tabellename = document.createElement("td");
+      let tabelledata = document.createElement("td");
+
+      tabellename.textContent = eintrag.name;
+      tabelledata.textContent = eintrag.pizzen;
+
+      tabellereihe.appendChild(tabellename);
+      tabellereihe.appendChild(tabelledata);
+      tabelle.appendChild(tabellereihe);
+    });
+  }).catch(error => {
+    console.error("Fehler beim Laden des Leaderboards:", error);
+  });
 }
 
 function deleteSave(){
@@ -162,9 +250,10 @@ function Kommastelle(zahl) {
 
 
 // Führt ein paar Funktion beim aufruf der Seite auf
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
    
     loadGame();
+    if(!username) username = prompt("gib deinen namen ein");
     reset = false;
     farbe(); 
     starteAlleIntervalle();
@@ -223,7 +312,7 @@ einsatzinput.addEventListener("blur", function () {
 });
 
 //Maxbet Button
-maxbet.addEventListener("click", function() {
+maxbet.addEventListener("click", () => {
 
     if(pizzaGesamt < 1000) einsatzinput.value = pizzaGesamt.toFixed(1);
     else {
@@ -233,7 +322,7 @@ maxbet.addEventListener("click", function() {
 });
 
 //Der Spinbutton Click
-slotbutton.addEventListener("click", function() {
+slotbutton.addEventListener("click", () => {
 
     
     if (einsatzinput.value > pizzaGesamt || einsatzinput.value < 100) {
@@ -255,7 +344,7 @@ slotbutton.addEventListener("click", function() {
 });
 
 //Autospin Button
-autospin.addEventListener("click", function() {
+autospin.addEventListener("click", () => {
 
     if (autospinning == false && !slotbutton.disabled) {
         autospin.classList.add("autospinon");
@@ -481,7 +570,7 @@ function maxgeld() {
 //Farbe ändern wenn man nicht genug Pizzen hat
 function farbe() {
     sekundenrechner();
-
+    leaderboardpush();
 
     // 1. Alles verstecken, außer up0 und 1
     for (let i = 2; i < upgrades.length; i++) {
@@ -974,7 +1063,7 @@ farbe();
 });
 
 // Der Click auf die Pizza
-cookie_bild.addEventListener("click", function() {
+cookie_bild.addEventListener("click", () => {
     pizzenoverall += cookieAdd;
     pizzaGesamt += cookieAdd;
     pizzakonto.innerHTML = Kommastelle(pizzaGesamt);

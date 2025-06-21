@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Press+Start+2P&display=swap" rel="stylesheet">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizza Clicker</title>
@@ -15,7 +16,10 @@
 
 <div id="gamebereich">
 
-    <input onclick="deleteSave()" type="button" id="resetbutton" value="reset">
+    <div id="settings">
+        <input onclick="" type="button" id="leaderboardbutton" value="🏆">
+        <input onclick="deleteSave()" type="button" id="resetbutton" value="reset">
+    </div>
     
     <div class="zu" id="minigame">
         <button id="minigamebutton">x</button>
@@ -235,6 +239,10 @@
     </div>
     </div>
     
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <script src="Main.js"></script>
+
 </body>
 </html>
