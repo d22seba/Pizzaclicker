@@ -151,7 +151,7 @@ leaderboardbutton.addEventListener("click", () =>{
 function leaderboardpush(){
   // Daten in die Realtime Database schreiben
   database.ref("leaderboard/" + username).set({
-    pizzen: pizzaGesamt
+    pizzen: pizzenoverall
   }).catch(error => {
     console.error("Fehler beim Schreiben ins Leaderboard:", error);
   });
@@ -183,7 +183,7 @@ function leaderboardshow(){
       let tabelledata = document.createElement("td");
 
       tabellename.textContent = eintrag.name;
-      tabelledata.textContent = eintrag.pizzen;
+      tabelledata.textContent = Kommastelle(eintrag.pizzen);
 
       tabellereihe.appendChild(tabellename);
       tabellereihe.appendChild(tabelledata);
