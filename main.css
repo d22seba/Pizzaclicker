@@ -66,6 +66,12 @@ body{
     cursor: pointer;
 }
 
+#guestloggin{ 
+    color: rgb(0, 0, 103);
+    margin-top: 10px;
+    cursor: pointer;
+}
+
 #settings{
     position: absolute;
     display: flex;
@@ -110,6 +116,7 @@ body{
     right: 0;
     top: 2%;
     justify-content: end;
+    overflow-y: scroll;
 }
 
 #leaderboardtable{

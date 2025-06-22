@@ -36,9 +36,9 @@ let autospinning = false;
 let spininterval = null;
 let maxbetnum = 0;
 
-let gustavoAdd = 6;
-let ofenAdd = 15;
-let pizzabotAdd = 40;
+let gustavoAdd = 10;
+let ofenAdd = 25;
+let pizzabotAdd = 70;
 
 let tomatensauceAdd = 10;
 let cheeseAdd = 30;
@@ -141,9 +141,13 @@ function checkusername(){
         errortext = document.createElement("p");
         input = document.createElement("input");
         let submit = document.createElement("button");
+        let guest = document.createElement("p");
         nameinputdiv.id = "nameinputdiv"
+        guest.id = "guestloggin"
         input.maxLength = "15"
         submit.innerHTML = "Done"
+        guest.innerHTML = "Als Gast spielen"
+        guest.onclick = usernameguest;
         submit.onclick = usernamesubmit;
 
         title.innerHTML = "Gib deinen Namen ein"
@@ -153,6 +157,16 @@ function checkusername(){
         nameinputdiv.appendChild(input)
         nameinputdiv.appendChild(errortext);
         nameinputdiv.appendChild(submit)
+        nameinputdiv.appendChild(guest)
+}
+
+function  usernameguest(){
+
+        username = "test";
+        nameinputdiv.remove();
+        gamebereich.classList.remove("blur");
+        upswindow.classList.remove("blur");
+
 }
 
 function usernamesubmit(){
@@ -173,7 +187,6 @@ function usernamesubmit(){
         nameinputdiv.remove();
         gamebereich.classList.remove("blur");
         upswindow.classList.remove("blur");
-        
     }
     
 });
@@ -209,6 +222,7 @@ leaderboardbutton.addEventListener("click", () =>{
 
 function leaderboardpush(){
   // Daten in die Realtime Database schreiben
+if(username == "test") return;
   database.ref("leaderboard/" + username).set({
     pizzen: pizzenoverall
   })
@@ -574,7 +588,7 @@ let plusupgesamt = new Array(upgrades.length).fill(0);
 
 
 let upgradeBeschreibung = [
-    '"Klickt alle 8 Sekunden automatisch für dich!"',
+    '"Ein langsamer Autoclicker. Klickt alle 8 Sekunden mit halber Stärke deines echten Klicks."',
     '"Ein erfahrener Pizzabäcker der dir automatisch Pizzen generiert"',
     '"Fügt eine leckere Tomatensauce zur Pizza hinzu was ihren Wert erhöht"',
     '"Ein Pizzaofen der passiv Pizzen generiert"',
@@ -602,7 +616,7 @@ let evosarray = [
     {name: "Premium Tomate", beschreibung: "Verbesserte Tomatensauce: 20% mehr Pizzen pro Klick.", preis: 16200, funktion: () => { cookieAdd *= 1.20; }},
     {name: "Basilikum", beschreibung: "Ein bisschen Grün und Zack – ein Klick wird 20% mehr Wert.", preis: 24500, funktion: () => { cookieAdd *= 1.20; }},
     {name: "OlivenHolz", beschreibung: "Neue Pizzaschieber aus Olivenholz verdoppeln die Produktion.", preis: 38500, funktion: () => { ofenAdd *= 2; intervalreset(3, ofen, 1000);}},
-    {name: "Mehr Platz!!!", beschreibung: "Mehr Öfen, mehr Pizzen – doppelte Leistung!", preis: 50000, funktion: () => { ofenAdd *= 2; intervalreset(3, ofen, 1000);}}
+    {name: "Mehr Platz!!!", beschreibung: "Mehr Öfen, mehr Pizzen – doppelte Leistung!", preis: 50000, funktion: () => { ofenAdd *= 2; intervalreset(3, ofen, 1000);}},
 ];
 
 //Resetet die Intervalle damit die Evos wirken
@@ -1205,7 +1219,7 @@ function shake(upgrade) {
 //Rechnet aus wie viele pizzen ein Upgrade pro Sekunde generiert 
 function sekundenrechner(){
 
-    plusprosek[0] = (cookieAdd / (autoclick / 1000)); 
+    plusprosek[0] = ((cookieAdd * 0.5) / (autoclick / 1000)); 
     plusprosek[1] = gustavoAdd; 
     plusprosek[2] = 0;
     plusprosek[3] = ofenAdd;
@@ -1298,7 +1312,7 @@ function intervalupgrade(id, anzahl){
 
 //Upgrade 0
 function autoclicker(){
-    intervalupgrade(0, cookieAdd)
+    intervalupgrade(0, cookieAdd * 0.5)
 }
 
 //upgrade 1
