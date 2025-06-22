@@ -141,7 +141,7 @@ function checkusername(){
         errortext = document.createElement("p");
         input = document.createElement("input");
         let submit = document.createElement("button");
-        let guest = document.createElement("p");
+        let guest = document.createElement("a");
         nameinputdiv.id = "nameinputdiv"
         guest.id = "guestloggin"
         input.maxLength = "15"
