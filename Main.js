@@ -125,6 +125,65 @@ function loadGame() {
     }
 }
 
+let upswindow = document.getElementById("upgrades-window")
+let nameinputdiv;
+let input;
+let errortext;
+
+function checkusername(){
+    
+    if(username) return
+    gamebereich.classList.add("blur");
+    upswindow.classList.add("blur");
+    
+        nameinputdiv = document.createElement("div");
+        let title = document.createElement("h1");
+        errortext = document.createElement("p");
+        input = document.createElement("input");
+        let submit = document.createElement("button");
+        nameinputdiv.id = "nameinputdiv"
+        input.maxLength = "15"
+        submit.innerHTML = "Done"
+        submit.onclick = usernamesubmit;
+
+        title.innerHTML = "Gib deinen Namen ein"
+        errortext.textContent = " "
+        document.body.appendChild(nameinputdiv)
+        nameinputdiv.appendChild(title)
+        nameinputdiv.appendChild(input)
+        nameinputdiv.appendChild(errortext);
+        nameinputdiv.appendChild(submit)
+}
+
+function usernamesubmit(){
+
+  const dbRef = database.ref("leaderboard");
+
+  dbRef.once("value").then(snapshot => {
+    const daten = snapshot.val() || {};
+
+    if (input.value in daten){
+        errortext.textContent = "Username Vergeben";
+        input.classList.add("shakename");
+        setTimeout(() => {
+            input.classList.remove("shakename");
+        }, 500);
+    }else{
+        username = input.value;
+        nameinputdiv.remove();
+        gamebereich.classList.remove("blur");
+        upswindow.classList.remove("blur");
+        
+    }
+    
+});
+
+
+    
+
+    
+}
+
 let leaderboardbutton = document.getElementById("leaderboardbutton");
 let gamebereich = document.getElementById("gamebereich");
 let leaderboard = null;
@@ -152,9 +211,7 @@ function leaderboardpush(){
   // Daten in die Realtime Database schreiben
   database.ref("leaderboard/" + username).set({
     pizzen: pizzenoverall
-  }).catch(error => {
-    console.error("Fehler beim Schreiben ins Leaderboard:", error);
-  });
+  })
 }
 
 function leaderboardshow(){
@@ -179,7 +236,8 @@ function leaderboardshow(){
     }); 
 
     let tabelle = document.getElementById("leaderboardtable");
-    tabelle.innerHTML = ""; // vorherige Einträge löschen
+
+    tabelle.innerHTML = ""
 
     doneliste.forEach(eintrag => {
       let tabellereihe = document.createElement("tr");
@@ -193,14 +251,14 @@ function leaderboardshow(){
       tabellename.textContent = eintrag.name;
       tabelledata.textContent = Kommastelle(eintrag.pizzen);
 
+if(tabellereihe) tabellereihe.remove();
+
       tabellereihe.appendChild(ranking)
       tabellereihe.appendChild(tabellename);
       tabellereihe.appendChild(tabelledata);
       tabelle.appendChild(tabellereihe);
     });
-  }).catch(error => {
-    console.error("Fehler beim Laden des Leaderboards:", error);
-  });
+  })
 }
 
 function deleteSave(){
@@ -260,9 +318,8 @@ function Kommastelle(zahl) {
 
 // Führt ein paar Funktion beim aufruf der Seite auf
 document.addEventListener("DOMContentLoaded", () => {
-   
     loadGame();
-    if(!username) username = prompt("gib deinen namen ein");
+    checkusername();
     reset = false;
     farbe(); 
     starteAlleIntervalle();
@@ -579,7 +636,7 @@ function maxgeld() {
 //Farbe ändern wenn man nicht genug Pizzen hat
 function farbe() {
     sekundenrechner();
-    leaderboardpush();
+    if (username) leaderboardpush();
     leaderboardshow();
 
     // 1. Alles verstecken, außer up0 und 1
