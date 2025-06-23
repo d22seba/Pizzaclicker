@@ -360,10 +360,26 @@ function Kommastelle(zahl) {
         zahl = zahl / Math.pow(10, 39);
         return zahl.toFixed(3) + "e";
     }
-    else if (zahl >= Math.pow(10, 42)) {
+    else if (zahl >= Math.pow(10, 42) && zahl < Math.pow(10, 45)) {
         zahl = zahl / Math.pow(10, 42);
         return zahl.toFixed(3) + "ee";
     }
+    else if (zahl >= Math.pow(10, 39) && zahl < Math.pow(10, 42)) {
+        zahl = zahl / Math.pow(10, 39);
+        return zahl.toFixed(3) + "f";
+    }
+    else if (zahl >= Math.pow(10, 42) && zahl < Math.pow(10, 45)) {
+        zahl = zahl / Math.pow(10, 42);
+        return zahl.toFixed(3) + "ff";
+    }
+    else if (zahl >= Math.pow(10, 45) && zahl < Math.pow(10, 48)) {
+        zahl = zahl / Math.pow(10, 45);
+        return zahl.toFixed(3) + "g";
+    }
+    else if (zahl >= Math.pow(10, 48) && zahl < Math.pow(10, 51)) {
+        zahl = zahl / Math.pow(10, 48);
+        return zahl.toFixed(3) + "gg";
+    }   
     else {
         return  zahl.toFixed(0);
     }
