@@ -243,7 +243,7 @@ function leaderboardshow(){
     }
 
     array.sort((a, b) => b.pizzen - a.pizzen);
-    let doneliste = array.slice(0, 10);
+    let doneliste = array.slice(0, 30);
 
     doneliste.forEach((item, index) => {
      item.nummer = index + 1;
