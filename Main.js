@@ -312,17 +312,37 @@ function Kommastelle(zahl) {
     if (zahl >= 1000 && zahl < 1000000) {
         return  zahl.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) +"K"; 
     } 
-    else if(zahl >= 1000000 && zahl < 1000000000){
-        zahl = zahl / 1000000;
+    else if(zahl >=  Math.pow(10, 6) && zahl < Math.pow(10, 9)){
+        zahl = zahl / Math.pow(10, 6);
         return zahl.toFixed(3) + "M";
     }
-    else if(zahl >= 1000000000 && zahl < 1000000000000){
-        zahl = zahl / 1000000000
+    else if(zahl >= Math.pow(10, 9) && zahl < Math.pow(10, 12)){
+        zahl = zahl / Math.pow(10, 9)
         return zahl.toFixed(3) + "B"
     }
-    else if(zahl >= 1000000000000 && zahl < 1000000000000000){
-        zahl = zahl / 1000000000000
+    else if(zahl >= Math.pow(10, 12) && zahl < Math.pow(10, 15)){
+        zahl = zahl / Math.pow(10, 12)
         return zahl.toFixed(3) + "T"
+    }
+    else if(zahl >= Math.pow(10, 15) && zahl < Math.pow(10, 18)){
+        zahl = zahl / Math.pow(10, 15)
+        return zahl.toFixed(3) + "a"
+    }
+    else if(zahl >= Math.pow(10, 18) && zahl < Math.pow(10, 21)){
+        zahl = zahl / Math.pow(10, 18)
+        return zahl.toFixed(3) + "b"
+    }
+    else if(zahl >= Math.pow(10, 21) && zahl < Math.pow(10, 24)){
+        zahl = zahl / Math.pow(10, 21)
+        return zahl.toFixed(3) + "c"
+    }
+    else if(zahl >= Math.pow(10, 24) && zahl < Math.pow(10, 27)){
+        zahl = zahl / Math.pow(10, 24)
+        return zahl.toFixed(3) + "d"
+    }
+    else if(zahl >= Math.pow(10, 27) && zahl < Math.pow(10, 30)){
+        zahl = zahl / Math.pow(10, 27)
+        return zahl.toFixed(3) + "e"
     }
     else {
         return  zahl.toFixed(0);

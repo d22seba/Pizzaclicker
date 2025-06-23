@@ -68,7 +68,7 @@ body{
 
 #guestloggin{ 
     color: rgb(0, 0, 103);
-    margin-top: 10px;
+    margin-top: 1%;
     cursor: pointer;
 }
 
@@ -117,6 +117,7 @@ body{
     top: 2%;
     justify-content: end;
     overflow-y: scroll;
+    scrollbar-width: 0;
 }
 
 #leaderboardtable{
