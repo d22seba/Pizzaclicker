@@ -649,7 +649,7 @@ let upgradeBeschreibung = [
     '"Fügt eine leckere Tomatensauce zur Pizza hinzu was ihren Wert erhöht"',
     '"Ein Pizzaofen der passiv Pizzen generiert"',
     '"Erhöht den Wert der Pizzen um 20"',
-    '"Erhöht den Wert der Pizzen um 30"',
+    '"Ein schneller Helfer, der Pizzen im Eiltempo produziert."',
     '"Erhöht den Wert der Pizzen um 40"',
     '"Erhöht den Wert der Pizzen um 50"',
 ];
