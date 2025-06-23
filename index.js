@@ -1,18 +1,3 @@
-  const firebaseConfig = {
-    apiKey: "AIzaSyCDDHbk_c9R_mgsUBvhLlAqIupAdBkK-EM",
-    authDomain: "pizzaclicker-9f9e8.firebaseapp.com",
-    databaseURL: "https://pizzaclicker-9f9e8-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "pizzaclicker-9f9e8",
-    storageBucket: "pizzaclicker-9f9e8.firebasestorage.app",
-    messagingSenderId: "755161415935",
-    appId: "1:755161415935:web:e2e3769a8b097ebda20cca",
-    measurementId: "G-X5K99ZYZEM"
-  };
-
-firebase.initializeApp(firebaseConfig);
-
-const database = firebase.database();
-
 
 let username;
 let pizzaGesamt = 0;
