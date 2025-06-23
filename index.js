@@ -124,6 +124,22 @@ function loadGame() {
     }
 }
 
+function scaleGame() {
+  const baseWidth = 1920;   // deine Designgröße
+  const baseHeight = 1080;
+
+  const scaleX = window.innerWidth / baseWidth;
+  const scaleY = window.innerHeight / baseHeight;
+  const scale = Math.min(scaleX, scaleY);  // gleichmäßig skalieren
+
+  const wrapper = document.getElementById('game-wrapper');
+  wrapper.style.transform = `scale(${scale})`;
+}
+
+window.addEventListener('resize', scaleGame);
+window.addEventListener('load', scaleGame);
+
+
 let upswindow = document.getElementById("upgrades-window")
 let nameinputdiv;
 let input;
@@ -199,6 +215,7 @@ function usernamesubmit(){
 let leaderboardbutton = document.getElementById("leaderboardbutton");
 let gamebereich = document.getElementById("gamebereich");
 let leaderboard = null;
+let tabelle = document.getElementById("leaderboardtable");
 
 leaderboardbutton.addEventListener("click", () =>{
 
@@ -209,7 +226,7 @@ leaderboardbutton.addEventListener("click", () =>{
     }
     
     leaderboard = document.createElement("div");
-    let tabelle = document.createElement("table");
+    tabelle = document.createElement("table");
     
     gamebereich.appendChild(leaderboard);
     leaderboard.appendChild(tabelle);
@@ -248,9 +265,9 @@ function leaderboardshow(){
      item.nummer = index + 1;
     }); 
 
-    let tabelle = document.getElementById("leaderboardtable");
+    
 
-    tabelle.innerHTML = ""
+    if(tabelle) tabelle.innerHTML = ""
 
     doneliste.forEach(eintrag => {
       let tabellereihe = document.createElement("tr");
@@ -266,10 +283,10 @@ function leaderboardshow(){
 
 if(tabellereihe) tabellereihe.remove();
 
-      tabellereihe.appendChild(ranking)
-      tabellereihe.appendChild(tabellename);
-      tabellereihe.appendChild(tabelledata);
-      tabelle.appendChild(tabellereihe);
+    tabellereihe.appendChild(ranking)
+    tabellereihe.appendChild(tabellename);
+    tabellereihe.appendChild(tabelledata);
+    tabelle.appendChild(tabellereihe);
     });
   })
 }
@@ -706,7 +723,7 @@ function maxgeld() {
 function farbe() {
     sekundenrechner();
     if (username) leaderboardpush();
-    leaderboardshow();
+    if (tabelle) leaderboardshow();
 
     // 1. Alles verstecken, außer up0 und 1
     for (let i = 2; i < upgrades.length; i++) {
