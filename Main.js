@@ -330,19 +330,39 @@ function Kommastelle(zahl) {
     }
     else if(zahl >= Math.pow(10, 18) && zahl < Math.pow(10, 21)){
         zahl = zahl / Math.pow(10, 18)
-        return zahl.toFixed(3) + "b"
+        return zahl.toFixed(3) + "aa"
     }
     else if(zahl >= Math.pow(10, 21) && zahl < Math.pow(10, 24)){
         zahl = zahl / Math.pow(10, 21)
-        return zahl.toFixed(3) + "c"
+        return zahl.toFixed(3) + "b"
     }
     else if(zahl >= Math.pow(10, 24) && zahl < Math.pow(10, 27)){
         zahl = zahl / Math.pow(10, 24)
-        return zahl.toFixed(3) + "d"
+        return zahl.toFixed(3) + "bb"
     }
     else if(zahl >= Math.pow(10, 27) && zahl < Math.pow(10, 30)){
         zahl = zahl / Math.pow(10, 27)
-        return zahl.toFixed(3) + "e"
+        return zahl.toFixed(3) + "c"
+    }
+    else if (zahl >= Math.pow(10, 30) && zahl < Math.pow(10, 33)) {
+        zahl = zahl / Math.pow(10, 30);
+        return zahl.toFixed(3) + "cc";
+    }
+    else if (zahl >= Math.pow(10, 33) && zahl < Math.pow(10, 36)) {
+        zahl = zahl / Math.pow(10, 33);
+        return zahl.toFixed(3) + "d";
+    }
+    else if (zahl >= Math.pow(10, 36) && zahl < Math.pow(10, 39)) {
+        zahl = zahl / Math.pow(10, 36);
+        return zahl.toFixed(3) + "dd";
+    }
+    else if (zahl >= Math.pow(10, 39) && zahl < Math.pow(10, 42)) {
+        zahl = zahl / Math.pow(10, 39);
+        return zahl.toFixed(3) + "e";
+    }
+    else if (zahl >= Math.pow(10, 42)) {
+        zahl = zahl / Math.pow(10, 42);
+        return zahl.toFixed(3) + "ee";
     }
     else {
         return  zahl.toFixed(0);
