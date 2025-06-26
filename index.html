@@ -14,10 +14,36 @@
 </head>
 <body>
 
+<div id="auth-container">
+    <button id="closebuttonauth">x</button>
+    <h1>Anmelden oder Neues Konto erstellen</h1>
+    <label id="fehlertext">.</label>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Passwort">
+  <div>
+  <button onclick="login()">Einloggen</button>
+  <button onclick="register()">Registrieren</button>
+</div>
+</div> 
+
 <div id="gamebereich">
 
+<div id="leaderboarddiv">
+    <table id="leaderboardtable">
+
+    </table>
+</div>
+
     <div id="settings">
-        <input onclick="" type="button" id="leaderboardbutton" value="🏆">
+        <img src="Cookies/zahnrad.webp" id="zahnrad">
+        <button class="settingsbuttons" id="accountbutton">
+            <img src="Cookies/account.webp">
+        </button>
+
+        <button onclick="leaderboardshow()" class="settingsbuttons" id="leaderboardbutton">
+            <img src="Cookies/pokal.webp">
+        </button>
+
         <input onclick="deleteSave()" type="button" id="resetbutton" value="reset">
     </div>
     
@@ -242,6 +268,7 @@
     
 
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <script src="index.js"></script>
 

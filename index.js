@@ -12,6 +12,7 @@
 firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
+const auth = firebase.auth();
 
 let username;
 let pizzaGesamt = 0;
@@ -35,7 +36,7 @@ let autospinning = false;
 let spininterval = null;
 let maxbetnum = 0;
 
-let gustavoAdd = 10;
+let gustavoAdd = 7;
 let ofenAdd = 25;
 let pizzabotAdd = 70;
 
@@ -46,6 +47,156 @@ let sucukAdd = 50;
 
 window.addEventListener("beforeunload", saveGame);
 
+function register() {
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    
+    firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
+    .then((userCredential) => {
+        alert("Erfolgreich registriert!");
+        const user = userCredential.user;
+        saveUserData(user.uid);
+        accountdiv.style.top ="-60%"
+        openauth = false
+        window.addEventListener("beforeunload", () => saveUserData(user.uid));
+    })
+    .catch((error) => {
+        if (error.code === "auth/email-already-in-use"){
+        fehlertext.innerHTML = "Email ist schon vergeben"
+        email.value = "";
+        password.value = "";
+        } else if(error.code === "auth/invalid-email"){
+         fehlertext.innerHTML = "Ungültige Email Adresse"
+        email.value = "";
+        password.value = "";
+        } else if (error.code === "auth/weak-password") {
+         fehlertext.innerHTML = "Das Passwort ist zu schwach (mindestens 6 Zeichen).";
+        password.value = "";
+         }
+        fehlertext.style.opacity = "1"
+        email.classList.add("shakename");
+        password.classList.add("shakename");
+        setTimeout(() => {
+            email.classList.remove("shakename");
+            password.classList.remove("shakename")
+        }, 500);
+    });
+}
+
+function login() {
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    
+    firebase.auth().signInWithEmailAndPassword(email.value, password.value)
+    .then((userCredential) => {
+        loadUserData(userCredential.user.uid);
+        saveGame();
+        accountdiv.style.top ="-60%"
+        openauth = false
+        window.addEventListener("beforeunload", () => saveUserData(userCredential.user.uid));
+    })
+    .catch((error) => {
+        
+        let fehlertext = document.getElementById("fehlertext")
+    if (error.code === "auth/invalid-email") {
+        fehlertext.innerHTML = "Ungültige Email.";
+        email.value = "";
+        password.value = "";
+    } 
+    else if(error.code === "auth/missing-password"){
+        fehlertext.innerHTML = "Du musst ein Passwort eingeben"
+        password.classList.add("shakename");
+    }
+    else if (error.code === "auth/wrong-password") {
+        fehlertext.innerHTML = "Passwort ist falsch.";
+        password.value = "";
+        password.classList.add("shakename");
+    }
+     else if (error.code === "auth/user-not-found") {
+        fehlertext.innerHTML = "Account exestiert nicht.";
+        email.value = "";
+        password.value = "";
+        email.classList.add("shakename");
+        password.classList.add("shakename");
+    } 
+    else if (error.code === "auth/too-many-requests"){
+        fehlertext.innerHTML = "Too many trys, Versuche es später erneut"
+        email.value = "";
+        password.value = "";
+        email.classList.add("shakename");
+        password.classList.add("shakename");
+    }
+        fehlertext.style.opacity = "1"
+        setTimeout(() => {
+            email.classList.remove("shakename");
+            password.classList.remove("shakename")
+        }, 500);
+    });
+}
+
+function saveUserData(uid) {
+  const userData = {
+            username,
+            pizzaGesamt,
+            pizzenoverall,
+            upgrades,
+            pizza_meiste,
+            gesperrt,
+            cookieAdd,
+            gustavoAdd,
+            ofenAdd,
+            pizzabotAdd,
+            plusprosek,
+            plusupgesamt,
+            autoclick,
+            gekaufteEvos,
+            reset,
+            innerHTML: {
+                geld: document.getElementById("geld").innerHTML,
+                pizzenoverall: document.getElementById("gesamt-cookies").innerHTML,
+                upgradeNames: upgrades.map((_, x) => document.getElementById("up" + x + "-name").innerHTML),
+                upgradePreise: upgrades.map((_, x) => document.getElementById("up" + x + "-preis").innerHTML),
+            }
+  };
+
+  firebase.database().ref("users/" + uid).set(userData);
+}
+
+function loadUserData(uid) {
+  firebase.database().ref("users/" + uid).once("value").then(snapshot => {
+    const data = snapshot.val();
+    if (data) {
+        username = data.username;
+        pizzaGesamt = data.pizzaGesamt;
+        pizzenoverall = data.pizzenoverall;
+        upgrades = data.upgrades;
+        pizza_meiste = data.pizza_meiste;
+        gesperrt = data.gesperrt;
+        cookieAdd = data.cookieAdd;
+        gustavoAdd = data.gustavoAdd;
+        ofenAdd = data.ofenAdd;
+        pizzabotAdd = data.pizzabotAdd;
+        plusprosek = data.plusprosek;
+        plusupgesamt = data.plusupgesamt;
+        autoclick = data.autoclick;
+        gekaufteEvos = data.gekaufteEvos || [];
+
+        gekaufteEvos.forEach(id => {
+            const evoElement = document.querySelector(`.evos[data-id="${id}"]`);
+            if (evoElement) evoElement.remove();
+        });
+
+
+        document.getElementById("geld").innerHTML = data.innerHTML.geld;
+        document.getElementById("gesamt-cookies").innerHTML = data.innerHTML.pizzenoverall;
+
+        upgrades.forEach((_, x) => {
+            document.getElementById("up" + x + "-name").innerHTML = data.innerHTML.upgradeNames[x];
+            document.getElementById("up" + x + "-preis").innerHTML = data.innerHTML.upgradePreise[x];
+        });
+    }
+  });
+}
 
 //Speicher Funktion mit Ki gemacht aber auch selber angepasst
 function saveGame() {
@@ -124,22 +275,6 @@ function loadGame() {
     }
 }
 
-function scaleGame() {
-  const baseWidth = 1920;   // deine Designgröße
-  const baseHeight = 1080;
-
-  const scaleX = window.innerWidth / baseWidth;
-  const scaleY = window.innerHeight / baseHeight;
-  const scale = Math.min(scaleX, scaleY);  // gleichmäßig skalieren
-
-  const wrapper = document.getElementById('game-wrapper');
-  wrapper.style.transform = `scale(${scale})`;
-}
-
-window.addEventListener('resize', scaleGame);
-window.addEventListener('load', scaleGame);
-
-
 let upswindow = document.getElementById("upgrades-window")
 let nameinputdiv;
 let input;
@@ -214,26 +349,20 @@ function usernamesubmit(){
 
 let leaderboardbutton = document.getElementById("leaderboardbutton");
 let gamebereich = document.getElementById("gamebereich");
-let leaderboard = null;
+let leaderboardopen;
+let leaderboard = document.getElementById("leaderboarddiv")
 let tabelle = document.getElementById("leaderboardtable");
 
 leaderboardbutton.addEventListener("click", () =>{
 
-    if(leaderboard){
-        leaderboard.remove();
-        leaderboard = null;
+    if(leaderboardopen){
+        leaderboard.style.right = "-20%"
+        leaderboardopen = false;
         return;
     }
-    
-    leaderboard = document.createElement("div");
-    tabelle = document.createElement("table");
-    
-    gamebereich.appendChild(leaderboard);
-    leaderboard.appendChild(tabelle);
-    leaderboard.id = "leaderboarddiv";
-    tabelle.id = "leaderboardtable"
-
     leaderboardshow();
+    leaderboard.style.right = "0";
+    leaderboardopen = true;
 })
 
 function leaderboardpush(){
@@ -267,7 +396,7 @@ function leaderboardshow(){
 
     
 
-    if(tabelle) tabelle.innerHTML = ""
+    if(leaderboardopen) tabelle.innerHTML = ""
 
     doneliste.forEach(eintrag => {
       let tabellereihe = document.createElement("tr");
@@ -291,12 +420,42 @@ if(tabellereihe) tabellereihe.remove();
   })
 }
 
+
 function deleteSave(){
     let sure = window.confirm("Bist du sicher dass du deinen Spielstand löschen willst?");
     if(!sure) return;
     reset = true;
     window.location.reload();
 }
+
+let zahnrad = document.getElementById("zahnrad");
+let settings = document.getElementById("settings")
+zahnrad.addEventListener("mouseover", () =>{
+    settings.style.bottom = "0"
+    zahnrad.style.transform = "rotate(90deg)"
+})
+settings.addEventListener("mouseleave", () =>{
+    settings.style.bottom = "-30vh"
+    zahnrad.style.transform = "rotate(-90deg)"
+})
+
+let accountbutton = document.getElementById("accountbutton");
+let accclosebutton = document.getElementById("closebuttonauth")
+let accountdiv = document.getElementById("auth-container")
+let openauth;
+accountbutton.addEventListener("click", () =>{
+    if(openauth == true){
+        accountdiv.style.top ="-60%"
+        openauth = false
+        return;
+    }
+    accountdiv.style.top = "50%"
+    openauth = true;
+})
+accclosebutton.addEventListener("click", () =>{
+    accountdiv.style.top = "-60%";
+    openauth = false;
+})
 
 // Startet alle Intervalle
 function starteAlleIntervalle() {
