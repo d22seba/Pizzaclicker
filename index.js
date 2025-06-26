@@ -12,8 +12,9 @@
 firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
-const auth = firebase.auth();
+const auth = firebase.auth(); 
 
+let saveinterval = true;
 let currentUid = null;
 let username;
 let loggedin;
@@ -600,9 +601,12 @@ document.addEventListener("DOMContentLoaded", () => {
     else{
         evolutionlock();
     }
-    if (loggedin) window.addEventListener("beforeunload", () => saveUserData(user.uid));
-    
+
+        if (loggedin) {
+        window.addEventListener("beforeunload", () => saveUserData(user.uid))}
 });
+
+
 
 //Deklarierungen für das Minigame
 document.getElementById("sloteinsatz").max = pizzaGesamt;
@@ -904,12 +908,33 @@ function maxgeld() {
     }
     }
 
+    let geldblock = document.getElementById("geld-block")
 //Farbe ändern wenn man nicht genug Pizzen hat
 function farbe() {
     sekundenrechner();
     if (username) leaderboardpush();
     if (tabelle) leaderboardshow();
-    if (currentUid) saveUserData(currentUid);
+
+    if (currentUid && saveinterval){
+        setInterval(() => {
+            saveUserData(currentUid)
+            let div = document.createElement("div");
+            let img = document.createElement("img")
+            div.id = "savepopup"
+            div.innerHTML = "Spielstand wird gespeichert..."
+            img.src = "Cookies/pizzaslice.webp";
+            geldblock.appendChild(div);
+            div.appendChild(img);
+
+            setTimeout(() => {
+                div.remove();
+            },5000)
+
+
+        }, 300000)
+        saveinterval = false;
+
+    }
 
     // 1. Alles verstecken, außer up0 und 1
     for (let i = 2; i < upgrades.length; i++) {
