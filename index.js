@@ -14,7 +14,9 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 const auth = firebase.auth();
 
+let currentUid = null;
 let username;
+let loggedin;
 let pizzaGesamt = 0;
 let pizzenoverall = 0;
 let cookieAdd = 1;
@@ -53,7 +55,7 @@ function register() {
     
     firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
     .then((userCredential) => {
-        alert("Erfolgreich registriert!");
+        alert("Erfolgreich registriert!, nur auf einem Gerät gleichzeitig spielen");
         const user = userCredential.user;
         saveUserData(user.uid);
         accountdiv.style.top ="-60%"
@@ -89,11 +91,11 @@ function login() {
     
     firebase.auth().signInWithEmailAndPassword(email.value, password.value)
     .then((userCredential) => {
-        loadUserData(userCredential.user.uid);
-        saveGame();
-        accountdiv.style.top ="-60%"
-        openauth = false
-        window.addEventListener("beforeunload", () => saveUserData(userCredential.user.uid));
+        let sure = window.confirm("Bist du sicher?, deine jetzigen Daten werden gelöscht");
+        if(!sure) return;
+        currentUid = userCredential.user.uid;
+        loggedin = true;
+        loadUserData(currentUid);
     })
     .catch((error) => {
         
@@ -135,7 +137,25 @@ function login() {
 }
 
 function saveUserData(uid) {
+
+  if (typeof loggedin === "undefined") loggedin = false;
+  if (typeof username === "undefined") username = "Spieler";
+  if (typeof pizzaGesamt === "undefined") pizzaGesamt = 0;
+  if (typeof pizzenoverall === "undefined") pizzenoverall = 0;
+  if (typeof upgrades === "undefined") upgrades = [];
+  if (typeof pizza_meiste === "undefined") pizza_meiste = 0;
+  if (typeof gesperrt === "undefined") gesperrt = false;
+  if (typeof cookieAdd === "undefined") cookieAdd = 0;
+  if (typeof gustavoAdd === "undefined") gustavoAdd = 0;
+  if (typeof ofenAdd === "undefined") ofenAdd = 0;
+  if (typeof pizzabotAdd === "undefined") pizzabotAdd = 0;
+  if (typeof plusprosek === "undefined") plusprosek = 0;
+  if (typeof plusupgesamt === "undefined") plusupgesamt = 0;
+  if (typeof autoclick === "undefined") autoclick = false;
+  if (typeof gekaufteEvos === "undefined") gekaufteEvos = [];
+  if (typeof reset === "undefined") reset = false;
   const userData = {
+            loggedin,
             username,
             pizzaGesamt,
             pizzenoverall,
@@ -166,6 +186,7 @@ function loadUserData(uid) {
   firebase.database().ref("users/" + uid).once("value").then(snapshot => {
     const data = snapshot.val();
     if (data) {
+        loggedin = data.loggedin;
         username = data.username;
         pizzaGesamt = data.pizzaGesamt;
         pizzenoverall = data.pizzenoverall;
@@ -195,6 +216,8 @@ function loadUserData(uid) {
             document.getElementById("up" + x + "-preis").innerHTML = data.innerHTML.upgradePreise[x];
         });
     }
+    saveGame();
+    window.location.reload();
   });
 }
 
@@ -202,6 +225,7 @@ function loadUserData(uid) {
 function saveGame() {
     try {
         const gameState = {
+            currentUid,
             username,
             pizzaGesamt,
             pizzenoverall,
@@ -242,6 +266,7 @@ function loadGame() {
         reset = gameState.reset;
         if(reset) return;
 
+        currentUid = gameState.currentUid;
         username = gameState.username;
         pizzaGesamt = gameState.pizzaGesamt;
         pizzenoverall = gameState.pizzenoverall;
@@ -575,6 +600,7 @@ document.addEventListener("DOMContentLoaded", () => {
     else{
         evolutionlock();
     }
+    if (loggedin) window.addEventListener("beforeunload", () => saveUserData(user.uid));
     
 });
 
@@ -883,6 +909,7 @@ function farbe() {
     sekundenrechner();
     if (username) leaderboardpush();
     if (tabelle) leaderboardshow();
+    if (currentUid) saveUserData(currentUid);
 
     // 1. Alles verstecken, außer up0 und 1
     for (let i = 2; i < upgrades.length; i++) {
