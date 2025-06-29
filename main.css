@@ -82,6 +82,7 @@ body{
     font-weight: bold;
     cursor: pointer;
 }
+<<<<<<< HEAD
 #manuellsave{
     position: absolute;
     bottom: 1%;
@@ -92,6 +93,39 @@ body{
     border-radius: 50%;
     font-size: 32px;
 }
+=======
+
+#savepopup{
+    position: absolute;
+    top: -48%;
+    text-align: center;
+    height: 30px;
+    width: auto;
+    font-family: cursive;
+    font-weight: bold;
+    /* animation: savepopup 1s ease-in-out infinite ; */
+
+}
+#savepopup > img{
+    float: left;
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    animation: savepopup 2s linear infinite;
+}
+
+@keyframes savepopup {
+    
+from{
+    transform: rotate(0deg);
+}
+to{
+    transform: rotate(360deg);
+}
+    
+    }
+
+>>>>>>> edec032db7aa1d66913a432df26480eedd5444ac
 .blur{
     pointer-events: none;
     user-select: none;
@@ -563,7 +597,7 @@ body{
 }
 
 /*Geld Anzeige*/
-.geld-block{
+#geld-block{
 
     position: relative;
     background-color: rgb(192, 131, 52);
@@ -578,12 +612,12 @@ body{
 
 }
 
-.geld-block>span{
+#geld-block>span{
 
     margin-left: 8px;
 }
 
-.geld-block>img{
+#geld-block>img{
     position: absolute;
     height: 100%;
     width: auto;
