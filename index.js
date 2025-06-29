@@ -139,7 +139,7 @@ function login() {
 function saveUserData(uid) {
 
   if (typeof loggedin === "undefined") loggedin = false;
-  if (typeof username === "undefined") username = "Spieler";
+  if (typeof username === "undefined") username = "test";
   if (typeof pizzaGesamt === "undefined") pizzaGesamt = 0;
   if (typeof pizzenoverall === "undefined") pizzenoverall = 0;
   if (typeof upgrades === "undefined") upgrades = [];
@@ -476,6 +476,12 @@ accountbutton.addEventListener("click", () =>{
     }
     accountdiv.style.top = "50%"
     openauth = true;
+    if(!buttonsave && loggedin){
+        let button = document.createElement("button");
+        button.id = "manuellsave";
+        button.onclick = saveUserData(currentUid);
+        accountdiv.appendChild(button);
+    }
 })
 accclosebutton.addEventListener("click", () =>{
     accountdiv.style.top = "-60%";

@@ -82,7 +82,16 @@ body{
     font-weight: bold;
     cursor: pointer;
 }
-
+#manuellsave{
+    position: absolute;
+    bottom: 1%;
+    left: 1%;
+    height: 60px;
+    width: 60px;
+    border: 1px solid black;
+    border-radius: 50%;
+    font-size: 32px;
+}
 .blur{
     pointer-events: none;
     user-select: none;
