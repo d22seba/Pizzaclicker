@@ -14,10 +14,10 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 const auth = firebase.auth(); 
 
-let saveinterval = true;
+let saveinterval = false;
 let currentUid = null;
 let username;
-let loggedin;
+let loggedin = false;
 let pizzaGesamt = 0;
 let pizzenoverall = 0;
 let cookieAdd = 1;
@@ -61,6 +61,8 @@ function register() {
         saveUserData(user.uid);
         accountdiv.style.top ="-60%"
         openauth = false
+        saveinterval = true;
+        loggedin = true;
         window.addEventListener("beforeunload", () => saveUserData(user.uid));
     })
     .catch((error) => {
@@ -96,6 +98,7 @@ function login() {
         if(!sure) return;
         currentUid = userCredential.user.uid;
         loggedin = true;
+        saveinterval = true;
         loadUserData(currentUid);
     })
     .catch((error) => {
@@ -139,7 +142,6 @@ function login() {
 
 function saveUserData(uid) {
 
-  if (typeof loggedin === "undefined") loggedin = false;
   if (typeof username === "undefined") username = "test";
   if (typeof pizzaGesamt === "undefined") pizzaGesamt = 0;
   if (typeof pizzenoverall === "undefined") pizzenoverall = 0;
@@ -156,7 +158,6 @@ function saveUserData(uid) {
   if (typeof gekaufteEvos === "undefined") gekaufteEvos = [];
   if (typeof reset === "undefined") reset = false;
   const userData = {
-            loggedin,
             username,
             pizzaGesamt,
             pizzenoverall,
@@ -187,7 +188,6 @@ function loadUserData(uid) {
   firebase.database().ref("users/" + uid).once("value").then(snapshot => {
     const data = snapshot.val();
     if (data) {
-        loggedin = data.loggedin;
         username = data.username;
         pizzaGesamt = data.pizzaGesamt;
         pizzenoverall = data.pizzenoverall;
@@ -218,7 +218,7 @@ function loadUserData(uid) {
         });
     }
     saveGame();
-    window.location.reload();
+    setTimeout(window.location.reload(), 300)
   });
 }
 
@@ -226,6 +226,8 @@ function loadUserData(uid) {
 function saveGame() {
     try {
         const gameState = {
+            loggedin,
+            saveinterval,
             currentUid,
             username,
             pizzaGesamt,
@@ -267,6 +269,8 @@ function loadGame() {
         reset = gameState.reset;
         if(reset) return;
 
+        loggedin = gameState.loggedin;
+        saveinterval = gameState.saveinterval;
         currentUid = gameState.currentUid;
         username = gameState.username;
         pizzaGesamt = gameState.pizzaGesamt;
@@ -477,10 +481,16 @@ accountbutton.addEventListener("click", () =>{
     }
     accountdiv.style.top = "50%"
     openauth = true;
-    if(!buttonsave && loggedin){
+
+    let savebutton = document.getElementById("manuellsave");
+    if(!savebutton && loggedin){
         let button = document.createElement("button");
         button.id = "manuellsave";
-        button.onclick = saveUserData(currentUid);
+        button.innerHTML = "Save";
+        button.onclick = () =>{
+            saveUserData(currentUid);
+            button.innerHTML = "Saved!"
+        }
         accountdiv.appendChild(button);
     }
 })

@@ -82,7 +82,7 @@ body{
     font-weight: bold;
     cursor: pointer;
 }
-<<<<<<< HEAD
+
 #manuellsave{
     position: absolute;
     bottom: 1%;
@@ -91,9 +91,14 @@ body{
     width: 60px;
     border: 1px solid black;
     border-radius: 50%;
-    font-size: 32px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
 }
-=======
+
+#manuellsave:hover{
+    background-color: rgb(208, 208, 208);
+}
 
 #savepopup{
     position: absolute;
@@ -125,7 +130,6 @@ to{
     
     }
 
->>>>>>> edec032db7aa1d66913a432df26480eedd5444ac
 .blur{
     pointer-events: none;
     user-select: none;
