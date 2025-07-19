@@ -48,6 +48,7 @@ let cheeseAdd = 30;
 let sucukAdd = 50;
 
 
+
 window.addEventListener("beforeunload", saveGame);
 
 function register() {
@@ -386,11 +387,15 @@ let tabelle = document.getElementById("leaderboardtable");
 leaderboardbutton.addEventListener("click", () =>{
 
     if(leaderboardopen){
-        leaderboard.style.right = "-20%"
+        leaderboard.style.right = "-25%"
+        setTimeout(()=>{
+            leaderboard.style.opacity = "0"
+        },100)
         leaderboardopen = false;
         return;
     }
     leaderboardshow();
+    leaderboard.style.opacity = "1"
     leaderboard.style.right = "0";
     leaderboardopen = true;
 })
