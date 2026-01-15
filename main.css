@@ -156,6 +156,7 @@ to{
     z-index: 10000;
     align-self: center;
     left: 50%;
+    top: 40%;
     transform: translateX(-50%);    
     height: 30vh;
     width: 40vw;
